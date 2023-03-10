@@ -1,13 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
+import '../src/assets/css/index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {ThemeProvider, createTheme } from '@mui/material'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+const theme = createTheme({
+  palette: {
+    mode: "dark",
+    common: {
+      main: "#273C4E"
+    },
+  }
+})
+
 root.render(
   <React.StrictMode>
-    <App />
+    <ThemeProvider theme={theme}>
+      <App/>
+    </ThemeProvider>
   </React.StrictMode>
 );
 
