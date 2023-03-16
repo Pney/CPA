@@ -3,20 +3,10 @@
     "baseUrl": "src",
     "target": "ES6",
     "module": "commonjs",
-    "allowArbitraryExtensions": true,
-    // "paths": {
-    //   "@assets/*": ["./src/assets/css/*"],  
-    //   "@components/*": ["components/*"],
-    //   "@helpers/*": ["./helpers/*"] ,
-    //   "@pages/*": ["./pages/*"],
-    //   "@routes/*": ["./routes/*"],
-    //   "@services/*": ["./services/*"],
-    //   "@utils/*": ["./utils/*"]
-    // }
+    "allowArbitraryExtensions": true
   },
   "include": ["src"],
   "exclude": [
     "node_modules"
   ]
-
 }
