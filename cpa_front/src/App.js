@@ -1,11 +1,12 @@
 
 import { Alert } from '@mui/material';
 import 'assets/css/App.css';
+import AppRoutes from './routes/index.js'
 
 function App() {
   return (
     <div className="App">
-      <Alert severity="warning">Apenas um Teste, está tudo rodando :D</Alert>
+      <AppRoutes/>
     </div>
   );
 }

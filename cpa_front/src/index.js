@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import '../src/assets/css/index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import 'assets/css/index.css';
+import App from './App.js';
+import reportWebVitals from './reportWebVitals.js';
 import {ThemeProvider, createTheme } from '@mui/material'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -10,7 +10,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 const theme = createTheme({
   palette: {
     mode: "dark",
-    common: {
+    primary: {
       main: "#273C4E"
     },
   }
