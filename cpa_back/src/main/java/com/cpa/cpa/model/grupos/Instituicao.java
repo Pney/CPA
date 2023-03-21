@@ -27,7 +27,7 @@ public class Instituicao {
     @Column(nullable = false, unique = true)
     private String cnpj;
 
-    @OneToMany(mappedBy = "instituicoes", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "instituicao", cascade = CascadeType.ALL)
     private List<Curso> cursos = new ArrayList<>();
 
     @CreatedDate
@@ -36,5 +36,4 @@ public class Instituicao {
 
     @LastModifiedDate
     private LocalDateTime updated_at;
-    
 }

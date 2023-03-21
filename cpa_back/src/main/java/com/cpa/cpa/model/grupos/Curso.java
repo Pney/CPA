@@ -31,11 +31,11 @@ public class Curso {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "professor_id", referencedColumnName = "idProfessor")
-    private Professor professores;
+    private Professor professor;
     
     @ManyToOne
     @JoinColumn(name = "instituicao_id", referencedColumnName = "idInstituicao")
-    private Instituicao instituicoes;
+    private Instituicao instituicao;
 
     @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL)
     private List<Turma> turmas = new ArrayList<>();
@@ -46,5 +46,4 @@ public class Curso {
     
     @LastModifiedDate
     private LocalDateTime updated_at;
-
 }

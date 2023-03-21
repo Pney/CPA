@@ -24,7 +24,7 @@ public class Disciplina {
     @Column(nullable = false)
     private String nome;
 
-    @OneToMany(mappedBy = "disciplinas", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "disciplina", cascade = CascadeType.ALL)
     private List<ProfessorTurmaDisciplina> professoresTurmasDisciplinas = new ArrayList<>();
 
     @CreatedDate
@@ -32,5 +32,5 @@ public class Disciplina {
     private LocalDateTime created_at;
 
     @LastModifiedDate
-    private LocalDateTime updated_at;
+    private LocalDateTime updated_at;    
 }

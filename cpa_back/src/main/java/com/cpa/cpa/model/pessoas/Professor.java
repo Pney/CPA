@@ -33,7 +33,7 @@ public class Professor {
     @Column(nullable = false)
     private boolean isCoordenador;
 
-    @OneToMany(mappedBy = "professores", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "professor", cascade = CascadeType.ALL)
     private List<ProfessorTurmaDisciplina> professoresTurmasDisciplinas = new ArrayList<>();
 
     @CreatedDate
@@ -46,5 +46,4 @@ public class Professor {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "idUsuario")
     private User user;
-    
 }

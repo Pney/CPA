@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -40,6 +41,5 @@ public class User {
     private LocalDateTime created_at;
 
     @LastModifiedDate
-    private LocalDateTime updated_at;
-    
+    private LocalDateTime updated_at;    
 }

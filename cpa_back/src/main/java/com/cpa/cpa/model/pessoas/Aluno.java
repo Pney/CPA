@@ -49,6 +49,5 @@ public class Aluno {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "idUsuario")
-    private User user;
-
+    private User user;    
 }

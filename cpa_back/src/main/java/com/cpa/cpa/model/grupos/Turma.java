@@ -27,7 +27,7 @@ public class Turma {
     @JoinColumn(name = "curso_id", referencedColumnName = "idCurso")
     private Curso curso;
 
-    @OneToMany(mappedBy = "turmas", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "turma", cascade = CascadeType.ALL)
     private List<ProfessorTurmaDisciplina> professoresTurmasDisciplinas = new ArrayList<>();
 
     @Column(nullable = false)
@@ -38,6 +38,5 @@ public class Turma {
     private LocalDateTime created_at;
 
     @LastModifiedDate
-    private LocalDateTime updated_at;
-    
+    private LocalDateTime updated_at;    
 }

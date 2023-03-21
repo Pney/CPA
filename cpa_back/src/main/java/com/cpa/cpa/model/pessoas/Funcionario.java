@@ -36,5 +36,4 @@ public class Funcionario {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "usuario_id", referencedColumnName = "idUsuario")
     private User user;
-
 }

@@ -27,15 +27,15 @@ public class ProfessorTurmaDisciplina {
     
     @ManyToOne
     @JoinColumn(name = "professor_id", referencedColumnName = "idProfessor")
-    private Professor professores;
+    private Professor professor;
     
     @ManyToOne
     @JoinColumn(name = "turma_id", referencedColumnName = "idTurma")
-    private Turma turmas;
+    private Turma turma;
     
     @ManyToOne
     @JoinColumn(name = "disciplina_id", referencedColumnName = "idDisciplina")
-    private Disciplina disciplinas;
+    private Disciplina disciplina;
 
     @ManyToMany(mappedBy="professoresTurmasDisciplinas")
     private List<Aluno> alunos = new ArrayList<>();
