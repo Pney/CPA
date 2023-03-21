@@ -1,5 +1,9 @@
-package com.cpa.cpa.model.questionario;
+// package com.cpa.cpa.model.questionario;
 
-public class Resposta {
+// import jakarta.persistence.Entity;
 
-}
+// @Entity
+// public class Resposta {
+//     private Long idResposta;
+    
+// }

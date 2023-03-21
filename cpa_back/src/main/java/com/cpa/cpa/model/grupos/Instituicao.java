@@ -7,6 +7,8 @@ import java.util.List;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
+import com.cpa.cpa.model.questionario.Questionario;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -29,6 +31,9 @@ public class Instituicao {
 
     @OneToMany(mappedBy = "instituicao", cascade = CascadeType.ALL)
     private List<Curso> cursos = new ArrayList<>();
+
+    @OneToMany(mappedBy="instituicao")
+    private List<Questionario> questionario = new ArrayList<>();
 
     @CreatedDate
     @Column(nullable = false)

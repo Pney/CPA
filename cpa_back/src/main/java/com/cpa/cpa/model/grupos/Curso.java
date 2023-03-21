@@ -8,6 +8,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import com.cpa.cpa.model.pessoas.Professor;
+import com.cpa.cpa.model.questionario.Questionario;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -39,6 +40,9 @@ public class Curso {
 
     @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL)
     private List<Turma> turmas = new ArrayList<>();
+
+    @OneToMany(mappedBy="curso")
+    private List<Questionario> questionario = new ArrayList<>();
 
     @CreatedDate
     @Column(nullable = false)

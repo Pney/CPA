@@ -7,18 +7,15 @@ import java.util.List;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToOne;
-
+import jakarta.persistence.ManyToOne;
 @Entity
 public class Questao {
     @Id
@@ -29,21 +26,20 @@ public class Questao {
     private String opcoes;
 
     @Column
-    private String tipoQuestao;
+    private TipoQuestao tipoQuestao;
    
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "eixo_id", referencedColumnName = "idEixo")
-    private Eixo eixo; 
+    Eixo eixo;
+
+    @ManyToMany()
+    @JoinTable(name = "questao_template", joinColumns = @JoinColumn(name="questao_id"), inverseJoinColumns = @JoinColumn(name="template_id"))
+    List<Template> templates = new ArrayList<>();
 
     @CreatedDate
     @Column(nullable = false)
     private LocalDateTime created_at;
     
     @LastModifiedDate
-    private LocalDateTime updated_at;
-
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "questao_template", joinColumns = @JoinColumn(name="questao_id"), inverseJoinColumns = @JoinColumn(name="template_id"))
-    private List<Template> templates = new ArrayList<>();
-    
+    private LocalDateTime updated_at; 
 }

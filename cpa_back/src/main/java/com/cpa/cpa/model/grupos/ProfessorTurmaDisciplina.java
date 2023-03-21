@@ -9,6 +9,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 import com.cpa.cpa.model.pessoas.Aluno;
 import com.cpa.cpa.model.pessoas.Professor;
+import com.cpa.cpa.model.questionario.Questionario;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -18,6 +19,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class ProfessorTurmaDisciplina {
@@ -39,6 +41,9 @@ public class ProfessorTurmaDisciplina {
 
     @ManyToMany(mappedBy="professoresTurmasDisciplinas")
     private List<Aluno> alunos = new ArrayList<>();
+
+    @OneToMany(mappedBy="professorTurmaDisciplina")
+    private List<Questionario> questionario = new ArrayList<>();
 
     @CreatedDate
     @Column(nullable = false)
