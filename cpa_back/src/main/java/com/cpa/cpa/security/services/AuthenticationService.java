@@ -12,6 +12,8 @@ import com.cpa.cpa.pessoas.user.entities.enums.Role;
 import com.cpa.cpa.security.controllers.requests.AuthenticationRequest;
 import com.cpa.cpa.security.controllers.requests.RegisterRequest;
 import com.cpa.cpa.security.controllers.responses.AuthenticationResponse;
+import com.cpa.cpa.security.entities.BlackListToken;
+import com.cpa.cpa.security.repositories.BlackListTokenRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -23,6 +25,7 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
+    private final BlackListTokenRepository tokenRepository;
 
     public AuthenticationResponse register(RegisterRequest request) {
         var user = User.builder()
@@ -49,4 +52,9 @@ public class AuthenticationService {
         return AuthenticationResponse.builder().token(jwtToken).build();
     }
 
+    public Boolean logout(String token){
+        BlackListToken tokenObj = BlackListToken.builder().token(token).build();
+        tokenRepository.save(tokenObj);
+        return true;
+    }
 }
