@@ -8,5 +8,6 @@ RUN mvn clean package -Dmaven.test.skip
 FROM openjdk:17-jdk-slim
 COPY --from=build /app/target/*.jar app/app.jar
 WORKDIR /app
+EXPOSE 8000
 ENTRYPOINT ["java","-jar","app.jar"]
 
