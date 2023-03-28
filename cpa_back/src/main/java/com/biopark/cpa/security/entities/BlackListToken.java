@@ -1,5 +1,7 @@
 package com.biopark.cpa.security.entities;
 
+import java.util.Date;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,4 +25,7 @@ public class BlackListToken {
 
     @Column(nullable = false, unique = true)
     private String token;
+
+    @Column(nullable = false, name = "date_expiration")
+    private Date dateExpiration;
 }

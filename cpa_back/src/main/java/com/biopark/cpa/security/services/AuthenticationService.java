@@ -52,7 +52,8 @@ public class AuthenticationService {
     }
 
     public Boolean logout(String token){
-        BlackListToken tokenObj = BlackListToken.builder().token(token).build();
+        var expirationTime = jwtService.extractExpiration(token);
+        BlackListToken tokenObj = BlackListToken.builder().token(token).dateExpiration(expirationTime).build();
         tokenRepository.save(tokenObj);
         return true;
     }
