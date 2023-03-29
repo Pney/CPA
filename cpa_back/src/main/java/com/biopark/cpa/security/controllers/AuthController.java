@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.biopark.cpa.security.controllers.requests.AuthenticationRequest;
+import com.biopark.cpa.security.controllers.requests.LoginRequest;
 import com.biopark.cpa.security.controllers.requests.RegisterRequest;
 import com.biopark.cpa.security.controllers.responses.AuthenticationResponse;
 import com.biopark.cpa.security.services.AuthenticationService;
@@ -26,9 +26,15 @@ public class AuthController {
         return ResponseEntity.ok(service.register(request));
     }
 
-    @PostMapping("/public/authenticate")
-    public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request) {
+    @PostMapping("/public/login")
+    public ResponseEntity<AuthenticationResponse> login(@RequestBody LoginRequest request) {
         return ResponseEntity.ok(service.authenticate(request));
+    }
+
+    @PostMapping("/authenticate")
+    public ResponseEntity<AuthenticationResponse> authenticateToken(@RequestHeader String token){
+        token = token.substring(7);
+        return ResponseEntity.ok(service.authenticate(token));
     }
 
     @PostMapping("/logout")

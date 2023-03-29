@@ -9,7 +9,7 @@ import com.biopark.cpa.pessoas.repositories.UserRepository;
 import com.biopark.cpa.pessoas.user.entities.User;
 import com.biopark.cpa.pessoas.user.entities.enums.Level;
 import com.biopark.cpa.pessoas.user.entities.enums.Role;
-import com.biopark.cpa.security.controllers.requests.AuthenticationRequest;
+import com.biopark.cpa.security.controllers.requests.LoginRequest;
 import com.biopark.cpa.security.controllers.requests.RegisterRequest;
 import com.biopark.cpa.security.controllers.responses.AuthenticationResponse;
 import com.biopark.cpa.security.entities.BlackListToken;
@@ -37,10 +37,11 @@ public class AuthenticationService {
 
         repository.save(user);
         var jwtToken = jwtService.generateToken(user);
-        return AuthenticationResponse.builder().token(jwtToken).build();
+        var level = getLevelAccess(jwtToken);
+        return AuthenticationResponse.builder().token(jwtToken).level(level).build();
     }
 
-    public AuthenticationResponse authenticate(AuthenticationRequest request) {
+    public AuthenticationResponse authenticate(LoginRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(), request.getPassword()));
@@ -48,7 +49,16 @@ public class AuthenticationService {
         var user = repository.findByEmail(request.getEmail()).orElseThrow();
 
         var jwtToken = jwtService.generateToken(user);
-        return AuthenticationResponse.builder().token(jwtToken).build();
+        var level = getLevelAccess(jwtToken);
+        return AuthenticationResponse.builder().token(jwtToken).level(level).build();
+    }
+
+    public AuthenticationResponse authenticate(String token){
+        return AuthenticationResponse.builder().token(token).level(getLevelAccess(token)).build();
+    }
+
+    private String getLevelAccess(String token){
+        return jwtService.extractUserLevel(token);
     }
 
     public Boolean logout(String token){
