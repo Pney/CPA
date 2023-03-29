@@ -32,7 +32,7 @@ public class AuthController {
     }
 
     @PostMapping("/authenticate")
-    public ResponseEntity<AuthenticationResponse> authenticateToken(@RequestHeader String token){
+    public ResponseEntity<AuthenticationResponse> authenticateToken(@RequestHeader("Authorization") String token){
         token = token.substring(7);
         return ResponseEntity.ok(service.authenticate(token));
     }
