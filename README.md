@@ -28,58 +28,7 @@ O projeto está dividido em duas partes principais: backend e frontend.
 
 ## Backend ##
 O backend foi desenvolvido utilizando o framework Spring Boot. Ele é responsável por gerenciar as requisições do frontend, processar as informações recebidas e enviar as respostas adequadas. O backend está estruturado da seguinte forma:
-
-┣ src
-┃ ┣ main
-┃ ┃ ┣ java
-┃ ┃ ┃ ┗ com
-┃ ┃ ┃ ┃ ┗ biopark
-┃ ┃ ┃ ┃ ┃ ┗ cpa
-┃ ┃ ┃ ┃ ┃ ┃ ┣ config
-┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ ApplicationConfig.java
-┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ JwtAuthenticationFilter.java
-┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ SecurityConfig.java
-┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ WebConfig.java
-┃ ┃ ┃ ┃ ┃ ┃ ┣ controllers
-┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ auth
-┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ requests
-┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ LoginRequest.java
-┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ RegisterRequest.java
-┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ responses
-┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ AuthenticationResponse.java
-┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ AuthController.java
-┃ ┃ ┃ ┃ ┃ ┃ ┣ entities
-┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ token
-┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ BlackListToken.java
-┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ user
-┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ enums
-┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ Level.java
-┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ Role.java
-┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ User.java
-┃ ┃ ┃ ┃ ┃ ┃ ┣ repository
-┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ BlackListTokenRepository.java
-┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ UserRepository.java
-┃ ┃ ┃ ┃ ┃ ┃ ┣ services
-┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ security
-┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ AuthenticationService.java
-┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ JwtService.java
-┃ ┃ ┃ ┃ ┃ ┃ ┗ CpaApplication.java
-┃ ┃ ┗ resources
-┃ ┃ ┃ ┗ application.properties
-┃ ┗ test
-┃ ┃ ┗ java
-┃ ┃ ┃ ┗ com
-┃ ┃ ┃ ┃ ┗ biopark
-┃ ┃ ┃ ┃ ┃ ┗ cpa
-┃ ┃ ┃ ┃ ┃ ┃ ┗ CpaApplicationTests.java
-┣ .gitignore
-┣ Dockerfile
-┣ env.properties
-┣ env.properties.example
-┣ pom.xml
-┗ README.md
-
-
+~insira diagrama de árvore aqui~
 **~inserir a explicação do que é cada pasta~**
 
 ## Frontend ##
