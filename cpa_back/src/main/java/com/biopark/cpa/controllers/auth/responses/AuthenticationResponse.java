@@ -1,4 +1,4 @@
-package com.biopark.cpa.security.controllers.responses;
+package com.biopark.cpa.controllers.auth.responses;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

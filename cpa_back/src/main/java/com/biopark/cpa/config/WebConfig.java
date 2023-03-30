@@ -1,4 +1,4 @@
-package com.biopark.cpa.security.config;
+package com.biopark.cpa.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package com.biopark.cpa.pessoas.user.entities;
+package com.biopark.cpa.entities.user;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -10,8 +10,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.biopark.cpa.pessoas.user.entities.enums.Level;
-import com.biopark.cpa.pessoas.user.entities.enums.Role;
+import com.biopark.cpa.entities.user.enums.Level;
+import com.biopark.cpa.entities.user.enums.Role;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

@@ -1,4 +1,4 @@
-package com.biopark.cpa.security.config;
+package com.biopark.cpa.config;
 
 import java.io.IOException;
 
@@ -10,8 +10,8 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.biopark.cpa.security.repositories.BlackListTokenRepository;
-import com.biopark.cpa.security.services.JwtService;
+import com.biopark.cpa.repository.BlackListTokenRepository;
+import com.biopark.cpa.services.security.JwtService;
 
 import io.micrometer.common.lang.NonNull;
 import jakarta.servlet.FilterChain;

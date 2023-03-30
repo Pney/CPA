@@ -1,4 +1,4 @@
-package com.biopark.cpa.pessoas.user.entities.enums;
+package com.biopark.cpa.entities.user.enums;
 
 public enum Role {
     PROFESSOR,

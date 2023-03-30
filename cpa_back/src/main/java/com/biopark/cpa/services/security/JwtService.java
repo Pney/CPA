@@ -1,4 +1,4 @@
-package com.biopark.cpa.security.services;
+package com.biopark.cpa.services.security;
 
 import java.security.Key;
 import java.util.Date;

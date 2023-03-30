@@ -1,4 +1,4 @@
-package com.biopark.cpa.security.entities;
+package com.biopark.cpa.entities.token;
 
 import java.util.Date;
 

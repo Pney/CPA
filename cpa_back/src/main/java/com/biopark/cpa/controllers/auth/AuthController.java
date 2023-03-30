@@ -1,4 +1,4 @@
-package com.biopark.cpa.security.controllers;
+package com.biopark.cpa.controllers.auth;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.biopark.cpa.security.controllers.requests.LoginRequest;
-import com.biopark.cpa.security.controllers.requests.RegisterRequest;
-import com.biopark.cpa.security.controllers.responses.AuthenticationResponse;
-import com.biopark.cpa.security.services.AuthenticationService;
+import com.biopark.cpa.controllers.auth.requests.LoginRequest;
+import com.biopark.cpa.controllers.auth.requests.RegisterRequest;
+import com.biopark.cpa.controllers.auth.responses.AuthenticationResponse;
+import com.biopark.cpa.services.security.AuthenticationService;
 
 import lombok.RequiredArgsConstructor;
 

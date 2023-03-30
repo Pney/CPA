@@ -1,19 +1,20 @@
-package com.biopark.cpa.security.services;
+package com.biopark.cpa.services.security;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.biopark.cpa.pessoas.repositories.UserRepository;
-import com.biopark.cpa.pessoas.user.entities.User;
-import com.biopark.cpa.pessoas.user.entities.enums.Level;
-import com.biopark.cpa.pessoas.user.entities.enums.Role;
-import com.biopark.cpa.security.controllers.requests.LoginRequest;
-import com.biopark.cpa.security.controllers.requests.RegisterRequest;
-import com.biopark.cpa.security.controllers.responses.AuthenticationResponse;
-import com.biopark.cpa.security.entities.BlackListToken;
-import com.biopark.cpa.security.repositories.BlackListTokenRepository;
+import com.biopark.cpa.entities.token.BlackListToken;
+import com.biopark.cpa.entities.user.User;
+import com.biopark.cpa.entities.user.enums.Level;
+import com.biopark.cpa.entities.user.enums.Role;
+import com.biopark.cpa.repository.BlackListTokenRepository;
+import com.biopark.cpa.repository.UserRepository;
+import com.biopark.cpa.controllers.auth.requests.LoginRequest;
+import com.biopark.cpa.controllers.auth.requests.RegisterRequest;
+import com.biopark.cpa.controllers.auth.responses.AuthenticationResponse;
 
 import lombok.RequiredArgsConstructor;
 
@@ -65,6 +66,7 @@ public class AuthenticationService {
         var expirationTime = jwtService.extractExpiration(token);
         BlackListToken tokenObj = BlackListToken.builder().token(token).dateExpiration(expirationTime).build();
         tokenRepository.save(tokenObj);
+        SecurityContextHolder.clearContext();
         return true;
     }
 }
