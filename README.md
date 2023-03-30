@@ -34,9 +34,6 @@ cpa_back
  ┃ ┗ wrapper  
  ┃ ┃ ┣ maven-wrapper.jar  
  ┃ ┃ ┗ maven-wrapper.properties  
- ┣ .vscode  
- ┃ ┣ launch.json  
- ┃ ┗ settings.json  
  ┣ src  
  ┃ ┣ main  
  ┃ ┃ ┣ java  
@@ -69,5 +66,29 @@ cpa_back
 
 ## Frontend ##
 O frontend foi desenvolvido utilizando o framework React JS. Ele é responsável por exibir as informações para o usuário e receber as informações inseridas por ele. O frontend está estruturado da seguinte forma:
-~insira diagrama de arvore aqui~
+
+cpa_front  
+ ┣ public  
+ ┣ src  
+ ┃ ┣ assets  
+ ┃ ┃ ┣ css  
+ ┃ ┃ ┗ image  
+ ┃ ┣ components  
+ ┃ ┣ pages  
+ ┃ ┣ routes  
+ ┃ ┣ services  
+ ┃ ┣ App.js  
+ ┃ ┣ App.test.js  
+ ┃ ┣ index.js  
+ ┃ ┣ reportWebVitals.js  
+ ┃ ┗ setupTests.js  
+ ┣ .dockerignore  
+ ┣ .gitignore  
+ ┣ Dockerfile  
+ ┣ jsconfig.json  
+ ┣ package-lock.json  
+ ┣ package.json  
+ ┣ README.md  
+ ┗ yarn.lock  
+
 **~inserir a explicação do que é cada pasta~**
