@@ -1,0 +1,62 @@
+version: '3.9'
+
+services:
+  db-cpa:
+    image: mysql:latest
+    restart: always
+    environment:
+      TZ: America/Sao_Paulo
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_TCP_PORT: 3306
+    ports:
+      - 3306:3306
+    command: ["--event-scheduler=ON"]
+    volumes:
+      - ./mysql-init:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 30s
+      retries: 10
+    networks:
+      - services-network-cpa
+
+  frontend-cpa:
+    image: cpa/frontend
+    build: ./cpa_front
+    restart: always
+    environment:
+      TZ: America/Sao_Paulo
+    ports:
+      - 3000:3000
+    networks:
+      - services-network-cpa
+
+  backend-cpa:
+    image: cpa/backend
+    build: ./cpa_back
+    restart: always
+    environment:
+      TZ: America/Sao_Paulo
+      SERVER.PORT: 8000
+      SPRING.DATASOURCE.URL: jdbc:mysql://db-cpa:3306/${MYSQL_DATABASE}
+      SPRING.DATASOURCE.USERNAME: ${MYSQL_USER}
+      SPRING.DATASOURCE.PASSWORD: ${MYSQL_PASSWORD}
+      JWT_KEY: ${JWT_KEY}
+      CORS.ORIGINFRONT: ${CORS_FRONT}
+    ports:
+      - 8000:8000
+    command: mvn spring-boot:run
+    depends_on:
+      db-cpa:
+        restart: true
+        condition: service_healthy
+    networks:
+      - services-network-cpa
+
+networks:
+  services-network-cpa:
+      driver: bridge    

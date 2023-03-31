@@ -1,23 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+
+import { Alert } from '@mui/material';
+import 'assets/css/App.css';
+import api from 'services/api.js';
+import AppRoutes from './routes/index.js'
 
 function App() {
+  api.get(`/user/login`)
+  .then((response) => {
+    console.log("Response:")
+    console.log(response.data)
+  })
+  .catch((err) => {
+    console.log("ops! ocorreu um erro" + err);
+  });
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <AppRoutes/>
     </div>
   );
 }

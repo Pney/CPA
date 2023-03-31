@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "baseUrl": "src",
+    "target": "ES6",
+    "module": "commonjs",
+    "allowArbitraryExtensions": true
+  },
+  "include": ["src"],
+  "exclude": [
+    "node_modules"
+  ]
+}
