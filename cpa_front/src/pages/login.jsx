@@ -9,8 +9,8 @@ import {
 } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import '../assets/css/login.css';
-import logoCpa from '../assets/image/logoCpa.jpg';
+// import '../assets/css/login.css';
+// import logoCpa from '../assets/image/logoCpa.jpg';
 import Image from '../components/Image.jsx';
 import { useState } from 'react';
 import * as Yup from 'yup' ;
@@ -81,7 +81,7 @@ export default function Login() {
             }}
           >
             <Image 
-              url={logoCpa}
+              // url={logoCpa}
               alt={'Logo da CPA'}
               width={'230px'}
               height={'100px'}

@@ -34,6 +34,7 @@ export class AuthService extends Component {
       email: email,
       password: password
     }
+    return document.location.reload(true);
     api.post(`/api/auth/public/login`, params)
     .then((response) => {
       console.log({response});
