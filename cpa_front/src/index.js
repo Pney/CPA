@@ -5,6 +5,22 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+<<<<<<< Updated upstream
+=======
+
+const theme = createTheme({
+  palette: {
+    mode: 'dark',
+
+    white: {
+      main: '#FFFFFF'
+    },
+    azureRadiance: '#008AFF',
+    elephant: '#153149'
+  }
+})
+
+>>>>>>> Stashed changes
 root.render(
   <React.StrictMode>
     <App />
