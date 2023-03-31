@@ -29,11 +29,7 @@ O projeto está dividido em duas partes principais: backend e frontend.
 ## Backend ##
 O backend foi desenvolvido utilizando o framework Spring Boot. Ele é responsável por gerenciar as requisições do frontend, processar as informações recebidas e enviar as respostas adequadas. O backend está estruturado da seguinte forma:
 
-cpa_back  
- ┣ .mvn  
- ┃ ┗ wrapper  
- ┃ ┃ ┣ maven-wrapper.jar  
- ┃ ┃ ┗ maven-wrapper.properties  
+cpa_back   
  ┣ src  
  ┃ ┣ main  
  ┃ ┃ ┣ java  
