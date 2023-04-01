@@ -1,5 +1,6 @@
-import React, { lazy, Suspense, useState, useContext } from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate, redirect } from 'react-router-dom';
+
+import React, { lazy, Suspense, useContext } from 'react';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import { UserContext, useLoadContext } from '../contexts/UserContext.jsx';
 
 //Routes
@@ -8,14 +9,12 @@ const Menu = lazy(() => import('../pages/menu.jsx'));
 // const Componente = lazy(() => import('./pages/Auth/Login'))
 
 export default function AppRoutes() {
-  const { isAuthenticated, setIsAuthenticated } = useLoadContext();
+  // const { isAuthenticated, setIsAuthenticated } = useContext(UserContext);
 
   const PrivateRoute = ({ path, element }) => {
-    // const auth = localStorage.getItem('token') ? true : false
+    const auth = localStorage.getItem('token') ? true : false
     const Element = () => element;
-    const auth = true;
     console.log({auth})
-    // console.log(element)
     console.log({element})
     console.log({Element})
     console.log({path})
@@ -29,10 +28,10 @@ export default function AppRoutes() {
       </Routes>
     );
   };
+  
   const PublicRoute = ({ path, element }) => {
-    // const auth = localStorage.getItem('token') ? true : false
+    const auth = localStorage.getItem('token') ? true : false
     const Element = () => element;
-    const auth = true;
     console.log({auth})
     // console.log(element)
     console.log({element})
@@ -53,9 +52,8 @@ export default function AppRoutes() {
     <Router>
       <Suspense fallback={<div> Loading... </div>}>
         {/* <Routes> */}
-          <PublicRoute path='/login' element={<Login />} />
-          <PrivateRoute path='/' element={<Menu/>} />
-        {/* </Routes> */}
+        <PublicRoute path='/login' element={<Login />} />
+        <PrivateRoute path='/' element={<Menu/>} />
       </Suspense>
     </Router>
   );

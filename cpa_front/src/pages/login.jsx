@@ -10,7 +10,8 @@ import {
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 // import '../assets/css/login.css';
-// import logoCpa from '../assets/image/logoCpa.jpg';
+import logoCpa from '../assets/image/logoCpa.jpg';
+
 import Image from '../components/Image.jsx';
 import { useState } from 'react';
 import * as Yup from 'yup' ;
