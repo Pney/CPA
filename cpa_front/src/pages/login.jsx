@@ -46,10 +46,9 @@ export default function Login() {
       .validate({ emailText: email, passwordText: password })
       .then(async () => {console.log({email, password})
         // CRIAR CONTA
-        // const res = await authService.createAccount(email, password);
+        const res = await authService.createAccount(email, password);
         // FAZER LOGIN
-        const res = await authService.login(email, password);
-        return window.location.reload();
+        // const res = await authService.login(email, password);
       })
       .catch((validationErrors) => {
         console.log({validationErrors});
