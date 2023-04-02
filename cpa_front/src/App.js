@@ -6,16 +6,16 @@ import AppRoutes from './routes/index.js'
 
 function App() {
   api.get(`/user/login`)
-  .then((response) => {
-    console.log("Response:")
-    console.log(response.data)
-  })
-  .catch((err) => {
-    console.log("ops! ocorreu um erro" + err);
-  });
+    .then((response) => {
+      console.log("Response:")
+      console.log(response.data)
+    })
+    .catch((err) => {
+      console.log("ops! ocorreu um erro" + err);
+    });
   return (
     <div className="App">
-      <AppRoutes/>
+      <AppRoutes />
     </div>
   );
 }

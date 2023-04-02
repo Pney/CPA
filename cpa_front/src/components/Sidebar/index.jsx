@@ -1,0 +1,38 @@
+import React from 'react'
+import { Container, Content } from './styles'
+import HomeIcon from '@mui/icons-material/Home';
+import CloseIcon from '@mui/icons-material/Close';
+import SmsIcon from '@mui/icons-material/Sms';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import LockIcon from '@mui/icons-material/Lock';
+import EqualizerIcon from '@mui/icons-material/Equalizer';
+import ClassIcon from '@mui/icons-material/Class';
+import PieChartIcon from '@mui/icons-material/PieChart';
+
+import SidebarItem from '../SidebarItem'
+
+const Sidebar = ({ active }) => {
+
+    const closeSidebar = () => {
+        active(false)
+    }
+
+    return (
+        <Container sidebar={active}>
+
+            <CloseIcon onClick={closeSidebar} />
+            <Content>
+                <SidebarItem Icon={HomeIcon} Text="Home" />
+                <SidebarItem Icon={SmsIcon} Text="Perguntas" />
+                <SidebarItem Icon={ThumbUpIcon} Text="Respostas" />
+                <SidebarItem Icon={LockIcon} Text="Cadastros" />
+                <SidebarItem Icon={EqualizerIcon} Text="Gráficos" />
+                <SidebarItem Icon={ClassIcon} Text="Relatórios" />
+                <SidebarItem Icon={PieChartIcon} Text="Avaliações" />
+
+            </Content>
+        </Container>
+    )
+}
+
+export default Sidebar
