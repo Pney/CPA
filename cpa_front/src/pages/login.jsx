@@ -11,7 +11,6 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 // import '../assets/css/login.css';
 import logoCpa from '../assets/image/logoCpa.jpg';
-
 import Image from '../components/Image.jsx';
 import { useState } from 'react';
 import * as Yup from 'yup' ;
@@ -38,9 +37,6 @@ export default function Login() {
       .min(2, 'Too Short!')
       .required('Não pode ser nulo'),
   });
-  // const navigate = useNavigate(); 
-  // console.log('navigation.location()')
-  // navigate('/');
   
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -49,8 +45,11 @@ export default function Login() {
     schema
       .validate({ emailText: email, passwordText: password })
       .then(async () => {console.log({email, password})
+        // CRIAR CONTA
+        // const res = await authService.createAccount(email, password);
+        // FAZER LOGIN
         const res = await authService.login(email, password);
-        console.log({res})
+        return window.location.reload();
       })
       .catch((validationErrors) => {
         console.log({validationErrors});
@@ -82,7 +81,7 @@ export default function Login() {
             }}
           >
             <Image 
-              // url={logoCpa}
+              url={logoCpa}
               alt={'Logo da CPA'}
               width={'230px'}
               height={'100px'}
@@ -90,7 +89,6 @@ export default function Login() {
             />
           </div>
           <form 
-            // onClick={handleSubmit}
             style={{
               'display': 'flex',
               'flexDirection': 'column',

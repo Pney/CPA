@@ -1,10 +1,5 @@
-import { LocalSeeOutlined } from '@mui/icons-material';
 import api from './api.js';
-// import { Jwt } from 'jsonwebtoken';
 import { Component } from 'react';
-// import { useHistory } from 'react-router';
-
-
 export class AuthService extends Component {
   createAccount(email, password) {
     const params = {
@@ -15,10 +10,11 @@ export class AuthService extends Component {
     console.log({params})
     api.post(`/api/auth/public/register`, params)
     .then((response) => {
-      console.log({response});
       const token = response.data.token;
+      // var data = new Date();
+      // document.cookie = `token=${token} expires= ${data}`;
       localStorage.setItem('token', token);
-      return;
+      return document.location.reload(true);
     })
     .catch((err) => {
       console.log("ops! ocorreu um erro" + err);
@@ -34,38 +30,19 @@ export class AuthService extends Component {
       email: email,
       password: password
     }
-    return document.location.reload(true);
     api.post(`/api/auth/public/login`, params)
     .then((response) => {
-      console.log({response});
       const token = response.data.token;
-      console.log({token})
+      // var data = new Date(24);
+      // document.cookie = `token=${token} expires=${data}`;
       localStorage.setItem('token', token);
-      const retorno = localStorage.getItem('token')
-      console.log({retorno})
-      return;
-      // const decoded = Jwt.verify(token, 'secretKey');
-      // navigate('/');
+      return document.location.reload(true);
     })
     .catch((err) => {
       console.log("ops! ocorreu um erro" + err);
     });
   }
-
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (prevState.authToken !== this.state.authToken) {
-  //     if (this.state.authToken) {
-  //       api.defaults.headers.common['Authorization'] = `Bearer ${this.state.authToken}`;
-  //     } else {
-  //       delete api.defaults.headers.common['Authorization'];
-  //     }
-  //   }
-  // }
-
-    // render() {
-    //   return null;
-    // }
 }
 
 const authService = new AuthService();
-export default authService
+export default authService;

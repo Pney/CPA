@@ -1,26 +1,24 @@
 import { createContext, useState, useContext, useEffect } from 'react';
+const UserContext = createContext();
 
-const Context = createContext();
-
-export const UserContext = ({ children }) => {
+export const UserProvider  = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   return (
-    <Context.Provider
+    <UserContext.Provider
       value={{
         user, setUser,
-        isAuthenticated, setIsAuthenticated,
+        isAuthenticated, setIsAuthenticated
       }}
     >
       {children}
-    </Context.Provider>
+    </UserContext.Provider>
   )
 }
 
 
-export const useLoadContext = () => {
-  const context = useContext(Context);
-  console.log(Context)
-  return context || { isAuthenticated: false };
+export const useUserContext = () => {
+  const context = useContext(UserContext);
+  return context;
 }

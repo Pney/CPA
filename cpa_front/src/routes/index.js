@@ -1,59 +1,45 @@
 
-import React, { lazy, Suspense, useContext } from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import { UserContext, useLoadContext } from '../contexts/UserContext.jsx';
-
+import React, { lazy, Suspense } from 'react';
+import { BrowserRouter as Router, Route, Routes, Navigate, Outlet } from 'react-router-dom';
 //Routes
 const Login = lazy(() => import('../pages/login.jsx'));
 const Menu = lazy(() => import('../pages/menu.jsx'));
 // const Componente = lazy(() => import('./pages/Auth/Login'))
 
 export default function AppRoutes() {
-  // const { isAuthenticated, setIsAuthenticated } = useContext(UserContext);
-
-  const PrivateRoute = ({ path, element }) => {
+  const PrivateRoute = ({}) => {
     const auth = localStorage.getItem('token') ? true : false
-    const Element = () => element;
-    console.log({auth})
-    console.log({element})
-    console.log({Element})
-    console.log({path})
     return (
-      <Routes>
-        {auth ? (
-          <Route path={path} element={Element ? <Element /> : null} />
+        auth ? (
+          <Outlet/>
         ) : (
-          <Navigate to='/login' replace={true}/>
-        )}
-      </Routes>
+          <Navigate to='/login'/>
+        )
     );
   };
   
   const PublicRoute = ({ path, element }) => {
     const auth = localStorage.getItem('token') ? true : false
-    const Element = () => element;
-    console.log({auth})
-    // console.log(element)
-    console.log({element})
-    console.log({Element})
-    console.log({path})
     return (
-      <Routes>
-        {!auth ? (
-          <Route path={path} element={Element ? <Element /> : null} />
-        ) : (
-          <Route path='/login' element={<Navigate to='/login' replace={true}/>}/>
-        )}
-      </Routes>
+      !auth ? (
+        <Outlet/>
+      ) : (
+        <Navigate to='/menu' replace={true}/>
+      )
     );
   };
 
   return (
     <Router>
       <Suspense fallback={<div> Loading... </div>}>
-        {/* <Routes> */}
-        <PublicRoute path='/login' element={<Login />} />
-        <PrivateRoute path='/' element={<Menu/>} />
+        <Routes>
+          <Route element={<PublicRoute/>}>
+            <Route path='/login' element={<Login/>} />
+          </Route>
+          <Route element={<PrivateRoute/>}>
+            <Route path='/menu' element={<Menu/>} />
+          </Route>
+        </Routes>
       </Suspense>
     </Router>
   );
