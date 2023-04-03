@@ -4,10 +4,11 @@ import { BrowserRouter as Router, Route, Routes, Navigate, Outlet } from 'react-
 //Routes
 const Login = lazy(() => import('../pages/login.jsx'));
 const Menu = lazy(() => import('../pages/menu.jsx'));
+const PageNotFound = lazy(() => import('../pages/errors/PageNotFound.jsx'))
 // const Componente = lazy(() => import('./pages/Auth/Login'))
 
 export default function AppRoutes() {
-  const PrivateRoute = ({}) => {
+  const PrivateRoute = () => {
     const auth = localStorage.getItem('token') ? true : false
     return (
         auth ? (
@@ -18,7 +19,7 @@ export default function AppRoutes() {
     );
   };
   
-  const PublicRoute = ({ path, element }) => {
+  const PublicRoute = () => {
     const auth = localStorage.getItem('token') ? true : false
     return (
       !auth ? (
@@ -33,6 +34,7 @@ export default function AppRoutes() {
     <Router>
       <Suspense fallback={<div> Loading... </div>}>
         <Routes>
+          <Route path='*' element={<PageNotFound/>} />
           <Route element={<PublicRoute/>}>
             <Route path='/login' element={<Login/>} />
           </Route>
