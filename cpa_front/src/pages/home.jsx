@@ -1,4 +1,4 @@
-export default function Menu(){
+export default function Home(){
   console.log(localStorage.getItem('token'));
   if (localStorage.getItem('token'))
     console.log('foi');
