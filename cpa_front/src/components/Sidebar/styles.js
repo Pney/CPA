@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+
 export const Container = styled.div`
   background-color: #13212D;
   position: fixed;
@@ -8,13 +9,14 @@ export const Container = styled.div`
   left: 0px;
   width: 300px;
   left: ${props => props.sidebar ? '0' : '-100%'};
-  animation: showSidebar .4s;
+
+  
   > svg {
     position: fixed;
     color: white;
     width: 30px;
     height: 30px;
-    margin-top: 32px;
+    margin-top: 130px;
     margin-left: 32px;
     cursor: pointer;
   }
@@ -29,6 +31,7 @@ export const Container = styled.div`
     }
   }
 `;
+
 
 export const Content = styled.div`
   margin-top: 100px;

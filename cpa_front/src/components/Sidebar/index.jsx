@@ -8,8 +8,11 @@ import LockIcon from '@mui/icons-material/Lock';
 import EqualizerIcon from '@mui/icons-material/Equalizer';
 import ClassIcon from '@mui/icons-material/Class';
 import PieChartIcon from '@mui/icons-material/PieChart';
+import cpa from '../../assets/image/logoCpa.jpg';
+
 
 import SidebarItem from '../SidebarItem'
+import { width } from '@mui/system';
 
 const Sidebar = ({ active }) => {
 
@@ -19,6 +22,9 @@ const Sidebar = ({ active }) => {
 
     return (
         <Container sidebar={active}>
+
+
+            <img src={cpa} width={300} height={100} />
 
             <CloseIcon onClick={closeSidebar} />
             <Content>

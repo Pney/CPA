@@ -11,10 +11,10 @@ export const Container = styled.div`
   border-radius: 10px;
   margin: 0 15px 20px;
   > svg {
-    margin: 0 20px;
+    margin: 0 30px;
   }
   &:hover {
-    background-color: black;
-   color: green ;
+    background-color: #273C4E;
+    color: #43BC98;
   }
 `;
