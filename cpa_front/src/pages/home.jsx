@@ -1,6 +1,6 @@
 // import Styles from '../assets/css/Home.css';
 import Sidebar from '../components/home/Sidebar.jsx';
-import Header from '../components/header/index.jsx';
+import Header from '../components/Header/index.jsx';
 
 
 function Home() {

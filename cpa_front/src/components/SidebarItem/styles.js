@@ -16,5 +16,6 @@ export const Container = styled.div`
   &:hover {
     background-color: #273C4E;
     color: #43BC98;
+    
   }
 `;
