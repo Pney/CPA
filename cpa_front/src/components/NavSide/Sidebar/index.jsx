@@ -8,7 +8,7 @@ import LockIcon from '@mui/icons-material/Lock';
 import EqualizerIcon from '@mui/icons-material/Equalizer';
 import ClassIcon from '@mui/icons-material/Class';
 import PieChartIcon from '@mui/icons-material/PieChart';
-import cpa from '../../assets/image/logoCpa.jpg';
+import cpa from '../../../assets/image/logoCpa.jpg';
 
 
 import SidebarItem from '../SidebarItem'

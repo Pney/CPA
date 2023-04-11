@@ -1,12 +1,13 @@
 // import Styles from '../assets/css/Home.css';
-import Sidebar from '../components/home/Sidebar.jsx';
-import Header from '../components/Header/index.jsx';
+
+import Header from '../components/NavSide/Header/index.jsx'
 
 
 function Home() {
     return (
 
         <Header />
+
 
 
 
