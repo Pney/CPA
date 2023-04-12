@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -40,6 +41,7 @@ public class Instituicao {
     
     @Column(nullable = false)
     @NotBlank(message = "O campo de CNPJ não pode ser nulo")
+    @Pattern(regexp = "(\\d{2}\\.[0-9]{3}\\.\\d{3}\\/\\d{4}-\\d{2})", message = "O valor informado não esta no modelo de cnpj")
     @CsvBindByName(column = "cnpj")
     private String cnpj;
     

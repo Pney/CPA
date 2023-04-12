@@ -1,9 +1,9 @@
 package com.biopark.cpa.services.grupos;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,9 +39,9 @@ public class InstituicaoService {
 
         if (!update) {
             DuplicatesModel<Instituicao> model = checarDuplicatas(instituicoes);
-            List<ErroValidation>duplicatas = model.getErrors();
+            List<ErroValidation> duplicatas = model.getErrors();
             warnings = model.getWarnings();
-            
+
             instituicoes = model.getObjects();
 
             if (!duplicatas.isEmpty()) {
@@ -63,25 +63,30 @@ public class InstituicaoService {
         List<ErroValidation> erroValidations = new ArrayList<>();
         List<ErroValidation> warnings = new ArrayList<>();
         List<Instituicao> unicos = new ArrayList<>();
-      
-        Set<String> uniqueCod = new HashSet<>();
-      
+
+        Map<String, Integer> uniqueCod = new HashMap<String, Integer>();
+
         for (int i = 0; i < instituicoes.size(); i++) {
 
-            if (!uniqueCod.contains(instituicoes.get(i).getCodigoInstituicao())) {
-                uniqueCod.add(instituicoes.get(i).getCodigoInstituicao());
+            if (!uniqueCod.containsKey(instituicoes.get(i).getCodigoInstituicao())) {
+                uniqueCod.put(instituicoes.get(i).getCodigoInstituicao(), i + 1);
                 unicos.add(instituicoes.get(i));
-            }else{
-                warnings.add(ErroValidation.builder().linha(i+1).mensagem("Esta linha foi ignorada pois o código já existe no arquivo enviado").build());
+            } else {
+                warnings.add(ErroValidation.builder()
+                        .linha(i + 1)
+                        .mensagem("Esta linha foi ignorada pois o código já existe na linha: "
+                                + uniqueCod.get(instituicoes.get(i).getCodigoInstituicao()))
+                        .build());
                 continue;
             }
-            
+
             if (instituicaoRepository.findByCodigoInstituicao(instituicoes.get(i).getCodigoInstituicao()).isPresent()) {
                 erroValidations
                         .add(ErroValidation.builder().linha(i + 1).mensagem("Instituição já cadastrada").build());
             }
         }
 
-        return DuplicatesModel.<Instituicao>builder().errors(erroValidations).warnings(warnings).objects(unicos).build();
+        return DuplicatesModel.<Instituicao>builder().errors(erroValidations).warnings(warnings).objects(unicos)
+                .build();
     }
 }
