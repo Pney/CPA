@@ -41,6 +41,7 @@ services:
     restart: always
     environment:
       TZ: America/Sao_Paulo
+      SERVER.PORT: 8000
       SPRING.DATASOURCE.URL: jdbc:mysql://db-cpa:3306/${MYSQL_DATABASE}
       SPRING.DATASOURCE.USERNAME: ${MYSQL_USER}
       SPRING.DATASOURCE.PASSWORD: ${MYSQL_PASSWORD}
