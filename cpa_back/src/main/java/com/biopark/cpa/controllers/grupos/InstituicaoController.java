@@ -46,3 +46,15 @@ public class InstituicaoController {
         return ResponseEntity.status(HttpStatus.OK).body(instituicao);
     }
 }
+
+//1-Verificar primeiro se tem a entidade do que eu desejo filtrar.
+//2-Apos verificar a entidade, eu vou no reposory ver se tem um. Caso não tenha, eu crio. (Replicar, pois, são todos iguais!)
+//3-Ir em controller e criar o arquivo
+
+
+
+//--------//
+//Criar para disciplina ( Criar .tolowarcase)
+//Criar para curso
+//Criar para turma
+//
