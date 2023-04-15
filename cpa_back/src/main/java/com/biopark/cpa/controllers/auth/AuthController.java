@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.biopark.cpa.controllers.auth.dto.AuthenticationResponse;
-import com.biopark.cpa.controllers.auth.form.LoginRequest;
-import com.biopark.cpa.controllers.auth.form.RegisterRequest;
+import com.biopark.cpa.controllers.auth.requests.LoginRequest;
+import com.biopark.cpa.controllers.auth.requests.RegisterRequest;
+import com.biopark.cpa.controllers.auth.responses.AuthenticationResponse;
 import com.biopark.cpa.services.security.AuthenticationService;
 
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("api/auth")
 @RequiredArgsConstructor
 public class AuthController {
-    
+
     private final AuthenticationService service;
 
     @PostMapping("/public/register")
