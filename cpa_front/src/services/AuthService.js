@@ -1,20 +1,22 @@
 import api from './api.js';
 import { Component } from 'react';
 export class AuthService extends Component {
-  createAccount(email, password) {
+  async createAccount(email, password) {
     const params = {
       email: email,
       password: password
     };
 
     console.log({params})
-    api.post(`/api/auth/public/register`, params)
+    return await api.post(`/api/auth/public/register`, params)
     .then((response) => {
-      const token = response.data.token;
-      // var data = new Date();
-      // document.cookie = `token=${token} expires= ${data}`;
-      localStorage.setItem('token', token);
-      return document.location.reload(true);
+      console.log({response})
+      const data = {
+        'token': response.data.token,
+        'role': response.data.level,
+      }
+      console.log({data})
+      return data;
     })
     .catch((err) => {
       console.log("ops! ocorreu um erro" + err);
@@ -25,18 +27,20 @@ export class AuthService extends Component {
       //     Authorization: `Bearer ${localStorage.getItem('token')}`
       //   }
       // }
-  login (email, password) {
+  async login (email, password) {
     const params = {
       email: email,
       password: password
     }
-    api.post(`/api/auth/public/login`, params)
+    await api.post(`/api/auth/public/login`, params)
     .then((response) => {
-      const token = response.data.token;
-      // var data = new Date(24);
-      // document.cookie = `token=${token} expires=${data}`;
-      localStorage.setItem('token', token);
-      return document.location.reload(true);
+      console.log({response})
+      const data = {
+        'token': response.data.token,
+        'role': response.data.level,
+      }
+      console.log({data})
+      return data;
     })
     .catch((err) => {
       console.log("ops! ocorreu um erro" + err);

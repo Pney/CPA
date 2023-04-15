@@ -1,24 +1,29 @@
-import { createContext, useState, useContext, useEffect } from 'react';
-const UserContext = createContext();
+import { createContext, useState, useContext } from 'react';
+const Context = createContext();
 
-export const UserProvider  = ({ children }) => {
+export const UserContext = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [role, setRole] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   return (
-    <UserContext.Provider
+    <Context.Provider
       value={{
         user, setUser,
+        role, setRole,
         isAuthenticated, setIsAuthenticated
       }}
     >
       {children}
-    </UserContext.Provider>
+    </Context.Provider>
   )
-}
+} 
 
 
 export const useUserContext = () => {
-  const context = useContext(UserContext);
+  const context = useContext(Context);
+  console.log({context})
   return context;
-}
+};
+
+export default Context;
