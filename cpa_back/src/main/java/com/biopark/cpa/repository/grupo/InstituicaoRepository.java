@@ -15,7 +15,7 @@ import jakarta.transaction.Transactional;
 @Repository
 public interface InstituicaoRepository extends JpaRepository<Instituicao, Long> {
     Optional<Instituicao> findByCodigoInstituicao(String codigoInstituicao);
-    
+
     @Modifying
     @Transactional
     @Query(value = "INSERT INTO Instituicao (nome_instituicao, email, cnpj, codigo_instituicao) VALUES (:#{#instituicao.nomeInstituicao}, :#{#instituicao.email}, :#{#instituicao.cnpj}, :#{#instituicao.codigoInstituicao}) ON DUPLICATE KEY UPDATE nome_instituicao = VALUES(nome_instituicao), email = VALUES(email), cnpj = VALUES(cnpj)", nativeQuery = true)

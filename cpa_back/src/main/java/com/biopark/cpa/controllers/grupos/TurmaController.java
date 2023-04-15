@@ -10,25 +10,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.biopark.cpa.entities.grupos.Curso;
-import com.biopark.cpa.repository.grupo.CursoRepository;
+import com.biopark.cpa.entities.grupos.Turma;
+import com.biopark.cpa.repository.grupo.TurmaRepository;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("api/curso")
+@RequestMapping("api/turma")
 @RequiredArgsConstructor
 
-public class CursoController {
-
+public class TurmaController {
+    
     @Autowired
-    private final CursoRepository cursoRepository;
+    private final TurmaRepository turmaRepository;
 
     @GetMapping
-    public ResponseEntity<Optional<Curso>> buscarCodigoCurso(@RequestParam(name = "codigoCurso") String codigoCurso) {
-        var curso = cursoRepository.findByCodigoCurso(codigoCurso);
-        if (curso == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(curso);
+    public ResponseEntity<Optional<Turma>> buscarCodigoTurma(@RequestParam(name = "codigoTurma") String codigoTurma) {
+        var turma = turmaRepository.findByCodigoTurma(codigoTurma);
+        if (turma == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(turma);
         }
-        return ResponseEntity.status(HttpStatus.OK).body(curso);
+        return ResponseEntity.status(HttpStatus.OK).body(turma);
     }
 }
