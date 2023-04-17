@@ -12,9 +12,9 @@ import com.biopark.cpa.entities.user.enums.Level;
 import com.biopark.cpa.entities.user.enums.Role;
 import com.biopark.cpa.repository.BlackListTokenRepository;
 import com.biopark.cpa.repository.UserRepository;
-import com.biopark.cpa.controllers.auth.dto.AuthenticationResponse;
-import com.biopark.cpa.controllers.auth.form.LoginRequest;
-import com.biopark.cpa.controllers.auth.form.RegisterRequest;
+import com.biopark.cpa.controllers.auth.requests.LoginRequest;
+import com.biopark.cpa.controllers.auth.requests.RegisterRequest;
+import com.biopark.cpa.controllers.auth.responses.AuthenticationResponse;
 
 import lombok.RequiredArgsConstructor;
 

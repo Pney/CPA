@@ -17,7 +17,6 @@ import * as Yup from 'yup';
 import authService from 'services/AuthService.js';
 import { UserContext, useUserContext } from 'contexts/UserContext.jsx';
 
-
 export default function Login() {
 
   const [showPassword, setShowPassword] = useState(false);
@@ -25,7 +24,6 @@ export default function Login() {
   const [erroEmail, setErroEmail] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
   const { role, setRole } = useUserContext();
   const handleChangeTypePassword = () => {
     setShowPassword(!showPassword);
@@ -51,7 +49,7 @@ export default function Login() {
         return response;
       })
       .then((res) => {
-        console.log({ res });
+        console.log({res});
         if (res.token) localStorage.setItem('token', res.token);
         if (res.role) setRole(res.role);
         return window.location.reload();

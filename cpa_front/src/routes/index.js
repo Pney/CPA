@@ -5,7 +5,10 @@ import { BrowserRouter as Router, Route, Routes, Navigate, Outlet } from 'react-
 const Login = lazy(() => import('../pages/login.jsx'));
 const Home = lazy(() => import('../pages/home.jsx'));
 const PageNotFound = lazy(() => import('../pages/errors/PageNotFound.jsx'))
+const Register = lazy(() => import('../pages/register'))
 // const Componente = lazy(() => import('./pages/Auth/Login'))
+
+
 
 export default function AppRoutes() {
   const PrivateRoute = () => {
@@ -29,7 +32,6 @@ export default function AppRoutes() {
       )
     );
   };
-
   return (
     <Router>
       <Suspense fallback={<div> Loading... </div>}>
