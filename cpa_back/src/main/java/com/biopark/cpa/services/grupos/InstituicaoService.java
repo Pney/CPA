@@ -52,9 +52,7 @@ public class InstituicaoService {
             return CadastroDTO.builder().status(HttpStatus.OK).erros(errors).warnings(warnings).build();
         }
 
-        for (Instituicao instituicao : instituicoes) {
-            instituicaoRepository.upsert(instituicao);
-        }
+        instituicaoRepository.upsert(instituicoes);
 
         return CadastroDTO.builder().status(HttpStatus.OK).erros(errors).warnings(warnings).build();
     }
