@@ -1,4 +1,4 @@
-package com.biopark.cpa.controllers.auth.requests;
+package com.biopark.cpa.controllers.auth.form;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

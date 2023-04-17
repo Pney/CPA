@@ -32,15 +32,16 @@ export class AuthService extends Component {
       email: email,
       password: password
     }
+
     await api.post(`/api/auth/public/login`, params)
     .then((response) => {
-      console.log({response})
-      const data = {
-        'token': response.data.token,
-        'role': response.data.level,
-      }
-      console.log({data})
-      return data;
+        console.log({response})
+        const data = {
+          'token': response.data.token,
+          'role': response.data.level,
+        }
+        console.log({data})
+        return data;
     })
     .catch((err) => {
       console.log("ops! ocorreu um erro" + err);

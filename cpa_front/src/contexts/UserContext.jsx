@@ -1,7 +1,7 @@
-import { createContext, useState, useContext } from 'react';
+import { createContext, useState, useContext} from 'react';
 const Context = createContext();
 
-export const UserContext = ({ children }) => {
+export const UserContext  = ({ children }) => {
   const [user, setUser] = useState(null);
   const [role, setRole] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -17,7 +17,7 @@ export const UserContext = ({ children }) => {
       {children}
     </Context.Provider>
   )
-} 
+}
 
 
 export const useUserContext = () => {

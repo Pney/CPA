@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import 'assets/css/index.css';
 import App from './App.js';
 import reportWebVitals from './reportWebVitals.js';
-import { ThemeProvider, createTheme } from '@mui/material'
+import {ThemeProvider, createTheme } from '@mui/material'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -21,7 +21,7 @@ const theme = createTheme({
 root.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-      <App />
+      <App/>
     </ThemeProvider>
   </React.StrictMode>
 );
