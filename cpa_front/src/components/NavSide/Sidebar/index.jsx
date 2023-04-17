@@ -14,27 +14,28 @@ import cpa from '../../../assets/image/logoCpa.jpg';
 import SidebarItem from '../SidebarItem'
 import { width } from '@mui/system';
 
-const Sidebar = ({ active }) => {
-
-    const closeSidebar = () => {
-        active(false)
-    }
+const Sidebar = () => {
+    const isAdmin = true;
 
     return (
-        <Container sidebar={active}>
-
+        <Container>
 
             <img src={cpa} width={300} height={100} />
-
-            <CloseIcon onClick={closeSidebar} />
+           
             <Content>
                 <SidebarItem Icon={HomeIcon} Text="Home" />
                 <SidebarItem Icon={SmsIcon} Text="Perguntas" />
-                <SidebarItem Icon={ThumbUpIcon} Text="Respostas" />
-                <SidebarItem Icon={LockIcon} Text="Cadastros" />
-                <SidebarItem Icon={EqualizerIcon} Text="Gráficos" />
-                <SidebarItem Icon={ClassIcon} Text="Relatórios" />
-                <SidebarItem Icon={PieChartIcon} Text="Avaliações" />
+                {
+                    isAdmin && (
+                        <div>
+                            <SidebarItem Icon={ThumbUpIcon} Text="Respostas" />
+                            <SidebarItem Icon={LockIcon} Text="Cadastros" />
+                            <SidebarItem Icon={EqualizerIcon} Text="Gráficos" />
+                            <SidebarItem Icon={ClassIcon} Text="Relatórios" />
+                            <SidebarItem Icon={PieChartIcon} Text="Avaliações" />
+                        </div>
+                    )
+                }
 
             </Content>
         </Container>
