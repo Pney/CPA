@@ -22,7 +22,6 @@ export const UserContext = ({ children }) => {
 
 export const useUserContext = () => {
   const context = useContext(Context);
-  console.log({context})
   return context;
 };
 
