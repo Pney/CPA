@@ -36,10 +36,10 @@ export default function AppRoutes() {
         <Routes>
           <Route path='*' element={<PageNotFound/>} />
           <Route element={<PublicRoute/>}>
+            <Route path='/home' element={<Home/>} />
             <Route path='/login' element={<Login/>} />
           </Route>
           <Route element={<PrivateRoute/>}>
-            <Route path='/home' element={<Home/>} />
           </Route>
         </Routes>
       </Suspense>
