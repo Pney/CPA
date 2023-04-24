@@ -4,19 +4,11 @@ import 'assets/css/index.css';
 import App from './App.js';
 import reportWebVitals from './reportWebVitals.js';
 import {ThemeProvider, createTheme } from '@mui/material'
+import { palette } from 'palette.js';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-const theme = createTheme({
-  palette: {
-    mode: 'dark',
-    white: {
-      main: '#FFFFFF'
-    },
-    azureRadiance: '#008AFF',
-    elephant: '#153149'
-  }
-})
+const theme = createTheme({palette});
 
 root.render(
   <React.StrictMode>
