@@ -1,5 +1,4 @@
 import React from 'react'
-
 import HomeIcon from '@mui/icons-material/Home';
 import SmsIcon from '@mui/icons-material/Sms';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
@@ -8,10 +7,7 @@ import EqualizerIcon from '@mui/icons-material/Equalizer';
 import ClassIcon from '@mui/icons-material/Class';
 import PieChartIcon from '@mui/icons-material/PieChart';
 import cpa from '../assets/image/logoCpa.jpg';
-
-
 import SidebarItem from '../components/NavSide/SidebarItem/index'
-
 import styled from 'styled-components';
 
   const Container = styled.div`
@@ -20,7 +16,7 @@ import styled from 'styled-components';
   height: 100%;
   top: 0px;
   left: 0px;
-  width: 300px;
+  width: 300px; 
   left: ${props => props.sidebar ? '0' : '0%'};
   
   > svg {
@@ -39,7 +35,7 @@ const Content = styled.div`
   margin-top: 30px;
 `;
 
-export default  function Home() {
+export default function Home() {
 
     const isAdmin = true;
 
@@ -48,25 +44,21 @@ export default  function Home() {
           <img src={cpa} width={300} height={100} />
 
             <Content>
-                <SidebarItem Icon={HomeIcon} Text="Home" />
-                <SidebarItem Icon={SmsIcon} Text="Perguntas" />
+                <SidebarItem Icon={HomeIcon} Text="Home" link={'/home'} />
+                <SidebarItem Icon={SmsIcon} Text="Perguntas" link={'/perguntas'}/>
                 {
                     isAdmin && (
                         <div>
-                            <SidebarItem Icon={ThumbUpIcon} Text="Respostas"  />
-                            <SidebarItem Icon={LockIcon} Text="Cadastros" />
-                            <SidebarItem Icon={EqualizerIcon} Text="Gráficos" />
-                            <SidebarItem Icon={ClassIcon} Text="Relatórios" />
-                            <SidebarItem Icon={PieChartIcon} Text="Avaliações" />
+                            <SidebarItem Icon={ThumbUpIcon} Text="Respostas" link={'/respostas'}/>
+                            <SidebarItem Icon={LockIcon} Text="Cadastros" link={'/cadastros'}/>
+                            <SidebarItem Icon={EqualizerIcon} Text="Gráficos" link={'/graficos'}/>
+                            <SidebarItem Icon={ClassIcon} Text="Relatórios" link={'/relatorios'}/>
+                            <SidebarItem Icon={PieChartIcon} Text="Avaliações" link={'avaliacoes'}/>
                         </div>
                     )
                 }
 
             </Content>
-        </Container>
-        
-        
-                
-                
+        </Container>     
     );
 }
