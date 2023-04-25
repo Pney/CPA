@@ -1,12 +1,18 @@
 import React from 'react'
 import { Container } from './styles'
+import { Link } from 'react-router-dom'
 
-const SidebarItem = ({ Icon, Text }) => {
+const SidebarItem = ({ Icon, Text, link }) => {
     return (
-        <Container>
-            <Icon />
-            {Text}
-        </Container>
+        <Link 
+            to={link} 
+            style={{textDecoration: 'none'}}
+        >
+            <Container>
+                <Icon />
+                {Text}
+            </Container>
+        </Link>
     )
 }
 
