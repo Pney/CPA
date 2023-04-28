@@ -1,3 +1,4 @@
+/*
 package com.biopark.cpa.controllers.grupos;
 
 import java.util.Optional;
@@ -32,3 +33,5 @@ public class CursoController {
         return ResponseEntity.status(HttpStatus.OK).body(curso);
     }
 }
+
+ */
