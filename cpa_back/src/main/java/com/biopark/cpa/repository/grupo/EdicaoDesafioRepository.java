@@ -21,6 +21,8 @@ public class DesafioService {
 
     public Desafio buscarPorId(Long id) {
         Optional<Desafio> optionalDesafio = edicaoDesafioRepository.findById(id);
+
+        
         if (optionalDesafio.isPresent()) {
             ;
             return optionalDesafio.get();
