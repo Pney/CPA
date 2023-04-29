@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.el.stream.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -82,4 +83,22 @@ public class DesafioService {
         return DuplicatesModel.<Desafio>builder().errors(erroValidations).warnings(warnings).objects(unicos)
                 .build();
     }
+
+   
+    public Desafio buscarPorId(Long id) {
+        var optionalDesafio = desafioRepository.findById(id);
+
+        if (optionalDesafio.isPresent()) {
+            return optionalDesafio.get();
+        } else {
+            throw new RuntimeException("Desafio não encontrado");
+        }
+    }
+
+    public void atualizarDesafio(Long id, String novoNome) {
+        Desafio desafio = buscarPorId(id);
+        desafio.setNomeDesafio(novoNome);
+        desafioRepository.save(desafio); // Salva as mudanças no banco de dados
+    }
+}
 }
