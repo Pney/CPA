@@ -15,7 +15,7 @@ import Image from '../components/Image.jsx';
 import { useState } from 'react';
 import * as Yup from 'yup';
 import authService from 'services/AuthService.js';
-import { UserContext, useUserContext } from 'contexts/UserContext.jsx';
+import { useUserContext } from 'contexts/UserContext.jsx';
 
 
 export default function Login() {
@@ -26,7 +26,6 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const { role, setRole } = useUserContext();
   const handleChangeTypePassword = () => {
     setShowPassword(!showPassword);
   };
@@ -53,7 +52,6 @@ export default function Login() {
       .then((res) => {
         console.log({ res });
         if (res.token) localStorage.setItem('token', res.token);
-        if (res.role) setRole(res.role);
         return window.location.reload();
       })
       .catch((validationErrors) => {
@@ -90,7 +88,7 @@ export default function Login() {
             alt={'Logo da CPA'}
             width={'230px'}
             height={'100px'}
-            border={'1.50rem'}
+            style={{'border-radius': '1.50rem'}}
           />
         </div>
         <form
