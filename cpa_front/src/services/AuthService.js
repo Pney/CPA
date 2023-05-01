@@ -19,14 +19,10 @@ export class AuthService extends Component {
       return data;
     })
     .catch((err) => {
-      console.log("ops! ocorreu um erro" + err);
+      console.log("ops! ocorreu um erro no createAccount" + err);
     });
   }
-      // {
-      //   headers: {
-      //     Authorization: `Bearer ${localStorage.getItem('token')}`
-      //   }
-      // }
+
   async login (email, password) {
     const params = {
       email: email,
@@ -41,12 +37,54 @@ export class AuthService extends Component {
           'role': response.data.level,
         }
         console.log({data})
-        return data;
+        return data;  
     })
     .catch((err) => {
-      console.log("ops! ocorreu um erro" + err);
+      console.err("ops! ocorreu um erro no login" + err);
     });
   }
+
+  async getToken(){
+    const token = localStorage.getItem('token')
+    console.log(token);
+    return token;  
+  }
+
+  async authToken(){
+    console.log('Chamou')
+    const token = localStorage.getItem('token')
+    const headers = {"Authorization": `Bearer ${token}`}
+    const params = {}  
+    console.log({api})
+    await api.post(`/api/auth/authenticate`, params)
+    .then((response) => {
+      console.log({response})
+      console.log('Foi caralhooou')
+    })
+    .catch((err) => {
+      console.error("ops! ocorreu um erro no authToken" + err);
+    })
+  }
+
+  async logout(){
+  
+    console.log({api})
+    console.log('Chamou')
+    const token = localStorage.getItem('token')
+    const params = {}
+  
+    console.log({api})
+    await api.post(`/api/auth/logout`, params)
+    .then((response) => {
+      console.log({response})
+      console.log('Foi caralhooou')
+    })
+    .catch((err) => {
+      console.error("ops! ocorreu um erro no logout" + err);
+    })
+  }
+
+
 }
 
 const authService = new AuthService();
