@@ -1,4 +1,5 @@
 
+import AuthLayout from 'layouts/AuthLayout.jsx';
 import React, { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate, Outlet } from 'react-router-dom';
 //Routes
@@ -18,7 +19,9 @@ export default function AppRoutes() {
     const auth = localStorage.getItem('token') ? true : false
     return (
         auth ? (
-          <Outlet/>
+          <AuthLayout>
+            <Outlet/>
+          </AuthLayout>
         ) : (
           <Navigate to='/login'/>
         )
@@ -45,13 +48,13 @@ export default function AppRoutes() {
             <Route path='/login' element={<Login/>} />
           </Route>
           <Route element={<PrivateRoute/>}>
-          <Route path='/home' element={<Home/>} />
+            <Route path='/home' element={<Home/>} />
             <Route path='/perguntas' element={<Perguntas/>} />
             <Route path='/respostas' element={<Respostas/>} />
             <Route path='/graficos' element={<Graficos/>} />
             <Route path='/relatorios' element={<Relatorios/>} />
             <Route path='/avaliacoes' element={<Avaliacoes/>} />
-            <Route path='/cadastro' element={<Cadastro/>} />
+            <Route path='/cadastros' element={<Cadastro/>} />
           </Route>
         </Routes>
       </Suspense>
