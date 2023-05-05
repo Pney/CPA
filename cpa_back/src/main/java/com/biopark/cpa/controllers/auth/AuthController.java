@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.biopark.cpa.controllers.auth.dto.AuthenticationResponse;
-import com.biopark.cpa.controllers.auth.form.LoginRequest;
-import com.biopark.cpa.controllers.auth.form.RegisterRequest;
+import com.biopark.cpa.dto.auth.AuthenticationResponse;
+import com.biopark.cpa.form.auth.LoginRequest;
+import com.biopark.cpa.form.auth.RegisterRequest;
 import com.biopark.cpa.services.security.AuthenticationService;
 
 import lombok.RequiredArgsConstructor;

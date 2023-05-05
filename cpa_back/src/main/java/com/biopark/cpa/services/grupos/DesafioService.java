@@ -5,16 +5,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import com.biopark.cpa.controllers.grupos.dto.CadastroDTO;
-import com.biopark.cpa.controllers.grupos.dto.ErroValidation;
+import com.biopark.cpa.dto.cadastroCsv.CadastroDTO;
+import com.biopark.cpa.dto.cadastroCsv.ErroValidation;
+import com.biopark.cpa.dto.cadastroCsv.ValidationModel;
 import com.biopark.cpa.entities.grupos.Desafio;
 import com.biopark.cpa.repository.grupo.DesafioRepository;
-import com.biopark.cpa.services.CsvParserService;
-import com.biopark.cpa.services.responses.DuplicatesModel;
+import com.biopark.cpa.services.utils.CsvParserService;
 
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -22,11 +21,8 @@ import lombok.AllArgsConstructor;
 @Service
 @AllArgsConstructor
 public class DesafioService {
-    @Autowired
-    private CsvParserService csvParserService;
-
-    @Autowired
-    private DesafioRepository desafioRepository;
+    private final CsvParserService csvParserService;
+    private final DesafioRepository desafioRepository;
 
     @Transactional
     public CadastroDTO cadastrarDesafio(List<Desafio> desafios) {
@@ -37,7 +33,7 @@ public class DesafioService {
             return CadastroDTO.builder().status(HttpStatus.BAD_REQUEST).erros(errors).warnings(warnings).build();
         }
 
-        DuplicatesModel<Desafio> model = checarDuplicatas(desafios);
+        ValidationModel<Desafio> model = checarDuplicatas(desafios);
         List<ErroValidation> duplicatas = model.getErrors();
         warnings = model.getWarnings();
 
@@ -51,7 +47,7 @@ public class DesafioService {
         return CadastroDTO.builder().status(HttpStatus.OK).erros(errors).warnings(warnings).build();
     }
 
-    private DuplicatesModel<Desafio> checarDuplicatas(List<Desafio> desafios) {
+    private ValidationModel<Desafio> checarDuplicatas(List<Desafio> desafios) {
         List<ErroValidation> erroValidations = new ArrayList<>();
         List<ErroValidation> warnings = new ArrayList<>();
         List<Desafio> unicos = new ArrayList<>();
@@ -62,7 +58,6 @@ public class DesafioService {
 
             if (!uniqueCod.containsKey(desafios.get(i).getNomeDesafio())) {
                 uniqueCod.put(desafios.get(i).getNomeDesafio(), i + 1);
-                desafios.get(i).setNomeDesafio(desafios.get(i).getNomeDesafio().toLowerCase());
                 unicos.add(desafios.get(i));
             } else {
                 warnings.add(ErroValidation.builder()
@@ -79,7 +74,7 @@ public class DesafioService {
             }
         }
 
-        return DuplicatesModel.<Desafio>builder().errors(erroValidations).warnings(warnings).objects(unicos)
+        return ValidationModel.<Desafio>builder().errors(erroValidations).warnings(warnings).objects(unicos)
                 .build();
     }
 }

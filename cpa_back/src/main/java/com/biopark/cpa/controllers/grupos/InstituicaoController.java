@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.biopark.cpa.controllers.grupos.dto.CadastroDTO;
+import com.biopark.cpa.dto.cadastroCsv.CadastroDTO;
 import com.biopark.cpa.entities.grupos.Instituicao;
 import com.biopark.cpa.repository.grupo.InstituicaoRepository;
-import com.biopark.cpa.services.CsvParserService;
 import com.biopark.cpa.services.grupos.InstituicaoService;
+import com.biopark.cpa.services.utils.CsvParserService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -31,7 +31,7 @@ public class InstituicaoController {
     private final InstituicaoRepository instituicaoRepository;
 
     @PostMapping
-    public ResponseEntity<CadastroDTO> cadastrarInstituicao(@RequestParam("file") MultipartFile file, @RequestParam(name = "update") Boolean update) throws IOException{
+    public ResponseEntity<CadastroDTO> cadastrarInstituicao(@RequestParam("file") MultipartFile file, @RequestParam(name = "update") Boolean update) throws IOException{        
         List<Instituicao> instituicoes = csvParserService.parseCsv(file, Instituicao.class);
         CadastroDTO cadastroDTO = instituicaoService.cadastrarInstituicao(instituicoes, update);
         return ResponseEntity.status(cadastroDTO.getStatus()).body(cadastroDTO);
@@ -46,14 +46,3 @@ public class InstituicaoController {
         return ResponseEntity.status(HttpStatus.OK).body(instituicao);
     }
 }
-
-//1-Verificar primeiro se tem a entidade do que eu desejo filtrar.
-//2-Apos verificar a entidade, eu vou no reposory ver se tem um. Caso não tenha, eu crio. (Replicar, pois, são todos iguais!)
-//3-Ir em controller e criar o arquivo
-
-
-//--------//
-//Criar para disciplina ( Criar .tolowarcase)
-//Criar para curso
-//Criar para turma
-//

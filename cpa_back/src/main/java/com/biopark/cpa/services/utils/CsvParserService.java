@@ -1,4 +1,4 @@
-package com.biopark.cpa.services;
+package com.biopark.cpa.services.utils;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -6,11 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.biopark.cpa.controllers.grupos.dto.ErroValidation;
+import com.biopark.cpa.dto.cadastroCsv.ErroValidation;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.opencsv.bean.HeaderColumnNameMappingStrategy;
@@ -22,8 +21,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class CsvParserService {
-    @Autowired
-    private Validator validator;
+    private final Validator validator;
 
     public <T> List<T> parseCsv(MultipartFile file, Class<T> classe) throws IOException{
         HeaderColumnNameMappingStrategy<T> strategy = new HeaderColumnNameMappingStrategy<T>();
