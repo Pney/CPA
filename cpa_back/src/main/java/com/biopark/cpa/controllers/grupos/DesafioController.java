@@ -9,12 +9,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.biopark.cpa.controllers.grupos.dto.CadastroDTO;
+import com.biopark.cpa.controllers.grupos.dto.EditarDTO;
 import com.biopark.cpa.entities.grupos.Desafio;
 import com.biopark.cpa.repository.grupo.DesafioRepository;
 import com.biopark.cpa.services.CsvParserService;
@@ -47,6 +50,12 @@ public class DesafioController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(desafio);
         }
         return ResponseEntity.status(HttpStatus.OK).body(desafio);
+    }
+
+    @PutMapping
+    public ResponseEntity<EditarDTO> editarDesafio(@RequestBody Desafio desafio){
+        EditarDTO response = desafioService.editarDesafio(desafio);
+        return ResponseEntity.status(response.getStatus()).body(response);
     }
 
 }

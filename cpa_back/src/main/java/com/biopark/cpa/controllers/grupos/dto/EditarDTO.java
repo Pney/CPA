@@ -1,6 +1,4 @@
-/* package com.biopark.cpa.controllers.grupos.dto;
-
-import java.util.List;
+package com.biopark.cpa.controllers.grupos.dto;
 
 import org.springframework.http.HttpStatus;
 
@@ -13,7 +11,5 @@ import lombok.Data;
 @AllArgsConstructor
 public class EditarDTO {
     private HttpStatus status;
-    private List<ErroValidation> erros;
-    private List<ErroValidation> warnings;
+    private String mensagem;
 }
-*/

@@ -5,12 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.el.stream.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.biopark.cpa.controllers.grupos.dto.CadastroDTO;
+import com.biopark.cpa.controllers.grupos.dto.EditarDTO;
 import com.biopark.cpa.controllers.grupos.dto.ErroValidation;
 import com.biopark.cpa.entities.grupos.Desafio;
 import com.biopark.cpa.repository.grupo.DesafioRepository;
@@ -95,10 +95,16 @@ public class DesafioService {
         }
     }
 
-    public void atualizarDesafio(Long id, String novoNome) {
-        Desafio desafio = buscarPorId(id);
-        desafio.setNomeDesafio(novoNome);
-        desafioRepository.save(desafio); // Salva as mudanças no banco de dados
+    public EditarDTO editarDesafio(Desafio desafioRequest) {
+        try {
+            Desafio desafio = buscarPorId(desafioRequest.getId());
+            desafio.setNomeDesafio(desafioRequest.getNomeDesafio());
+            desafioRepository.save(desafio);
+            return EditarDTO.builder().status(HttpStatus.OK).mensagem("Desafio "+desafioRequest.getId()+" editado com sucesso").build();
+        } catch (Exception e) {
+            return EditarDTO.builder().status(HttpStatus.NOT_FOUND).mensagem(e.getMessage()).build();
+        }
     }
 }
-}
+
+
