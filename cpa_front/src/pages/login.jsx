@@ -52,7 +52,7 @@ export default function Login() {
       .then((res) => {
         console.log({ res });
         if (res.token) localStorage.setItem('token', res.token);
-        return window.location.reload();
+          return window.location.reload();
       })
       .catch((validationErrors) => {
         console.log({ validationErrors });
@@ -88,7 +88,7 @@ export default function Login() {
             alt={'Logo da CPA'}
             width={'230px'}
             height={'100px'}
-            style={{'border-radius': '1.50rem'}}
+            style={{'borderRadius': '1.50rem'}}
           />
         </div>
         <form
@@ -122,7 +122,9 @@ export default function Login() {
               sx={{ 'marginTop': '10px', 'marginBottom': '20px' }}
               InputProps={{
                 endAdornment: (
-                  <InputAdornment>
+                  <InputAdornment
+                    position='end'
+                  >
                     <IconButton
                       onClick={handleChangeTypePassword}
                     >

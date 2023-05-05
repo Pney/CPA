@@ -38,7 +38,7 @@ export class AuthService extends Component {
         }
         console.log({data})
         return data;  
-    })
+    })  
     .catch((err) => {
       console.err("ops! ocorreu um erro no login" + err);
     });
@@ -54,8 +54,7 @@ export class AuthService extends Component {
     console.log('Chamou')
     const token = localStorage.getItem('token')
     const headers = {"Authorization": `Bearer ${token}`}
-    const params = {}  
-    console.log({api})
+    const params = {}
     await api.post(`/api/auth/authenticate`, params)
     .then((response) => {
       console.log({response})
@@ -67,24 +66,21 @@ export class AuthService extends Component {
   }
 
   async logout(){
-  
-    console.log({api})
-    console.log('Chamou')
     const token = localStorage.getItem('token')
-    const params = {}
-  
     console.log({api})
-    await api.post(`/api/auth/logout`, params)
+    // if (token) {
+    //   api.config.header.Authorization = "Bearer " + token;
+    // }
+    api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    await api.post(`/api/auth/logout`)
     .then((response) => {
-      console.log({response})
-      console.log('Foi caralhooou')
+      if (response.data && response.http)
+      localStorage.removeItem('token')
     })
     .catch((err) => {
       console.error("ops! ocorreu um erro no logout" + err);
     })
   }
-
-
 }
 
 const authService = new AuthService();
