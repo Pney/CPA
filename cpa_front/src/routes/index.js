@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate, Outlet } from 'react-
 //Routes
 const Login = lazy(() => import('../pages/login.jsx'));
 const Home = lazy(() => import('../pages/home.jsx'));
+const Cadastro = lazy(() => import('../pages/cadastro.jsx'));
 const PageNotFound = lazy(() => import('../pages/errors/PageNotFound.jsx'))
 // const Componente = lazy(() => import('./pages/Auth/Login'))
 
@@ -37,6 +38,7 @@ export default function AppRoutes() {
           <Route path='*' element={<PageNotFound/>} />
           <Route element={<PublicRoute/>}>
             <Route path='/login' element={<Login/>} />
+            <Route path='/cadastro' element={<Cadastro/>} />
           </Route>
           <Route element={<PrivateRoute/>}>
             <Route path='/home' element={<Home/>} />
