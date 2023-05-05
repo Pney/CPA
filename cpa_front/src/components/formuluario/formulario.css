@@ -1,0 +1,11 @@
+
+    
+
+.formulario-padrao{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    color: whitesmoke;   
+    margin: 0 auto;   
+    list-style: none;  
+}
