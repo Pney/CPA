@@ -66,12 +66,7 @@ export class AuthService extends Component {
   }
 
   async logout(){
-    const token = localStorage.getItem('token')
     console.log({api})
-    // if (token) {
-    //   api.config.header.Authorization = "Bearer " + token;
-    // }
-    api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     await api.post(`/api/auth/logout`)
     .then((response) => {
       if (response.data && response.http)
