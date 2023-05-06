@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "desafio")
 public class Desafio {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -30,5 +30,4 @@ public class Desafio {
     @NotBlank(message = "O campo nome_desafio não pode ser nulo")
     @CsvBindByName(column = "nome_desafio")
     private String nomeDesafio;
-
 }

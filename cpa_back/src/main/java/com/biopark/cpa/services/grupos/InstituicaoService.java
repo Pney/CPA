@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.biopark.cpa.controllers.grupos.dto.CadastroDTO;
+import com.biopark.cpa.controllers.grupos.dto.EditarDTO;
 import com.biopark.cpa.controllers.grupos.dto.ErroValidation;
 import com.biopark.cpa.entities.grupos.Instituicao;
 import com.biopark.cpa.repository.grupo.InstituicaoRepository;
@@ -88,5 +89,29 @@ public class InstituicaoService {
 
         return DuplicatesModel.<Instituicao>builder().errors(erroValidations).warnings(warnings).objects(unicos)
                 .build();
+    }
+
+    public Instituicao buscarPorCodigo(String codigo) {
+        var optionalInstituicao = instituicaoRepository.findByCodigoInstituicao(codigo);
+
+        if (optionalInstituicao.isPresent()) {
+            return optionalInstituicao.get();
+        } else {
+            throw new RuntimeException("Instituição não encontrado!");
+        }
+    }
+
+    public EditarDTO editarInstituicao(Instituicao instituicaoRequest) {
+        try {
+            Instituicao instituicao = buscarPorCodigo(instituicaoRequest.getCodigoInstituicao());
+            instituicao.setNomeInstituicao(instituicaoRequest.getNomeInstituicao());
+            instituicao.setEmail(instituicaoRequest.getEmail());
+            instituicaoRepository.save(instituicao);
+            return EditarDTO.builder().status(HttpStatus.OK)
+                    .mensagem("Instituicao " + instituicaoRequest.getCodigoInstituicao() + " editado com sucesso")
+                    .build();
+        } catch (Exception e) {
+            return EditarDTO.builder().status(HttpStatus.NOT_FOUND).mensagem(e.getMessage()).build();
+        }
     }
 }

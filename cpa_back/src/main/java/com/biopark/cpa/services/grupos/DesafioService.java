@@ -84,14 +84,13 @@ public class DesafioService {
                 .build();
     }
 
-   
     public Desafio buscarPorId(Long id) {
         var optionalDesafio = desafioRepository.findById(id);
 
         if (optionalDesafio.isPresent()) {
             return optionalDesafio.get();
         } else {
-            throw new RuntimeException("Desafio não encontrado");
+            throw new RuntimeException("Desafio não encontrado!");
         }
     }
 
@@ -100,11 +99,10 @@ public class DesafioService {
             Desafio desafio = buscarPorId(desafioRequest.getId());
             desafio.setNomeDesafio(desafioRequest.getNomeDesafio());
             desafioRepository.save(desafio);
-            return EditarDTO.builder().status(HttpStatus.OK).mensagem("Desafio "+desafioRequest.getId()+" editado com sucesso").build();
+            return EditarDTO.builder().status(HttpStatus.OK)
+                    .mensagem("Desafio " + desafioRequest.getId() + " editado com sucesso").build();
         } catch (Exception e) {
             return EditarDTO.builder().status(HttpStatus.NOT_FOUND).mensagem(e.getMessage()).build();
         }
     }
 }
-
-

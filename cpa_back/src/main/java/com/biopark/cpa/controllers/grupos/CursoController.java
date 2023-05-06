@@ -1,4 +1,4 @@
-/*
+
 package com.biopark.cpa.controllers.grupos;
 
 import java.util.Optional;
@@ -21,7 +21,6 @@ import lombok.RequiredArgsConstructor;
 
 public class CursoController {
 
-    @Autowired
     private final CursoRepository cursoRepository;
 
     @GetMapping
@@ -33,5 +32,3 @@ public class CursoController {
         return ResponseEntity.status(HttpStatus.OK).body(curso);
     }
 }
-
- */

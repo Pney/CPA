@@ -1,4 +1,3 @@
-/* 
 package com.biopark.cpa.controllers.grupos;
 
 import java.util.Optional;
@@ -20,8 +19,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 
 public class TurmaController {
-    
-    @Autowired
+
     private final TurmaRepository turmaRepository;
 
     @GetMapping
@@ -33,5 +31,3 @@ public class TurmaController {
         return ResponseEntity.status(HttpStatus.OK).body(turma);
     }
 }
-
-*/

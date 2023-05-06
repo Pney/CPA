@@ -43,7 +43,7 @@ public class DesafioController {
     }
 
     @GetMapping
-    public ResponseEntity<Optional<Desafio>>buscarNomeDesafio(@RequestParam(name = "nomeDesafio") String nomeDesafio) {
+    public ResponseEntity<Optional<Desafio>> buscarNomeDesafio(@RequestParam(name = "nomeDesafio") String nomeDesafio) {
         nomeDesafio = nomeDesafio.toLowerCase();
         var desafio = desafioRepository.findByNomeDesafio(nomeDesafio);
         if (desafio == null) {
@@ -53,7 +53,7 @@ public class DesafioController {
     }
 
     @PutMapping
-    public ResponseEntity<EditarDTO> editarDesafio(@RequestBody Desafio desafio){
+    public ResponseEntity<EditarDTO> editarDesafio(@RequestBody Desafio desafio) {
         EditarDTO response = desafioService.editarDesafio(desafio);
         return ResponseEntity.status(response.getStatus()).body(response);
     }
