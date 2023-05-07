@@ -2,6 +2,8 @@ package com.biopark.cpa.services.security;
 
 import java.security.SecureRandom;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 
@@ -10,6 +12,7 @@ import lombok.Builder;
 public class GeneratePassword {
     private final String CARACTERES = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%&*()_+-=[]|,./?><";
     private final int TAMANHO = 8;
+    private final PasswordEncoder passwordEncoder;
 
     public String getPwd(){
         SecureRandom random = new SecureRandom();
@@ -21,7 +24,7 @@ public class GeneratePassword {
             pwd.append(caractere); 
         }
 
-        return pwd.toString();
+        return passwordEncoder.encode(pwd.toString());
     }
 
 }

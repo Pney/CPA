@@ -1,4 +1,4 @@
-package com.biopark.cpa.repository;
+package com.biopark.cpa.repository.pessoas;
 
 import java.util.Optional;
 
@@ -10,4 +10,5 @@ import com.biopark.cpa.entities.user.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>{
     Optional<User> findByEmail(String email);
+    Optional<User> findByCpf(String cpf);
 }

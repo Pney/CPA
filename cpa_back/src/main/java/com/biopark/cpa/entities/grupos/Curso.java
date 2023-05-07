@@ -36,6 +36,7 @@ public class Curso {
     @Column(name = "nome_curso", nullable = false, unique = true)
     @NotBlank(message = "O campo nome não deve ser nulo")
     @CsvBindByName(column = "nome")
+    @Lowercase
     private String nomeCurso;
 
     @Column(name = "cod_curso", nullable = false, unique = true)

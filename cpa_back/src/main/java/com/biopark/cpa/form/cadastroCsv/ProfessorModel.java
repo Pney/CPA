@@ -1,7 +1,5 @@
 package com.biopark.cpa.form.cadastroCsv;
 
-import com.biopark.cpa.entities.user.enums.Level;
-import com.biopark.cpa.entities.user.enums.Role;
 import com.opencsv.bean.CsvBindByName;
 
 import jakarta.validation.constraints.Email;
@@ -32,8 +30,9 @@ public class ProfessorModel {
     @CsvBindByName(column = "cracha")
     @NotBlank(message = "O campo crachá é obrigatório")
     private String cracha;
-    
-    private final Role role = Role.PROFESSOR;
-    private final Level level = Level.USER;
-    private final boolean isCoordenador = false;
+
+    @CsvBindByName(column = "cpf")
+    @NotBlank(message = "O campo cpf é obrigatório")
+    @Pattern(regexp = "(\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2})", message = "cpf em formato inválido")
+    private String cpf;
 }
