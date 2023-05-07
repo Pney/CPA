@@ -55,20 +55,24 @@ public class ProfessorService {
 
         for (ProfessorModel professorModel : professoresModel) {
             User user = User.builder()
-                            .cpf(professorModel.getCpf())
-                            .name(professorModel.getName())
-                            .telefone(professorModel.getTelefone())
-                            .email(professorModel.getEmail())
-                            .password(generatePassword.getPwd())
-                            .role(Role.PROFESSOR)
-                            .level(Level.USER)
-                            .build();
-            
-            Professor professor = Professor.builder().cracha(professorModel.getCracha()).isCoordenador(false).build();
+                    .cpf(professorModel.getCpf())
+                    .name(professorModel.getName())
+                    .telefone(professorModel.getTelefone())
+                    .email(professorModel.getEmail())
+                    .password(generatePassword.getPwd())
+                    .role(Role.PROFESSOR)
+                    .level(Level.USER)
+                    .build();
+
+            Professor professor = Professor.builder()
+                    .cracha(professorModel.getCracha())
+                    .isCoordenador(false)
+                    .user(user)
+                    .build();
 
             users.add(user);
             professores.add(professor);
-            
+
         }
 
         userRepository.saveAll(users);
@@ -77,7 +81,7 @@ public class ProfessorService {
         return CadastroDTO.builder().status(HttpStatus.OK).erros(errors).warnings(warnings).build();
     }
 
-    private ValidationModel<ProfessorModel> checarDuplicatas(List<ProfessorModel> professores){
+    private ValidationModel<ProfessorModel> checarDuplicatas(List<ProfessorModel> professores) {
         List<ErroValidation> erroValidations = new ArrayList<>();
         List<ErroValidation> warnings = new ArrayList<>();
         List<ProfessorModel> unicosEmail = new ArrayList<>();
@@ -87,15 +91,15 @@ public class ProfessorService {
         HashMap<String, Integer> uniqueEmail = new HashMap<String, Integer>();
         HashMap<String, Integer> uniqueCracha = new HashMap<String, Integer>();
         HashMap<String, Integer> uniqueCpf = new HashMap<String, Integer>();
-    
-        int linha =0;
+
+        int linha = 0;
         for (ProfessorModel professor : professores) {
-            linha ++;
-            
+            linha++;
+
             if (!uniqueEmail.containsKey(professor.getEmail())) {
                 uniqueEmail.put(professor.getEmail(), linha);
                 unicosEmail.add(professor);
-            }else {
+            } else {
                 warnings.add(ErroValidation.builder()
                         .linha(linha)
                         .mensagem("Esta linha foi ignorada pois o Email já existe na linha: "
@@ -104,31 +108,33 @@ public class ProfessorService {
                 continue;
             }
 
-            if(!uniqueCracha.containsKey(professor.getCracha())){
+            if (!uniqueCracha.containsKey(professor.getCracha())) {
                 uniqueCracha.put(professor.getCracha(), linha);
                 unicosCracha.add(professor);
-            }else{
+            } else {
                 warnings.add(ErroValidation.builder()
-                    .linha(linha)
-                    .mensagem("Esta linha foi ignorada pois o crachá já existe na linha: "
-                        + uniqueCracha.get(professor.getCracha()))
-                    .build());
+                        .linha(linha)
+                        .mensagem("Esta linha foi ignorada pois o crachá já existe na linha: "
+                                + uniqueCracha.get(professor.getCracha()))
+                        .build());
                 continue;
             }
 
-            if(!uniqueCpf.containsKey(professor.getCpf())){
+            if (!uniqueCpf.containsKey(professor.getCpf())) {
                 uniqueCpf.put(professor.getCpf(), linha);
                 unicosCpf.add(professor);
-            }else{
+            } else {
                 warnings.add(ErroValidation.builder()
-                    .linha(linha)
-                    .mensagem("Esta linha foi ignorada pois o cpf já existe na linha: "
-                        + uniqueCpf.get(professor.getCpf()))
-                    .build());
+                        .linha(linha)
+                        .mensagem("Esta linha foi ignorada pois o cpf já existe na linha: "
+                                + uniqueCpf.get(professor.getCpf()))
+                        .build());
                 continue;
             }
 
-            if (userRepository.findByEmail(professor.getEmail()).isPresent()|userRepository.findByCpf(professor.getCpf()).isPresent()|professorRepository.findByCracha(professor.getCracha()).isPresent()) {
+            if (userRepository.findByEmail(professor.getEmail()).isPresent()
+                    | userRepository.findByCpf(professor.getCpf()).isPresent()
+                    | professorRepository.findByCracha(professor.getCracha()).isPresent()) {
                 erroValidations.add(ErroValidation.builder().linha(linha).mensagem("Professor já cadastrado").build());
             }
         }

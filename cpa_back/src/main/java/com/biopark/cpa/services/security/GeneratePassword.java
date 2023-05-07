@@ -3,10 +3,12 @@ package com.biopark.cpa.services.security;
 import java.security.SecureRandom;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 
+@Service
 @Builder
 @AllArgsConstructor
 public class GeneratePassword {

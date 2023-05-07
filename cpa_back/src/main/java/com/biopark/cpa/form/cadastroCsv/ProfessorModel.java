@@ -8,10 +8,12 @@ import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class ProfessorModel {
     @CsvBindByName(column = "nome")
     @NotBlank(message = "O campo nome é obrigatório")
@@ -19,10 +21,10 @@ public class ProfessorModel {
 
     @CsvBindByName(column = "telefone")
     @NotBlank(message = "O campo telefone é obrigatório")
-    @Pattern(regexp = "[^Aa-zZ]", message = "Telefone em formato inválido")
+    @Pattern(regexp = "^[0-9]+$", message = "Telefone em formato inválido")
     private String telefone;
 
-    @CsvBindByName(column = "email")
+    @CsvBindByName(column = "e-mail")
     @NotBlank(message = "O campo email é obrigatório")
     @Email(message = "Email com formato inválido")
     private String email;
