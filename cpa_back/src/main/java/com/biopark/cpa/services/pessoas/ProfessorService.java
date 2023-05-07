@@ -33,7 +33,7 @@ public class ProfessorService {
     private final GeneratePassword generatePassword;
 
     @Transactional
-    public CadastroDTO cadastrarCurso(List<ProfessorModel> professoresModel, boolean update) {
+    public CadastroDTO cadastrarProfessor(List<ProfessorModel> professoresModel, boolean update) {
         List<ErroValidation> errors = csvParserService.validaEntrada(professoresModel);
         List<ErroValidation> warnings = new ArrayList<>();
 
