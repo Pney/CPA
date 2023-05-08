@@ -12,3 +12,8 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.no-line{
+  text-decoration: none;
+  margin: 8px 0px 8px 0px
+}
