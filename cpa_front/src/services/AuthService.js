@@ -51,26 +51,26 @@ export class AuthService extends Component {
   }
 
   async authToken(){
-    console.log('Chamou')
-    const token = localStorage.getItem('token')
-    const headers = {"Authorization": `Bearer ${token}`}
-    const params = {}
-    await api.post(`/api/auth/authenticate`, params)
+    await api.post(`/api/auth/authenticate`)
     .then((response) => {
-      console.log({response})
-      console.log('Foi caralhooou')
+      if(response.status === 200) return;
     })
     .catch((err) => {
+      if(err.response.status === 403){
+        localStorage.removeItem('token')
+        return window.location.reload();
+      }
       console.error("ops! ocorreu um erro no authToken" + err);
     })
   }
 
   async logout(){
-    console.log({api})
     await api.post(`/api/auth/logout`)
     .then((response) => {
-      if (response.data && response.http)
-      localStorage.removeItem('token')
+      if (response.data){
+        localStorage.removeItem('token')
+        return window.location.reload();
+      }
     })
     .catch((err) => {
       console.error("ops! ocorreu um erro no logout" + err);
