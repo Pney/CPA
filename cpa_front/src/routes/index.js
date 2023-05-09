@@ -3,6 +3,7 @@ import AuthLayout from 'layouts/AuthLayout.jsx';
 import React, { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate, Outlet } from 'react-router-dom';
 import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.min.css';
 //Routes
 const Login = lazy(() => import('../pages/login.jsx'));
 const Home = lazy(() => import('../pages/home.jsx'));
