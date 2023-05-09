@@ -65,7 +65,6 @@ export class AuthService extends Component {
     .then((response) => {
       if (response.data){
         localStorage.removeItem('token')
-        return window.location.reload();
       }
     })
     .catch((err) => {

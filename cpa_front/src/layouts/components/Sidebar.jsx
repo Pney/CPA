@@ -15,6 +15,7 @@ import SidebarItem from '../../components/NavSide/SidebarItem/index'
 import Image from '../../components/Image.jsx'
 import authService from 'services/AuthService';
 import { useUserContext } from 'contexts/UserContext';
+import messageService from '../../services/MessageService.js'
 
 const Container = styled('div')(({theme}) => ({
   backgroundColor: '#13212D',
@@ -45,13 +46,11 @@ const ResponsiveText = styled('span')(({theme}) => ({
 
 export default function Sidebar() {
   const { role } = useUserContext();
-  console.log({role})
   validarToken();
   
   async function validarToken(){
     let flag = true;
     if(role && flag){
-      console.log("verificando token");
       flag = false;
       await authService.authToken();
     }
@@ -104,7 +103,12 @@ export default function Sidebar() {
       <Button 
         variant="outlined"
         startIcon={<LogoutIcon/>}
-        onClick={(e) => authService.logout()}
+        onClick={(e) => authService.logout().then(() => {
+          messageService.successMessage('Logout efetuado com sucesso!')
+          setTimeout(() => {
+            return window.location.reload();
+          }, 500);
+        })}
         color='error'
         sx={{ alignSelf: 'center', marginBottom: '5%'}}
       >
