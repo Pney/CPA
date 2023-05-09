@@ -62,23 +62,24 @@ public class InstituicaoService {
 
         Map<String, Integer> uniqueCod = new HashMap<String, Integer>();
 
-        for (int i = 0; i < instituicoes.size(); i++) {
-
-            if (!uniqueCod.containsKey(instituicoes.get(i).getCodigoInstituicao())) {
-                uniqueCod.put(instituicoes.get(i).getCodigoInstituicao(), i + 1);
-                unicos.add(instituicoes.get(i));
+        int linha = 0;
+        for (Instituicao instituicao: instituicoes) {
+            linha ++;
+            if (!uniqueCod.containsKey(instituicao.getCodigoInstituicao())) {
+                uniqueCod.put(instituicao.getCodigoInstituicao(), linha);
+                unicos.add(instituicao);
             } else {
                 warnings.add(ErroValidation.builder()
-                        .linha(i + 1)
+                        .linha(linha)
                         .mensagem("Esta linha foi ignorada pois o código já existe na linha: "
-                                + uniqueCod.get(instituicoes.get(i).getCodigoInstituicao()))
+                                + uniqueCod.get(instituicao.getCodigoInstituicao()))
                         .build());
                 continue;
             }
 
-            if (instituicaoRepository.findByCodigoInstituicao(instituicoes.get(i).getCodigoInstituicao()).isPresent()) {
+            if (instituicaoRepository.findByCodigoInstituicao(instituicao.getCodigoInstituicao().toLowerCase()).isPresent()) {
                 erroValidations
-                        .add(ErroValidation.builder().linha(i + 1).mensagem("Instituição já cadastrada").build());
+                        .add(ErroValidation.builder().linha(linha).mensagem("Instituição já cadastrada").build());
             }
         }
 

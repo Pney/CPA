@@ -4,13 +4,13 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
+import org.hibernate.annotations.ColumnTransformer;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.biopark.cpa.config.utils.Lowercase;
 import com.biopark.cpa.entities.user.enums.Level;
 import com.biopark.cpa.entities.user.enums.Role;
 
@@ -47,7 +47,7 @@ public class User implements UserDetails {
     private String cpf;
 
     @Column(nullable = true)
-    @Lowercase
+    @ColumnTransformer(write = "LOWER(?)")
     private String name;
 
     @Column(nullable = true)

@@ -1,5 +1,7 @@
 package com.biopark.cpa.entities.grupos;
 
+import org.hibernate.annotations.ColumnTransformer;
+
 import com.opencsv.bean.CsvBindByName;
 
 import jakarta.persistence.Column;
@@ -32,11 +34,13 @@ public class Turma {
     @Column(name = "cod_turma", nullable = false, unique = true)
     @NotBlank(message = "O campo cod turma não deve ser nulo")
     @CsvBindByName(column = "codigo turma")
+    @ColumnTransformer(write = "LOWER(?)")
     private String codTurma;
 
     @Column(name = "nome_turma", nullable = false, unique = true)
     @NotBlank(message = "O campo nome não deve ser nulo")
     @CsvBindByName(column = "nome")
+    @ColumnTransformer(write = "LOWER(?)")
     private String nomeTurma;
 
     @Column(name = "semestre", nullable = false)

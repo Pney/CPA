@@ -72,23 +72,24 @@ public class TurmaService {
 
         Map<String, Integer> uniqueCod = new HashMap<String, Integer>();
 
-        for (int i = 0; i < turmas.size(); i++) {
-
-            if (!uniqueCod.containsKey(turmas.get(i).getCodTurma())) {
-                uniqueCod.put(turmas.get(i).getCodTurma(), i + 1);
-                unicos.add(turmas.get(i));
+        int linha = 0;
+        for (Turma turma: turmas) {
+            linha ++;
+            if (!uniqueCod.containsKey(turma.getCodTurma())) {
+                uniqueCod.put(turma.getCodTurma(), linha);
+                unicos.add(turma);
             } else {
                 warnings.add(ErroValidation.builder()
-                        .linha(i + 1)
+                        .linha(linha)
                         .mensagem("Esta linha foi ignorada pois o código já existe na linha: "
-                                + uniqueCod.get(turmas.get(i).getCodTurma()))
+                                + uniqueCod.get(turma.getCodTurma()))
                         .build());
                 continue;
             }
 
-            if (turmaRepository.findByCodTurma(turmas.get(i).getCodTurma()).isPresent()) {
+            if (turmaRepository.findByCodTurma(turma.getCodTurma().toLowerCase()).isPresent()) {
                 erroValidations
-                        .add(ErroValidation.builder().linha(i + 1).mensagem("Turma já cadastrada").build());
+                        .add(ErroValidation.builder().linha(linha).mensagem("Turma já cadastrada").build());
             }
         }
 
@@ -98,18 +99,20 @@ public class TurmaService {
 
     private ValidationModel<Turma> verificaCurso(List<Turma> turmas){
         List<ErroValidation> erros = new ArrayList<>();
-    
-        for (int i = 0; i < turmas.size(); i++) {
-            var cursoFind = cursoRepository.findByCodCurso(turmas.get(i).getCodCurso()); 
+        
+        int linha = 0;
+        for (Turma turma: turmas) {
+            linha++;
+            var cursoFind = cursoRepository.findByCodCurso(turma.getCodCurso().toLowerCase()); 
             if (!cursoFind.isPresent()) {
                 erros.add(  
                     ErroValidation.builder()
-                        .linha(i+1)
+                        .linha(linha)
                         .mensagem("A instituição ligada a este curso não está cadastrada")
                         .build()
                 );
             }else{
-                turmas.get(i).setCurso(cursoFind.get());
+                turma.setCurso(cursoFind.get());
             }
         }
         return ValidationModel.<Turma>builder().errors(erros).objects(turmas).build();

@@ -2,7 +2,8 @@ package com.biopark.cpa.entities.grupos;
 
 import java.util.List;
 
-import com.biopark.cpa.config.utils.Lowercase;
+import org.hibernate.annotations.ColumnTransformer;
+
 import com.opencsv.bean.CsvBindByName;
 
 import jakarta.persistence.Column;
@@ -36,13 +37,13 @@ public class Curso {
     @Column(name = "nome_curso", nullable = false, unique = true)
     @NotBlank(message = "O campo nome não deve ser nulo")
     @CsvBindByName(column = "nome")
-    @Lowercase
+    @ColumnTransformer(write = "LOWER(?)")
     private String nomeCurso;
 
     @Column(name = "cod_curso", nullable = false, unique = true)
     @NotBlank(message = "O campo cod curso não deve ser nulo")
     @CsvBindByName(column = "codigo curso")
-    @Lowercase
+    @ColumnTransformer(write = "LOWER(?)")
     private String codCurso;
     
     @ManyToOne
@@ -55,6 +56,5 @@ public class Curso {
     @Transient
     @NotBlank(message = "O campo cod insituicao não deve ser nulo")
     @CsvBindByName(column = "codigo instituicao")
-    @Lowercase
     private String codInstituicao;
 }

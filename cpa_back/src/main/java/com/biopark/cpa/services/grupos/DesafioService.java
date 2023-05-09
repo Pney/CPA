@@ -54,23 +54,24 @@ public class DesafioService {
 
         Map<String, Integer> uniqueCod = new HashMap<String, Integer>();
 
-        for (int i = 0; i < desafios.size(); i++) {
-
-            if (!uniqueCod.containsKey(desafios.get(i).getNomeDesafio())) {
-                uniqueCod.put(desafios.get(i).getNomeDesafio(), i + 1);
-                unicos.add(desafios.get(i));
+        int linha = 0;
+        for (Desafio desafio: desafios) {
+            linha ++;
+            if (!uniqueCod.containsKey(desafio.getNomeDesafio())) {
+                uniqueCod.put(desafio.getNomeDesafio(), linha);
+                unicos.add(desafio);
             } else {
                 warnings.add(ErroValidation.builder()
-                        .linha(i + 1)
+                        .linha(linha)
                         .mensagem("Esta linha foi ignorada pois o código já existe na linha: "
-                                + uniqueCod.get(desafios.get(i).getNomeDesafio()))
+                                + uniqueCod.get(desafio.getNomeDesafio()))
                         .build());
                 continue;
             }
 
-            if (desafioRepository.findByNomeDesafio(desafios.get(i).getNomeDesafio()).isPresent()) {
+            if (desafioRepository.findByNomeDesafio(desafio.getNomeDesafio().toLowerCase()).isPresent()) {
                 erroValidations
-                        .add(ErroValidation.builder().linha(i + 1).mensagem("Desafio já cadastrado").build());
+                        .add(ErroValidation.builder().linha(linha).mensagem("Desafio já cadastrado").build());
             }
         }
 

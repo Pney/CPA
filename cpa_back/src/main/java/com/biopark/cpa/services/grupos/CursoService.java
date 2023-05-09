@@ -65,34 +65,35 @@ public class CursoService {
         Map<String, Integer> uniqueCod = new HashMap<String, Integer>();
         Map<String, Integer> uniqueNome = new HashMap<String, Integer>();
 
-        for (int i = 0; i < cursos.size(); i++) {
-
-            if (!uniqueCod.containsKey(cursos.get(i).getCodCurso())) {
-                uniqueCod.put(cursos.get(i).getCodCurso(), i + 1);
-                unicosCod.add(cursos.get(i));
+        int linha = 0;
+        for (Curso curso: cursos) {
+            linha ++;
+            if (!uniqueCod.containsKey(curso.getCodCurso())) {
+                uniqueCod.put(curso.getCodCurso(), linha);
+                unicosCod.add(curso);
             }else {
                 warnings.add(ErroValidation.builder()
-                        .linha(i + 1)
+                        .linha(linha)
                         .mensagem("Esta linha foi ignorada pois o código já existe na linha: "
-                                + uniqueCod.get(cursos.get(i).getCodCurso()))
+                                + uniqueCod.get(curso.getCodCurso()))
                         .build());
                 continue;
             }
 
-            if(!uniqueNome.containsKey(cursos.get(i).getNomeCurso())){
-                uniqueNome.put(cursos.get(i).getNomeCurso(), i + 1);
-                unicosNome.add(cursos.get(i));
+            if(!uniqueNome.containsKey(curso.getNomeCurso())){
+                uniqueNome.put(curso.getNomeCurso(), linha);
+                unicosNome.add(curso);
             }else{
                 warnings.add(ErroValidation.builder()
-                    .linha(i + 1)
+                    .linha(linha)
                     .mensagem("Esta linha foi ignorada pois o nome já existe na linha: "
-                        + uniqueNome.get(cursos.get(i).getNomeCurso()))
+                        + uniqueNome.get(curso.getNomeCurso()))
                     .build());
                 continue;
             }
 
-            if (cursoRepository.findByCodCurso(cursos.get(i).getCodCurso()).isPresent() || cursoRepository.findByNomeCurso(cursos.get(i).getNomeCurso()).isPresent()) {
-                erroValidations.add(ErroValidation.builder().linha(i + 1).mensagem("Curso já cadastrado").build());
+            if (cursoRepository.findByCodCurso(curso.getCodCurso()).isPresent() || cursoRepository.findByNomeCurso(curso.getNomeCurso()).isPresent()) {
+                erroValidations.add(ErroValidation.builder().linha(linha).mensagem("Curso já cadastrado").build());
             }            
         }
 
@@ -105,18 +106,20 @@ public class CursoService {
 
     private ValidationModel<Curso> verificaInstituicao(List<Curso> cursos){
         List<ErroValidation> erros = new ArrayList<>();
-    
-        for (int i = 0; i < cursos.size(); i++) {
-            var instituicaoFind = instituicaoRepository.findByCodigoInstituicao(cursos.get(i).getCodInstituicao()); 
+
+        int linha = 0;
+        for (Curso curso: cursos) {
+            linha ++;
+            var instituicaoFind = instituicaoRepository.findByCodigoInstituicao(curso.getCodInstituicao().toLowerCase()); 
             if (!instituicaoFind.isPresent()) {
                 erros.add(  
                     ErroValidation.builder()
-                        .linha(i+1)
+                        .linha(linha)
                         .mensagem("A instituição ligada a este curso não está cadastrada")
                         .build()
                 );
             }else{
-                cursos.get(i).setInstituicao(instituicaoFind.get());
+                curso.setInstituicao(instituicaoFind.get());
             }
         }
         return ValidationModel.<Curso>builder().errors(erros).objects(cursos).build();
