@@ -50,12 +50,10 @@ export default function Login() {
         return response;
       })
       .then((res) => {
-        console.log({ res });
         if (res.token) localStorage.setItem('token', res.token);
           return window.location.reload();
       })
       .catch((validationErrors) => {
-        console.log({ validationErrors });
         validationErrors.path === 'passwordText' ? setErroPassword(true) : setErroEmail(true)
       });
   };

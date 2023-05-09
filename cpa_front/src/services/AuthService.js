@@ -7,7 +7,6 @@ export class AuthService extends Component {
       password: password
     };
 
-    console.log({params})
     return await api.post(`/api/auth/public/register`, params)
     .then((response) => {
       console.log({response})
@@ -15,7 +14,6 @@ export class AuthService extends Component {
         'token': response.data.token,
         'role': response.data.level,
       }
-      console.log({data})
       return data;
     })
     .catch((err) => {
@@ -36,7 +34,6 @@ export class AuthService extends Component {
           'token': response.data.token,
           'role': response.data.level,
         }
-        console.log({data})
         return data;  
     })  
     .catch((err) => {
@@ -46,7 +43,6 @@ export class AuthService extends Component {
 
   async getToken(){
     const token = localStorage.getItem('token')
-    console.log(token);
     return token;  
   }
 
