@@ -2,6 +2,7 @@
 import AuthLayout from 'layouts/AuthLayout.jsx';
 import React, { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate, Outlet } from 'react-router-dom';
+import { ToastContainer } from "react-toastify";
 //Routes
 const Login = lazy(() => import('../pages/login.jsx'));
 const Home = lazy(() => import('../pages/home.jsx'));
@@ -41,23 +42,36 @@ export default function AppRoutes() {
 
   return (
     <Router>
-      <Suspense fallback={<div> Loading... </div>}>
-        <Routes>
-          <Route path='*' element={<PageNotFound/>} />
-          <Route element={<PublicRoute/>}>
-            <Route path='/login' element={<Login/>} />
-          </Route>
-          <Route element={<PrivateRoute/>}>
-            <Route path='/home' element={<Home/>} />
-            <Route path='/perguntas' element={<Perguntas/>} />
-            <Route path='/respostas' element={<Respostas/>} />
-            <Route path='/graficos' element={<Graficos/>} />
-            <Route path='/relatorios' element={<Relatorios/>} />
-            <Route path='/avaliacoes' element={<Avaliacoes/>} />
-            <Route path='/cadastros' element={<Cadastro/>} />
-          </Route>
-        </Routes>
-      </Suspense>
+      <>
+        <ToastContainer 
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
+        <Suspense fallback={<div> Loading... </div>}>
+          <Routes>
+            <Route path='*' element={<PageNotFound/>} />
+            <Route element={<PublicRoute/>}>
+              <Route path='/login' element={<Login/>} />
+            </Route>
+            <Route element={<PrivateRoute/>}>
+              <Route path='/home' element={<Home/>} />
+              <Route path='/perguntas' element={<Perguntas/>} />
+              <Route path='/respostas' element={<Respostas/>} />
+              <Route path='/graficos' element={<Graficos/>} />
+              <Route path='/relatorios' element={<Relatorios/>} />
+              <Route path='/avaliacoes' element={<Avaliacoes/>} />
+              <Route path='/cadastros' element={<Cadastro/>} />
+            </Route>
+          </Routes>
+        </Suspense>
+      </>
     </Router>
   );
 }
