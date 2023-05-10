@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -112,6 +113,31 @@ public class InstituicaoService {
                     .build();
         } catch (Exception e) {
             return EditarDTO.builder().status(HttpStatus.NOT_FOUND).mensagem(e.getMessage()).build();
+        }
+    }
+
+
+    public EditarDTO excluirInstituicao (Long id) {
+        // Long id = Long.valueOf(idInt);
+        try {
+          
+            
+            // Instituicao instituicao = buscarPorCodigo(id);
+            var instituicaoDB = instituicaoRepository.findById(id);
+            if (!instituicaoDB.isPresent()) {
+                return EditarDTO.builder().status(HttpStatus.NOT_FOUND).mensagem("instituição não encontrada").build();
+            }
+
+            Instituicao instituicao = instituicaoDB.get();
+
+            instituicaoRepository.delete(instituicao);
+            return EditarDTO.builder().status(HttpStatus.OK)
+                    .mensagem("Instituicao " + instituicao.getNomeInstituicao() + " excluída com sucesso")
+                    .build();
+        } catch (EmptyResultDataAccessException e) {
+            return EditarDTO.builder().status(HttpStatus.NOT_FOUND)
+                    .mensagem("Instituicao " + id + " não encontrada")
+                    .build();
         }
     }
 }

@@ -30,4 +30,7 @@ public class Desafio {
     @NotBlank(message = "O campo nome_desafio não pode ser nulo")
     @CsvBindByName(column = "nome_desafio")
     private String nomeDesafio;
+
+    @Column(name="Desativados")
+    private Boolean Desativados;
 }

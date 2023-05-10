@@ -105,4 +105,11 @@ public class DesafioService {
             return EditarDTO.builder().status(HttpStatus.NOT_FOUND).mensagem(e.getMessage()).build();
         }
     }
+
+    public void excluirDesafio(Long id) {
+        desafioRepository.deleteById(id);
+    }
+    
+
+
 }
