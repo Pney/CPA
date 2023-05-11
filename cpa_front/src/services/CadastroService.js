@@ -1,13 +1,12 @@
 import api from './api.js';
 import { Component } from 'react';
-export class AuthService extends Component {
-    async cadastroMembroCpa(name, email, cpf, telefone, funcao) {
+export class CadastroService extends Component {
+    async cadastroMembroCpa(name, email, cpf, telefone) {
         const params = {
             name: name,
             email: email,
             cpf: cpf,
-            telefone: telefone,
-            funcao: funcao
+            telefone: telefone,            
         };
 
         console.log({ params })
@@ -28,5 +27,5 @@ export class AuthService extends Component {
 
 }
 
-const authService = new AuthService();
-export default authService;
+const cadastroService = new CadastroService();
+export default cadastroService;
