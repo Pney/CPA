@@ -1,46 +1,131 @@
-import { ClassNames } from '@emotion/react'
+
 import React, { useState } from 'react'
 import './formulario.css'
 import { FormControl, MenuItem, Select, InputLabel, TextField, Button } from '@mui/material'
-
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import MaskedInput from 'react-text-mask'
 
 const Formulario = () => {
-    const [funcao, setFuncao] = useState('')
+    const [funcao, setFuncao] = useState('');
     // const handleChange = (value) =>{
     //     setfuncao(value)
     // }
+
+    const schema = Yup.object().shape({
+        cpf: Yup.string().required('CPF é obrigatório').matches(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/, 'CPF inválido'),
+        name: Yup.string().required('Nome é obrigatório'),
+        email: Yup.string().required('E-mail é obrigatório').email(),
+        telefone: Yup.string().required(''),
+        funcao: Yup.string().required(''),
+    });
+
+    function TextMaskCustom(props) {
+        const { inputRef, ...other } = props;
+
+        const cpfMask = [/\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/];
+
+        return (
+            <MaskedInput
+                {...other}
+                ref={(ref) => {
+                    inputRef(ref ? ref.inputElement : null);
+                }}
+                mask={cpfMask}
+                placeholderChar={'\u2000'}
+                showMask={false}
+            />
+        );
+    }
+
+    const [cpf, setCpf] = useState("");
+
+    const formik = useFormik({
+        initialValues: {
+            cpf: '',
+            name: '',
+            email: '',
+            telefone: '',
+            funcao: '',
+
+        },
+        // validationSchema: schema
+        onSubmit: values => {
+            console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAaa  ');
+            console.log(values);
+        },
+    });
+
+    const handleCpfChange = (event) => {
+        setCpf(event.target.value);
+        formik.handleChange(event);
+    };
+
+
     return (
         <div style={{
-            marginTop: '10px',
+
             width: '850px',
             position: 'absolute',
             top: '50%',
             left: '50%',
             transform: 'translate(-50%,-50%)'
         }}>
-            <form className='formulario-padrao'>
+            <form onSubmit={formik.handleSubmit} className='formulario-padrao'>
                 <div>
-                    <div style={{ margin: '8px' }}>
-                        <TextField sx={{ width: '800px' }} id="outlined-basic" label="NOME" variant="outlined" type='text' />
+                    <div style={{ margin: '35px' }}>
+                        <TextField sx={{ width: '800px' }} 
+                        name={'name'} 
+                        label="NOME" 
+                        value={formik.values.name} 
+                        onChange={formik.handleChange} 
+                        variant="outlined" 
+                        type='text' />
                     </div>
-                    <div style={{ margin: '8px' }}>
-                        <TextField sx={{ width: '800px' }} id="outlined-basic" label="E-MAIL" variant="outlined" type='email' />
+                    <div style={{ margin: '35px' }}>
+                        <TextField sx={{ width: '800px' }} 
+                        name={'email'} 
+                        label="E-MAIL" 
+                        value={formik.values.email} 
+                        onChange={formik.handleChange} 
+                        variant="outlined" 
+                        type='email' />
                     </div>
-                    <div style={{ margin: '8px', display: 'flex',justifyContent: 'space-around' }}>
-                        <TextField sx={{ width:'200px' }} id="outlined-basic" label="CPF" variant="outlined" type='string' />
+                    <div style={{ padding: '35px', display: 'flex', justifyContent: 'space-around', width: '800px' }}>
+
+                        <TextField
+                            sx={{ width: '45%' }}
+
+                            name={'cpf'}
+                            label="CPF"
+                            variant="outlined"
+                            type="string"
+                            value={formik.values.cpf}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            error={formik.touched.cpf && Boolean(formik.errors.cpf)}
+                            helperText={formik.touched.cpf && formik.errors.cpf}
+                            InputProps={{
+                                // inputComponent: TextMaskCustom
+                            }}
+                        />
 
 
-                        <TextField sx={{width:'200px'}}id="outlined-basic" label="TELEFONE" variant="outlined" type='tel' />
+                        <TextField sx={{ width: '45%' }} 
+                        name={'telefone'} 
+                        valeu={formik.values.telefone} 
+                        onChange={formik.handleChange} 
+                        label="TELEFONE" variant="outlined" type='tel' />
                     </div>
-                    <div style={{ margin: '8px' }}>
+                    {/* <div style={{ padding: '35px', margin: '8px' }}>
                         <FormControl sx={{ width: '800px' }} fullWidth>
                             <InputLabel id="demo-simple-select-label">Função</InputLabel>
                             <Select
                                 labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                value={funcao}
+                                name={'funcao'}
+                                value={formik.values.funcao}
                                 label="Função"
-                                onChange={(event) => setFuncao(event.target.value)}
+                                onChange={formik.handleChange}
                             >
                                 <MenuItem value={"PROFESSOR"}>PROFESSOR</MenuItem>
                                 <MenuItem value={"ALUNO"}>ALUNO</MenuItem>
@@ -48,11 +133,15 @@ const Formulario = () => {
                                 <MenuItem value={"FUNCIONARIO"}>FUNCIONÁRIO</MenuItem>
                             </Select>
                         </FormControl>
-                    </div>
+                    </div> */}
+                    <Button type={'submit'}
+                        sx={{ width: '600px' }}
+                        variant="contained"
+                    >
+                        GRAVAR
+                    </Button>
 
                 </div>
-                <Button sx={{}} variant="contained">GRAVAR</Button>
-
 
             </form>
 
