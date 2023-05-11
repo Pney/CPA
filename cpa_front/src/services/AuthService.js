@@ -1,5 +1,6 @@
 import api from './api.js';
 import { Component } from 'react';
+import messageService from '../services/MessageService.js'
 export class AuthService extends Component {
   async createAccount(email, password) {
     const params = {
@@ -65,6 +66,10 @@ export class AuthService extends Component {
     .then((response) => {
       if (response.data){
         localStorage.removeItem('token')
+        messageService.successMessage('Logout efetuado com sucesso!')
+        setTimeout(() => {
+          return window.location.reload();
+        }, 500);
       }
     })
     .catch((err) => {
