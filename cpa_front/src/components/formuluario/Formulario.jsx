@@ -1,23 +1,21 @@
 
 import React, { useState } from 'react'
 import './formulario.css'
-import { FormControl, MenuItem, Select, InputLabel, TextField, Button } from '@mui/material'
+import {  TextField, Button } from '@mui/material'
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import MaskedInput from 'react-text-mask'
+import cadastroService from 'services/CadastroService';
+
 
 const Formulario = () => {
-    const [funcao, setFuncao] = useState('');
-    // const handleChange = (value) =>{
-    //     setfuncao(value)
-    // }
 
     const schema = Yup.object().shape({
         cpf: Yup.string().required('CPF é obrigatório').matches(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/, 'CPF inválido'),
         name: Yup.string().required('Nome é obrigatório'),
         email: Yup.string().required('E-mail é obrigatório').email(),
         telefone: Yup.string().required(''),
-        funcao: Yup.string().required(''),
+        
     });
 
     function TextMaskCustom(props) {
@@ -45,14 +43,17 @@ const Formulario = () => {
             cpf: '',
             name: '',
             email: '',
-            telefone: '',
-            funcao: '',
-
+            telefone: ''
         },
-        // validationSchema: schema
-        onSubmit: values => {
-            console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAaa  ');
-            console.log(values);
+        validationSchema: schema,
+        onSubmit: async values => {
+            try {
+                cadastroService.cadastroMembroCpa(values.name, values.email, values.cpf, values.telefone)
+
+            } catch (error) {
+                console.log(error);
+
+            }
         },
     });
 
@@ -60,8 +61,6 @@ const Formulario = () => {
         setCpf(event.target.value);
         formik.handleChange(event);
     };
-
-
     return (
         <div style={{
 
@@ -74,22 +73,22 @@ const Formulario = () => {
             <form onSubmit={formik.handleSubmit} className='formulario-padrao'>
                 <div>
                     <div style={{ margin: '35px' }}>
-                        <TextField sx={{ width: '800px' }} 
-                        name={'name'} 
-                        label="NOME" 
-                        value={formik.values.name} 
-                        onChange={formik.handleChange} 
-                        variant="outlined" 
-                        type='text' />
+                        <TextField sx={{ width: '800px' }}
+                            name={'name'}
+                            label="NOME"
+                            value={formik.values.name}
+                            onChange={formik.handleChange}
+                            variant="outlined"
+                            type='text' />
                     </div>
                     <div style={{ margin: '35px' }}>
-                        <TextField sx={{ width: '800px' }} 
-                        name={'email'} 
-                        label="E-MAIL" 
-                        value={formik.values.email} 
-                        onChange={formik.handleChange} 
-                        variant="outlined" 
-                        type='email' />
+                        <TextField sx={{ width: '800px' }}
+                            name={'email'}
+                            label="E-MAIL"
+                            value={formik.values.email}
+                            onChange={formik.handleChange}
+                            variant="outlined"
+                            type='email' />
                     </div>
                     <div style={{ padding: '35px', display: 'flex', justifyContent: 'space-around', width: '800px' }}>
 
@@ -110,12 +109,11 @@ const Formulario = () => {
                             }}
                         />
 
-
-                        <TextField sx={{ width: '45%' }} 
-                        name={'telefone'} 
-                        valeu={formik.values.telefone} 
-                        onChange={formik.handleChange} 
-                        label="TELEFONE" variant="outlined" type='tel' />
+                        <TextField sx={{ width: '45%' }}
+                            name={'telefone'}
+                            valeu={formik.values.telefone}
+                            onChange={formik.handleChange}
+                            label="TELEFONE" variant="outlined" type='tel' />
                     </div>
                     {/* <div style={{ padding: '35px', margin: '8px' }}>
                         <FormControl sx={{ width: '800px' }} fullWidth>
