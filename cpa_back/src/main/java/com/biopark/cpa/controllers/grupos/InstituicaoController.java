@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.biopark.cpa.controllers.grupos.dto.CadastroDTO;
-import com.biopark.cpa.controllers.grupos.dto.EditarDTO;
+import com.biopark.cpa.controllers.grupos.dto.GenericDTO;
 import com.biopark.cpa.entities.grupos.Instituicao;
 import com.biopark.cpa.repository.grupo.InstituicaoRepository;
 import com.biopark.cpa.services.CsvParserService;
@@ -54,18 +54,15 @@ public class InstituicaoController {
     }
 
     @PutMapping
-    public ResponseEntity<EditarDTO> editarInstituicao(@RequestBody Instituicao instituicao) {
-        EditarDTO response = instituicaoService.editarInstituicao(instituicao);
+    public ResponseEntity<GenericDTO> editarInstituicao(@RequestBody Instituicao instituicao) {
+        GenericDTO response = instituicaoService.editarInstituicao(instituicao);
         return ResponseEntity.status(response.getStatus()).body(response);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<EditarDTO> excluirInstituicao(@PathVariable Long id) {
-        EditarDTO response = instituicaoService.excluirInstituicao(id);
+    // @DeleteMapping("/{id}")
+    @DeleteMapping
+    public ResponseEntity<GenericDTO> excluirInstituicao(@PathVariable Long id) {
+        GenericDTO response = instituicaoService.excluirInstituicao(id);
         return ResponseEntity.status(response.getStatus()).body(response);
     }
-    
-
-
-   
 }

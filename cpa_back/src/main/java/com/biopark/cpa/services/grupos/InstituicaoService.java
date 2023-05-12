@@ -11,7 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.biopark.cpa.controllers.grupos.dto.CadastroDTO;
-import com.biopark.cpa.controllers.grupos.dto.EditarDTO;
+import com.biopark.cpa.controllers.grupos.dto.GenericDTO;
 import com.biopark.cpa.controllers.grupos.dto.ErroValidation;
 import com.biopark.cpa.entities.grupos.Instituicao;
 import com.biopark.cpa.repository.grupo.InstituicaoRepository;
@@ -98,45 +98,38 @@ public class InstituicaoService {
         if (optionalInstituicao.isPresent()) {
             return optionalInstituicao.get();
         } else {
-            throw new RuntimeException("Instituição não encontrado!");
+            throw new RuntimeException("Instituição não encontrada!");
         }
     }
 
-    public EditarDTO editarInstituicao(Instituicao instituicaoRequest) {
+    public GenericDTO editarInstituicao(Instituicao instituicaoRequest) {
         try {
             Instituicao instituicao = buscarPorCodigo(instituicaoRequest.getCodigoInstituicao());
             instituicao.setNomeInstituicao(instituicaoRequest.getNomeInstituicao());
             instituicao.setEmail(instituicaoRequest.getEmail());
             instituicaoRepository.save(instituicao);
-            return EditarDTO.builder().status(HttpStatus.OK)
+            return GenericDTO.builder().status(HttpStatus.OK)
                     .mensagem("Instituicao " + instituicaoRequest.getCodigoInstituicao() + " editado com sucesso")
                     .build();
         } catch (Exception e) {
-            return EditarDTO.builder().status(HttpStatus.NOT_FOUND).mensagem(e.getMessage()).build();
+            return GenericDTO.builder().status(HttpStatus.NOT_FOUND).mensagem(e.getMessage()).build();
         }
     }
 
-
-    public EditarDTO excluirInstituicao (Long id) {
-        // Long id = Long.valueOf(idInt);
+    public GenericDTO excluirInstituicao(Long id) {
         try {
-          
-            
-            // Instituicao instituicao = buscarPorCodigo(id);
             var instituicaoDB = instituicaoRepository.findById(id);
             if (!instituicaoDB.isPresent()) {
-                return EditarDTO.builder().status(HttpStatus.NOT_FOUND).mensagem("instituição não encontrada").build();
+                return GenericDTO.builder().status(HttpStatus.NOT_FOUND).mensagem("instituição não encontrada").build();
             }
-
             Instituicao instituicao = instituicaoDB.get();
-
             instituicaoRepository.delete(instituicao);
-            return EditarDTO.builder().status(HttpStatus.OK)
-                    .mensagem("Instituicao " + instituicao.getNomeInstituicao() + " excluída com sucesso")
+            return GenericDTO.builder().status(HttpStatus.OK)
+                    .mensagem("Instituicão " + instituicao.getNomeInstituicao() + " excluída com sucesso")
                     .build();
         } catch (EmptyResultDataAccessException e) {
-            return EditarDTO.builder().status(HttpStatus.NOT_FOUND)
-                    .mensagem("Instituicao " + id + " não encontrada")
+            return GenericDTO.builder().status(HttpStatus.NOT_FOUND)
+                    .mensagem("Instituicão " + id + " não encontrada")
                     .build();
         }
     }

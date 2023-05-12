@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 @Builder
 @AllArgsConstructor
-public class EditarDTO {
+public class GenericDTO {
     private HttpStatus status;
     private String mensagem;
 }

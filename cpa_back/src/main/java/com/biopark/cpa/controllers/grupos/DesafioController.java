@@ -2,11 +2,9 @@ package com.biopark.cpa.controllers.grupos;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.biopark.cpa.controllers.grupos.dto.CadastroDTO;
-import com.biopark.cpa.controllers.grupos.dto.EditarDTO;
+import com.biopark.cpa.controllers.grupos.dto.GenericDTO;
 import com.biopark.cpa.entities.grupos.Desafio;
 import com.biopark.cpa.repository.grupo.DesafioRepository;
 import com.biopark.cpa.services.CsvParserService;
@@ -57,9 +55,14 @@ public class DesafioController {
     }
 
     @PutMapping
-    public ResponseEntity<EditarDTO> editarDesafio(@RequestBody Desafio desafio) {
-        EditarDTO response = desafioService.editarDesafio(desafio);
+    public ResponseEntity<GenericDTO> editarDesafio(@RequestBody Desafio desafio) {
+        GenericDTO response = desafioService.editarDesafio(desafio);
         return ResponseEntity.status(response.getStatus()).body(response);
     }
 
+    @DeleteMapping
+    public ResponseEntity<GenericDTO> excluirDesafio(@PathVariable Long id) {
+        GenericDTO response = desafioService.excluirDesafio(id);
+        return ResponseEntity.status(response.getStatus()).body(response);
+    }
 }
