@@ -1,6 +1,7 @@
 body {
   margin: 0;
-  background-color: #273C4E;
+  color: #000000;
+  background-color: #f3f3f4;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -9,4 +10,65 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.App {
+  text-align: center;
+}
+
+.sidebar {
+  width: 300px;
+}
+
+.content {
+  margin-left: 320px; /* largura da sidebar + 20 pixels de espaço */
+}
+
+.container-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0px 15px 15px rgba(0, 0, 0, 0.25);
+}
+
+.panel-body{
+  display: block;
+  background-color: #ffffff;
+  width: 65%;
+  height: 200px;
+  border: 0.05px solid #000000;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 44px;
+  text-align: center;
+  margin: 2rem auto 2rem auto;
+  margin-bottom: 3%;
+  padding: 10px;
+}
+
+.w-200 {
+  width: 200px !important;
+}
+
+.h-200 {
+  height: 200px !important;
+}
+
+.mt-20 {
+  margin-top: 20px !important;
+}
+
+.mb-20 {
+  margin-bottom: 20px !important;
+}
+.mt-10 {
+  margin-top: 20px !important;
+}
+
+.mb-10 {
+  margin-bottom: 20px !important;
+}
+
+.br-20 {
+  border-radius: 20px !important;
 }
