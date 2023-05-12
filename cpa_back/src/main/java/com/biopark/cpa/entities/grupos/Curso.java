@@ -47,7 +47,7 @@ public class Curso {
     private String codCurso;
     
     @ManyToOne
-    @JoinColumn(name = "insituicao_id")
+    @JoinColumn(name = "instituicao_id")
     private Instituicao instituicao;
 
     @OneToMany(mappedBy = "curso")

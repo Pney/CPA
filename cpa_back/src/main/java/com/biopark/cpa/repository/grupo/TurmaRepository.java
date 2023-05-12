@@ -18,6 +18,6 @@ public interface TurmaRepository extends JpaRepository<Turma, Long> {
 
     @Modifying
     @Transactional
-    @Query(value = "INSERT INTO Turma (cod_turma, nome_turma, semestre) VALUES (:#{#turma.codTurma}, :#{#turma.nomeTurma}, :#{#turma.semestre}) ON DUPLICATE KEY UPDATE nome_turma = VALUES(nome_turma), semestre = VALUES(semestre)", nativeQuery = true)
+    @Query(value = "INSERT INTO Turma (cod_turma, nome_turma, semestre, curso_id) VALUES (:#{#turma.codTurma}, :#{#turma.nomeTurma}, :#{#turma.semestre}, :#{#turma.curso.id}) ON DUPLICATE KEY UPDATE nome_turma = VALUES(nome_turma), semestre = VALUES(semestre), curso_id = VALUES(curso_id)", nativeQuery = true)
     void upsert(@Param("turma") Turma turma);
 }

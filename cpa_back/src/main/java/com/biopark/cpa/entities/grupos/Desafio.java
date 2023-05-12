@@ -1,5 +1,7 @@
 package com.biopark.cpa.entities.grupos;
 
+import java.util.List;
+
 import org.hibernate.annotations.ColumnTransformer;
 
 import com.opencsv.bean.CsvBindByName;
@@ -9,6 +11,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -34,4 +39,9 @@ public class Desafio {
     @ColumnTransformer(write = "LOWER(?)")
     private String nomeDesafio;
 
+    @ManyToMany
+    @JoinTable(name = "desafio_turma",
+               joinColumns = @JoinColumn(name = "desafio_id"),
+               inverseJoinColumns = @JoinColumn(name = "turma_id"))
+    private List<Turma> turmas;
 }

@@ -24,16 +24,15 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("api/curso")
 @RequiredArgsConstructor
-
 public class CursoController {
     private final CursoRepository cursoRepository;
     private final CursoService cursoService;
     private final CsvParserService csvParserService;
 
     @PostMapping
-    public ResponseEntity<CadastroDTO> cadastrarCurso(@RequestParam("file") MultipartFile file) throws IOException{
+    public ResponseEntity<CadastroDTO> cadastrarCurso(@RequestParam("file") MultipartFile file, @RequestParam(name = "update") Boolean update) throws IOException{
         List<Curso> cursos = csvParserService.parseCsv(file, Curso.class);
-        CadastroDTO cadastroDTO = cursoService.cadastrarCurso(cursos);
+        CadastroDTO cadastroDTO = cursoService.cadastrarCurso(cursos, update);
         return ResponseEntity.status(cadastroDTO.getStatus()).body(cadastroDTO);
     }
 

@@ -27,7 +27,7 @@ public class CursoService {
     private final InstituicaoRepository instituicaoRepository;
 
     @Transactional
-    public CadastroDTO cadastrarCurso(List<Curso> cursos){
+    public CadastroDTO cadastrarCurso(List<Curso> cursos, boolean update){
         List<ErroValidation> errors = csvParserService.validaEntrada(cursos);
         List<ErroValidation> warnings = new ArrayList<>();
 
@@ -43,16 +43,24 @@ public class CursoService {
             return CadastroDTO.builder().status(HttpStatus.NOT_FOUND).erros(naoExiste).warnings(warnings).build();
         }
 
-        model = checarDuplicatas(cursos);
-        List<ErroValidation> duplicatas = model.getErrors();
-        warnings = model.getWarnings();
-        cursos = model.getObjects();
+        if (!update) {
+            model = checarDuplicatas(cursos);
+            List<ErroValidation> duplicatas = model.getErrors();
+            warnings = model.getWarnings();
+            cursos = model.getObjects();
+    
+            if (!duplicatas.isEmpty()) {
+                return CadastroDTO.builder().status(HttpStatus.CONFLICT).erros(duplicatas).warnings(warnings).build();
+            }      
 
-        if (!duplicatas.isEmpty()) {
-            return CadastroDTO.builder().status(HttpStatus.CONFLICT).erros(duplicatas).warnings(warnings).build();
+            cursoRepository.saveAll(cursos);
+            return CadastroDTO.builder().status(HttpStatus.OK).erros(errors).warnings(warnings).build();
         }
 
-        cursoRepository.saveAll(cursos);
+        for (Curso curso : cursos) {
+            cursoRepository.upsert(curso);
+        }
+        
         return CadastroDTO.builder().status(HttpStatus.OK).erros(errors).warnings(warnings).build();
     }
 
