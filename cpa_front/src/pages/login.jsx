@@ -1,24 +1,25 @@
 import {
   Box,
   Button,
-  Container,
   TextField,
   InputAdornment,
   IconButton,
   Link,
+  useTheme,
 } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import '../assets/login.css'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-// import '../assets/css/login.css';
 import logoCpa from '../assets/image/logoCpa.jpg';
 import Image from '../components/Image.jsx';
 import { useState } from 'react';
 import * as Yup from 'yup';
 import authService from 'services/AuthService.js';
-import { UserContext, useUserContext } from 'contexts/UserContext.jsx';
+import { useUserContext } from 'contexts/UserContext.jsx';
 
 
 export default function Login() {
+  const theme = useTheme();
 
   const [showPassword, setShowPassword] = useState(false);
   const [erroPassword, setErroPassword] = useState(false);
@@ -26,7 +27,7 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const { role, setRole } = useUserContext();
+  const { setRole } = useUserContext();
   const handleChangeTypePassword = () => {
     setShowPassword(!showPassword);
   };
@@ -63,21 +64,11 @@ export default function Login() {
   };
 
   return (
-    <Container sx={{
-      'backgroundColor': 'primary',
-      'width': '100vw',
-      'height': '100vh',
-      'display': 'flex',
-      'alignItems': 'center',
-      'justifyContent': 'center',
-    }}>
       <Box
-        sx={{
-          'width': '380px',
-          'height': '480px',
-          'backgroundColor': 'elephant',
-          'boxShadow': '0px 15px 15px rgba(0, 0, 0, 0.25)'
-        }}
+        className='container-center'
+        width={'380px'}
+        height={'480px'}
+        sx={{ 'backgroundColor': theme.palette.elephant.main }}
       >
         <div
           style={{
@@ -90,20 +81,11 @@ export default function Login() {
             alt={'Logo da CPA'}
             width={'230px'}
             height={'100px'}
-            border={'1.50rem'}
+            style={{'borderRadius': '1.50rem'}}
           />
         </div>
-        <form
-          style={{
-            'display': 'flex',
-            'flexDirection': 'column',
-            'justifyContent': 'center',
-            'alignItems': 'center',
-          }}
-        >
-          <div style={{
-            'width': '235px',
-          }}>
+        <form className='form-body'>
+          <div style={{ 'width': '235px' }}>
             <TextField
               fullWidth
               error={erroEmail}
@@ -114,6 +96,7 @@ export default function Login() {
               sx={{ 'marginTop': '10px' }}
             />
             <TextField
+              className='mt-10 mb-20'
               fullWidth
               error={erroPassword}
               onChange={(e) => setPassword(e.target.value)}
@@ -121,7 +104,6 @@ export default function Login() {
               variant={'standard'}
               label={'Senha'}
               type={showPassword ? 'text' : 'password'}
-              sx={{ 'marginTop': '10px', 'marginBottom': '20px' }}
               InputProps={{
                 endAdornment: (
                   <InputAdornment>
@@ -137,7 +119,7 @@ export default function Login() {
           </div>
           <Link
             href='#'
-            color={'azureRadiance'}
+            color={theme.palette.azureRadiance.main}
             fontSize={'0.8rem'}
             marginRight={'30%'}
             marginBottom={'25px'}
@@ -145,19 +127,14 @@ export default function Login() {
             Esqueceu sua senha?
           </Link>
           <Button
-            onClick={handleSubmit}
+            className='w-200 mt-20 br-20'
             variant='contained'
             color='white'
-            sx={{
-              'width': '200px',
-              'borderRadius': '20px',
-              'marginTop': '20px',
-            }}
+            onClick={handleSubmit}
           >
             Entrar
           </Button>
         </form>
       </Box>
-    </Container>
   );
 }
