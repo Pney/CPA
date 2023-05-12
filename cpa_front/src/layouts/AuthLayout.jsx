@@ -5,8 +5,12 @@ export default function AuthLayout({children}) {
 
   return (
     <React.Fragment>
-      <Sidebar/>
-      {children}
+      <nav className='sidebar'>
+        <Sidebar/>
+      </nav>
+      <main className='content'>
+        {children}
+      </main>
     </React.Fragment>   
   );
 }
