@@ -1,4 +1,4 @@
-package com.biopark.cpa.controllers.auth.dto;
+package com.biopark.cpa.dto.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

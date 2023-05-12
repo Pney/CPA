@@ -9,5 +9,6 @@ import com.biopark.cpa.entities.grupos.Curso;
 
 @Repository
 public interface CursoRepository extends JpaRepository<Curso, Long> {
-    Optional<Curso> findByCodigoCurso(String codigoCurso);
+    Optional<Curso> findByCodCurso(String codigoCurso);
+    Optional<Curso> findByNomeCurso(String curso);
 }

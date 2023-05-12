@@ -1,5 +1,9 @@
 package com.biopark.cpa.entities.grupos;
 
+import java.util.List;
+
+import org.hibernate.annotations.ColumnTransformer;
+
 import com.opencsv.bean.CsvBindByName;
 
 import jakarta.persistence.Column;
@@ -7,6 +11,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -31,6 +36,7 @@ public class Instituicao {
     @Column(nullable = false, name = "nome_instituicao")
     @NotBlank(message = "O campo nome da instituição não pode ser nulo")
     @CsvBindByName(column = "nome instituicao")
+    @ColumnTransformer(write = "LOWER(?)")
     private String nomeInstituicao;
 
     @Column(nullable = false)
@@ -48,5 +54,10 @@ public class Instituicao {
     @Column(nullable = false, unique = true, name = "codigo_instituicao")
     @NotBlank(message = "O campo de código da instituição não pode ser nulo")
     @CsvBindByName(column = "codigo instituicao")
+    @ColumnTransformer(write = "LOWER(?)")
     private String codigoInstituicao;
+
+    @OneToMany(mappedBy = "instituicao")
+    private List<Curso> cursos;
+
 }

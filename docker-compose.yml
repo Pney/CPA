@@ -22,7 +22,7 @@ services:
       timeout: 30s
       retries: 10
     networks:
-      - services-network-cpa
+      - database-network-cpa
 
   frontend-cpa:
     image: cpa/frontend
@@ -33,7 +33,7 @@ services:
     ports:
       - 3000:3000
     networks:
-      - services-network-cpa
+      - integration-network-cpa
 
   backend-cpa:
     image: cpa/backend
@@ -55,8 +55,11 @@ services:
         restart: true
         condition: service_healthy
     networks:
-      - services-network-cpa
+      - integration-network-cpa
+      - database-network-cpa
 
 networks:
-  services-network-cpa:
+  integration-network-cpa:
+      driver: bridge
+  dabase-network-cpa:
       driver: bridge    

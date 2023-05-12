@@ -1,5 +1,7 @@
 package com.biopark.cpa.entities.grupos;
 
+import org.hibernate.annotations.ColumnTransformer;
+
 import com.opencsv.bean.CsvBindByName;
 
 import jakarta.persistence.Column;
@@ -29,6 +31,7 @@ public class Desafio {
     @Column(name = "nome_desafio", nullable = false, unique = true)
     @NotBlank(message = "O campo nome_desafio não pode ser nulo")
     @CsvBindByName(column = "nome_desafio")
+    @ColumnTransformer(write = "LOWER(?)")
     private String nomeDesafio;
 
 }

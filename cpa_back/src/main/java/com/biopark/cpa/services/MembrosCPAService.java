@@ -7,7 +7,7 @@ import com.biopark.cpa.controllers.cadastros.response.ResponseMensagem;
 import com.biopark.cpa.entities.user.User;
 import com.biopark.cpa.entities.user.enums.Level;
 import com.biopark.cpa.entities.user.enums.Role;
-import com.biopark.cpa.repository.UserRepository;
+import com.biopark.cpa.repository.pessoas.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
