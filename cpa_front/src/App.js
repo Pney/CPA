@@ -1,4 +1,3 @@
-import 'assets/css/App.css';
 import AppRoutes from './routes/index.js'
 import { UserContext } from 'contexts/UserContext.jsx'
 

@@ -4,15 +4,15 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import CheckboxComplete from 'components/CheckboxComplete'
-import InputArchive from 'components/InputArchive'
 import TabelaCSV from 'components/TabelaCSV'
+import UploadInput from '../components/UploadInput/UploadInput.jsx'
 import { Formik, Form } from 'formik';
 import { useState } from 'react';
+import importService from 'services/ImportService';
+import { TextField } from '@mui/material'
 
 export default function Importar(){
   const theme = useTheme();
-  theme.palette.mode = 'dark';
-  console.log({theme});
 
   const [csvData, setCsvData] = useState('');
   const [rowData, setRowData] = useState([]);
@@ -21,7 +21,8 @@ export default function Importar(){
 
   const handleChangeInputArchive = (event) => {
     const reader = new FileReader();
-    reader.readAsText(event.target.files[0]);                 
+    console.log({event})
+    reader.readAsText(event);                 
     reader.onload = function() {
       const csvTempl = reader.result;
       const rowTempl = csvTempl.split('\r\n');
@@ -46,19 +47,7 @@ export default function Importar(){
         style={{
         }}
       >
-        <div style={{
-          display: 'block',
-          backgroundColor: theme.palette.alto.main,
-          width: '65%',
-          height: '200px',
-          border: `0.05px solid ${theme.palette.nightRide.main}`,
-          boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
-          borderRadius: '44px',
-          textAlign: 'center',
-          margin: '2rem auto 2rem auto',
-          marginBottom: '3%',
-          padding: '10px'
-        }}>
+        <div className='panel-body'>
           <Formik
             initialValues={{
               tipo: '',
@@ -66,7 +55,8 @@ export default function Importar(){
               isUpdate: false,
             }}
             onSubmit={(values, actions) => {
-              console.log({values})
+              importService.importCSVDesafio(values.csv, values.isUpdate);
+              console.log({values});
             }}  
           >
             {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => (
@@ -75,80 +65,88 @@ export default function Importar(){
                   textAlign: 'center'
                 }}
               >
-                <div>
-                  <FormControl variant="filled" sx={{ m: 1, minWidth: 120 }}>
-                    <InputLabel id="demo-simple-select-filled-label">Tipo</InputLabel>
-                    <Select
-                      labelId="demo-simple-select-filled-label"
-                      id="demo-simple-select-filled"
-                      value={values.tipo}
-                      name='tipo'
-                      onBlur={handleBlur}
-                      onChange={handleChange}
-                      sx={{
-                        '& .MuiInputBase-input': {
-                          backgroundColor: theme.palette.alto.dark,
-                        },
-                        '& .MuiSelect-select': {
-                          backgroundColor: theme.palette.alto.dark,
-                        },
-                        '& .MuiSelect-filled': {
-                          backgroundColor: theme.palette.alto.dark,
-                        },
-                        '&: 	.MuiSelect-filled': {
-                          backgroundColor: theme.palette.alto.dark,
-                        },
-                        '&: focus': {
-                          backgroundColor: theme.palette.alto.dark,
-                        },
-                        backgroundColor: theme.palette.alto.dark,
-                        color: '#000000',
-                        '& .MuiSelect-root': { // Adicionado a classe CSS
-                          backgroundColor: '#1f2937 !important',
-                        },
-                      }}
-                    >
-                      <MenuItem value=""> </MenuItem>
-                      <MenuItem value={1}>Desafio</MenuItem>
-                      <MenuItem value={2}>Instituição</MenuItem>
-                    </Select>
-                  </FormControl>
-                </div>
-                <CheckboxComplete
-                  name={'isUpdate'}
-                  value={values.isUpdate}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  color={'azureRadiance'}
-                  checked={values.isUpdate}
-                  label={'Atualizar usuarios existentes'}
-                />
-                <InputArchive
+                <div style={{display: 'flex'}}>
+                  <div>
+                    <FormControl variant="filled" sx={{ m: 1, minWidth: 120 }}>
+                      <InputLabel id="demo-simple-select-filled-label">Tipo</InputLabel>
+                      <Select
+                        labelId="demo-simple-select-filled-label"
+                        id="demo-simple-select-filled"
+                        value={values.tipo}
+                        name='tipo'
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                      >
+                        <MenuItem value=""> </MenuItem>
+                        <MenuItem value={1}>Desafio</MenuItem>
+                        <MenuItem value={2}>Instituição</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </div>
+                  <UploadInput/>
+                  <CheckboxComplete
+                    name={'isUpdate'}
+                    value={values.isUpdate}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    color={'success'}
+                    checked={values.isUpdate}
+                    label={'Atualizar usuarios existentes'}
+                  />
+                  </div>
+                {/* <InputArchive
                   name={'csv'}
                   onChange={(event) => {
                     setShowTabelaCSV(event.target.files.length > 0); 
                     handleChangeInputArchive(event)
                     handleChange(event);
+                  
+                /> */}
+                {/* <MuiFileInput 
+                  name={'csv'}
+                  value={values.csv} 
+                  onBlur={handleBlur}
+                  onChange={(event) => {
+                    console.log({event})
+                    setShowTabelaCSV(event.File ? true : false); 
+                    handleChangeInputArchive(event)
+                    handleChange(event.File)
                   }}
-                />
+                /> */}
                 <Button
                   type={'submit'}
                   onClick={handleSubmit}
-                  color='puertoRico'
+                  color='oceanGreen'
                   variant='contained'
                 >
-                  <label>
-                    Enviar
-                  </label>
+                  Enviar
                 </Button>
               </Form>
             )}
           </Formik>
+          {/* <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+            />
+          <ToastContainer /> */}
+          {/* <DropInputFile
+            name={'csv'}
+            onFileChange={(files) => console.log({files})}
+          /> */}
         </div>
         { showTabelaCSV && columnsData  ? (
           <>
             <TabelaCSV
               columns={columnsData}
+              // rows={rowData}
               rows={[
                 {id: 1, Nome: 'Sofia', Sobrenome: 'Silva', Idade: '27', Cidade: 'São Paulo', País: 'Brasil'},
                 {id: 2, Nome: 'Lucas', Sobrenome: 'Santos', Idade: '35', Cidade: 'Rio de Janeiro', País: 'Brasil'},

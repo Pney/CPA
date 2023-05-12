@@ -1,13 +1,13 @@
-export default function Home(){
-  console.log(localStorage.getItem('token'));
-  if (localStorage.getItem('token'))
-    console.log('foi');
-  else
-    console.log('Não Foi')
+import React from 'react'
 
-  return(
-    <span>
-      Teste
-    </span>
-  )
+export default function Home() {
+
+
+  return (
+    <>
+      <span>
+        Home
+      </span>
+    </>  
+  );
 }
