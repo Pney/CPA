@@ -1,5 +1,4 @@
 export const palette = {
-  mode: 'dark',
   primary: {
     main: '#FFFFFF',
     light: '##f3f3f4',
@@ -16,7 +15,6 @@ export const palette = {
     main: '#449B81',
     dark: '#38826c',
     light: '#5ab096',
-    constrastText: 'rgba(0, 0, 0, 0.87)',
     constrastText: 'rgba(0, 0, 0, 0.87)',
   },
   white: {
