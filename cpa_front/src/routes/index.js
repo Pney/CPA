@@ -13,6 +13,7 @@ const Graficos = lazy(() => import('../pages/graficos.jsx'));
 const Relatorios = lazy(() => import('../pages/relatorios.jsx'));
 const Avaliacoes = lazy(() => import('../pages/avaliacoes.jsx'));
 const Cadastro = lazy(() => import('../pages/cadastro.jsx'));
+const Importar = lazy(() => import('../pages/importar.jsx'));
 const PageNotFound = lazy(() => import('../pages/errors/PageNotFound.jsx'));
 // const Componente = lazy(() => import('./pages/Auth/Login'))
 
@@ -64,6 +65,7 @@ export default function AppRoutes() {
             <Route element={<PrivateRoute/>}>
               <Route path='/home' element={<Home/>} />
               <Route path='/perguntas' element={<Perguntas/>} />
+              <Route path='/importações' element={<Importar/>} />
               <Route path='/respostas' element={<Respostas/>} />
               <Route path='/graficos' element={<Graficos/>} />
               <Route path='/relatorios' element={<Relatorios/>} />
