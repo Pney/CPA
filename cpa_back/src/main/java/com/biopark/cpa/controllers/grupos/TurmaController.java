@@ -1,5 +1,6 @@
 package com.biopark.cpa.controllers.grupos;
 
+import java.util.List;
 import java.util.Optional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +34,15 @@ public class TurmaController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(turma);
         }
         return ResponseEntity.status(HttpStatus.OK).body(turma); 
+    }
+
+    @GetMapping("/turmas")
+    public ResponseEntity<List<Turma>>buscarTodasTurmas() {
+        var turmas = turmaRepository.findAll();
+        if (turmas.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(turmas);
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(turmas);
     }
     
     @PutMapping

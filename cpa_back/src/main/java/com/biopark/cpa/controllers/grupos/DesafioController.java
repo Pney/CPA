@@ -37,6 +37,7 @@ public class DesafioController {
     private final DesafioService desafioService;
     private final DesafioRepository desafioRepository;
 
+    //Cadastrar um Desafio
     @PostMapping
     public ResponseEntity<CadastroDTO> cadastrarDesafio(@RequestParam("file") MultipartFile file) throws IOException {
         List<Desafio> desafios = csvParserService.parseCsv(file, Desafio.class);
@@ -44,6 +45,7 @@ public class DesafioController {
         return ResponseEntity.status(cadastroDTO.getStatus()).body(cadastroDTO);
     }
 
+    //Buscar apenas um desafio apssando o nomeDesafio como paramêtro.
     @GetMapping
     public ResponseEntity<Optional<Desafio>> buscarNomeDesafio(@RequestParam(name = "nomeDesafio") String nomeDesafio) {
         nomeDesafio = nomeDesafio.toLowerCase();
@@ -54,12 +56,25 @@ public class DesafioController {
         return ResponseEntity.status(HttpStatus.OK).body(desafio);
     }
 
+    //Buscar varios desafios passando o caminho api/desafio/desafios
+    @GetMapping("/desafios")
+    public ResponseEntity<List<Desafio>> buscarTodosDesafios() {
+        List<Desafio> desafios = desafioRepository.findAll();
+        if (desafios.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(desafios);
+    }
+
+    //Editar Desafio
     @PutMapping
     public ResponseEntity<GenericDTO> editarDesafio(@RequestBody Desafio desafio) {
         GenericDTO response = desafioService.editarDesafio(desafio);
         return ResponseEntity.status(response.getStatus()).body(response);
     }
 
+
+    //Deletar um Desafio
     @DeleteMapping
     public ResponseEntity<GenericDTO> excluirDesafio(@PathVariable Long id) {
         GenericDTO response = desafioService.excluirDesafio(id);

@@ -1,5 +1,7 @@
 package com.biopark.cpa.services.grupos;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -25,6 +27,14 @@ public class CursoService {
             throw new RuntimeException("Curso não encontrado!");
         }
     }
+
+    public List<Curso> buscarTodosCursos() {
+        var cursos = cursoRepository.findAll();
+        if (cursos.isEmpty()) {
+        throw new RuntimeException("Não há cursos cadastrados!");
+        }
+        return cursos;
+        }
 
     // Editar Curso por ID
     public GenericDTO editarCurso(Curso cursoRequest) {

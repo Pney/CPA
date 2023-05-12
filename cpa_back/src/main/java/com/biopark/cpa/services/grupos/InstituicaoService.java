@@ -102,6 +102,14 @@ public class InstituicaoService {
         }
     }
 
+    public List<Instituicao> buscarTodasInstituicoes() {
+        var instituicoes = instituicaoRepository.findAll();
+        if (instituicoes.isEmpty()) {
+        throw new RuntimeException("Não há instituições cadastradas!");
+        }
+        return instituicoes;
+        }
+
     public GenericDTO editarInstituicao(Instituicao instituicaoRequest) {
         try {
             Instituicao instituicao = buscarPorCodigo(instituicaoRequest.getCodigoInstituicao());

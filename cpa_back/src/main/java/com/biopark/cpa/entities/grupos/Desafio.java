@@ -31,6 +31,6 @@ public class Desafio {
     @CsvBindByName(column = "nome_desafio")
     private String nomeDesafio;
 
-    @Column(name="Desativados")
-    private Boolean Desativados;
+    //@Column(name="Desativados")
+    //private Boolean Desativados;
 }

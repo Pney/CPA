@@ -1,5 +1,7 @@
 package com.biopark.cpa.services.grupos;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -26,6 +28,15 @@ public class TurmaService {
             throw new RuntimeException("Turma não encontrada!");
         }
     }
+
+    public List<Turma> buscarTodasTurmas() {
+        var turmas = turmaRepository.findAll();
+        if (turmas.isEmpty()) {
+        throw new RuntimeException("Não há turmas cadastradas!");
+        }
+        return turmas;
+        }
+
 
     // Editar Turma por ID
     public GenericDTO editarTurma(Turma turmaRequest) {

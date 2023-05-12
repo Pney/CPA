@@ -53,6 +53,15 @@ public class InstituicaoController {
         return ResponseEntity.status(HttpStatus.OK).body(instituicao);
     }
 
+    @GetMapping("/instituicoes")
+    public ResponseEntity<List<Instituicao>> buscarTodasInstituicoes() {
+        var instituicoes = instituicaoRepository.findAll();
+        if (instituicoes.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(instituicoes);
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(instituicoes);
+    }
+
     @PutMapping
     public ResponseEntity<GenericDTO> editarInstituicao(@RequestBody Instituicao instituicao) {
         GenericDTO response = instituicaoService.editarInstituicao(instituicao);

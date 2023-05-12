@@ -1,5 +1,7 @@
 package com.biopark.cpa.services.grupos;
 
+import java.util.List;
+
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -36,6 +38,15 @@ public class UserService {
             throw new RuntimeException("Usuário não encontrado!");
         }
     }
+
+    public List<User> buscarTodos() {
+        List<User> users = userRepository.findAll();
+        if (users.isEmpty()) {
+            throw new RuntimeException("Não há usuários cadastrados!");
+        }
+        return users;
+    }
+    
 
     public GenericDTO editarUser(User UserRequest) {
         try {

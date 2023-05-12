@@ -1,6 +1,7 @@
 
 package com.biopark.cpa.controllers.grupos;
 
+import java.util.List;
 import java.util.Optional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +35,15 @@ public class CursoController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(curso);
         }
         return ResponseEntity.status(HttpStatus.OK).body(curso);
+    }
+
+    @GetMapping("/cursos")
+    public ResponseEntity<List<Curso>> buscarTodosCursos() {
+        var cursos = cursoRepository.findAll();
+        if (cursos.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(cursos);
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(cursos);
     }
 
     @PutMapping

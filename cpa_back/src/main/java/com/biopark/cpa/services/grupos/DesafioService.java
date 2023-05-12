@@ -95,6 +95,15 @@ public class DesafioService {
         }
     }
 
+    public List<Desafio> buscarTodosDesafios() {
+        List<Desafio> desafios = desafioRepository.findAll();
+        if (desafios.isEmpty()) {
+            throw new RuntimeException("Não há desafios cadastrados!");
+        }
+        return desafios;
+    }
+    
+
     // Editar Desafio
     public GenericDTO editarDesafio(Desafio desafioRequest) {
         try {
