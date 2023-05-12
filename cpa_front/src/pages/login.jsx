@@ -8,15 +8,13 @@ import {
   useTheme,
 } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import '../assets/login.css'
+import '../assets/css/login.css'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import logoCpa from '../assets/image/logoCpa.jpg';
 import Image from '../components/Image.jsx';
 import { useState } from 'react';
 import * as Yup from 'yup';
 import authService from 'services/AuthService.js';
-import { useUserContext } from 'contexts/UserContext.jsx';
-
 
 export default function Login() {
   const theme = useTheme();
@@ -27,7 +25,6 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const { setRole } = useUserContext();
   const handleChangeTypePassword = () => {
     setShowPassword(!showPassword);
   };
@@ -52,13 +49,10 @@ export default function Login() {
         return response;
       })
       .then((res) => {
-        console.log({ res });
         if (res.token) localStorage.setItem('token', res.token);
-        if (res.role) setRole(res.role);
-        return window.location.reload();
+          return window.location.reload();
       })
       .catch((validationErrors) => {
-        console.log({ validationErrors });
         validationErrors.path === 'passwordText' ? setErroPassword(true) : setErroEmail(true)
       });
   };
@@ -106,7 +100,9 @@ export default function Login() {
               type={showPassword ? 'text' : 'password'}
               InputProps={{
                 endAdornment: (
-                  <InputAdornment>
+                  <InputAdornment
+                    position='end'
+                  >
                     <IconButton
                       onClick={handleChangeTypePassword}
                     >

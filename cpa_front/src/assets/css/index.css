@@ -72,3 +72,8 @@ code {
 .br-20 {
   border-radius: 20px !important;
 }
+
+.no-line{
+  text-decoration: none;
+  margin: 8px 0px 8px 0px
+}
