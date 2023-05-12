@@ -1,0 +1,15 @@
+.form-upload{
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 2px dashed #1475cf;
+  height: 150px;
+  width: 350px;
+  cursor: pointer;
+  border-radius: 5; 
+}
+
+.input-field{
+  display: none
+}
