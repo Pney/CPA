@@ -8,8 +8,8 @@ export const palette = {
   },
   secondary: {
     main: '#153149',
-    light: '#FFFFFF',
-    dark: '#FFFFFF',
+    light: '#1a4b75',
+    dark: '#0d2030',
     constrastText: 'rgba(0, 0, 0, 0.87)',
   },
   oceanGreen: {
@@ -34,7 +34,7 @@ export const palette = {
   azureRadiance: {
     main: '#008AFF',
     light: '#66b9ff',
-    dark: '#005399',
+    dark: '#026dc7',
     constrastText: 'rgba(0, 0, 0, 0.87)'
   },
   elephant:{
