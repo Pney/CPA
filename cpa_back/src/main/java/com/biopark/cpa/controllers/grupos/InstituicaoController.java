@@ -7,14 +7,18 @@ import java.util.Optional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.biopark.cpa.dto.cadastroCsv.CadastroDTO;
+import com.biopark.cpa.dto.cadastroCsv.GenericDTO;
 import com.biopark.cpa.entities.grupos.Instituicao;
 import com.biopark.cpa.repository.grupo.InstituicaoRepository;
 import com.biopark.cpa.services.grupos.InstituicaoService;
@@ -48,5 +52,28 @@ public class InstituicaoController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(instituicao);
         }
         return ResponseEntity.status(HttpStatus.OK).body(instituicao);
+    }
+
+    @GetMapping("/instituicoes")
+    public ResponseEntity<List<Instituicao>> buscarTodasInstituicoes() {
+        var instituicoes = instituicaoRepository.findAll();
+        if (instituicoes.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(instituicoes);
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(instituicoes);
+    }
+
+    @PutMapping
+    public ResponseEntity<GenericDTO> editarInstituicao(@RequestBody Instituicao instituicao) {
+        GenericDTO response = instituicaoService.editarInstituicao(instituicao);
+        return ResponseEntity.status(response.getStatus()).body(response);
+    }
+
+    // @DeleteMapping("/{id}")
+    @DeleteMapping
+    public ResponseEntity<GenericDTO> excluirInstituicao(@RequestParam("id") int idRequest) {
+        Long id = Long.valueOf(idRequest);
+        GenericDTO response = instituicaoService.excluirInstituicao(id);
+        return ResponseEntity.status(response.getStatus()).body(response);
     }
 }

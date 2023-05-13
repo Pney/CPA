@@ -28,7 +28,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "desafio")
 public class Desafio {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -39,6 +39,8 @@ public class Desafio {
     @ColumnTransformer(write = "LOWER(?)")
     private String nomeDesafio;
 
+    //@Column(name="Desativados")
+    //private Boolean Desativados;
     @ManyToMany
     @JoinTable(name = "desafio_turma",
                joinColumns = @JoinColumn(name = "desafio_id"),

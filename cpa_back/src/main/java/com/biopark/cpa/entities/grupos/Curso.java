@@ -34,6 +34,11 @@ public class Curso {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "codigo_curso", nullable = false, unique = true)
+    @NotBlank(message = "O campo codigo_curso não pode ser nulo")
+    @CsvBindByName(column = "codigo_curso")
+    private String codigoCurso;
+    
     @Column(name = "nome_curso", nullable = false, unique = true)
     @NotBlank(message = "O campo nome não deve ser nulo")
     @CsvBindByName(column = "nome")

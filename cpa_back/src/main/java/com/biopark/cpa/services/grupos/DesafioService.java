@@ -5,11 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.biopark.cpa.dto.cadastroCsv.CadastroDTO;
 import com.biopark.cpa.dto.cadastroCsv.ErroValidation;
+import com.biopark.cpa.dto.cadastroCsv.GenericDTO;
 import com.biopark.cpa.dto.cadastroCsv.ValidationModel;
 import com.biopark.cpa.entities.grupos.Desafio;
 import com.biopark.cpa.repository.grupo.DesafioRepository;
@@ -77,5 +79,58 @@ public class DesafioService {
 
         return ValidationModel.<Desafio>builder().errors(erroValidations).warnings(warnings).objects(unicos)
                 .build();
+    }
+
+    public Desafio buscarPorId(Long id) {
+        var optionalDesafio = desafioRepository.findById(id);
+
+        if (optionalDesafio.isPresent()) {
+            return optionalDesafio.get();
+        } else {
+            throw new RuntimeException("Desafio não encontrado!");
+        }
+    }
+
+    public List<Desafio> buscarTodosDesafios() {
+        List<Desafio> desafios = desafioRepository.findAll();
+        if (desafios.isEmpty()) {
+            throw new RuntimeException("Não há desafios cadastrados!");
+        }
+        return desafios;
+    }
+    
+
+    // Editar Desafio
+    public GenericDTO editarDesafio(Desafio desafioRequest) {
+        try {
+            Desafio desafio = buscarPorId(desafioRequest.getId());
+            desafio.setNomeDesafio(desafioRequest.getNomeDesafio());
+            desafioRepository.save(desafio);
+            return GenericDTO.builder().status(HttpStatus.OK)
+                    .mensagem("Desafio " + desafioRequest.getId() + " editado com sucesso").build();
+        } catch (Exception e) {
+            return GenericDTO.builder().status(HttpStatus.NOT_FOUND).mensagem(e.getMessage()).build();
+        }
+    }
+
+    // Excluir Desafio
+    public GenericDTO excluirDesafio(Long id) {
+        // Long id = Long.valueOf(idInt);
+        try {
+            // Desafio desafio = buscarPorCodigo(id);
+            var desafioDB = desafioRepository.findById(id);
+            if (!desafioDB.isPresent()) {
+                return GenericDTO.builder().status(HttpStatus.NOT_FOUND).mensagem("desafio não encontrada").build();
+            }
+            Desafio desafio = desafioDB.get();
+            desafioRepository.delete(desafio);
+            return GenericDTO.builder().status(HttpStatus.OK)
+                    .mensagem("desafio " + desafio.getNomeDesafio() + " excluídO com sucesso")
+                    .build();
+        } catch (EmptyResultDataAccessException e) {
+            return GenericDTO.builder().status(HttpStatus.NOT_FOUND)
+                    .mensagem("desafio " + id + " não encontrado")
+                    .build();
+        }
     }
 }
