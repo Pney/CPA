@@ -1,4 +1,4 @@
-package com.biopark.cpa.dto.cadastroCsv;
+package com.biopark.cpa.dto;
 
 import org.springframework.http.HttpStatus;
 

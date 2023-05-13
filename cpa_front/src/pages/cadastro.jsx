@@ -1,5 +1,5 @@
 import React from 'react'
-import Formulario from 'components/formuluario/Formulario'
+import Formulario from 'components/formulario/Formulario'
 
 const cadastro = () => {
     return (

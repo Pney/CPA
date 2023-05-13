@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.biopark.cpa.dto.cadastroCsv.GenericDTO;
+import com.biopark.cpa.dto.GenericDTO;
 import com.biopark.cpa.entities.user.User;
 import com.biopark.cpa.repository.pessoas.UserRepository;
 

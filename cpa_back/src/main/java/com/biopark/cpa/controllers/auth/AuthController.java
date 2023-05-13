@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.biopark.cpa.dto.auth.AuthenticationResponse;
 import com.biopark.cpa.form.auth.LoginRequest;
-import com.biopark.cpa.form.auth.RegisterRequest;
 import com.biopark.cpa.services.security.AuthenticationService;
 
 import lombok.RequiredArgsConstructor;
@@ -20,11 +19,6 @@ import lombok.RequiredArgsConstructor;
 public class AuthController {
     
     private final AuthenticationService service;
-
-    @PostMapping("/public/register")
-    public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest request) {
-        return ResponseEntity.ok(service.register(request));
-    }
 
     @PostMapping("/public/login")
     public ResponseEntity<AuthenticationResponse> login(@RequestBody LoginRequest request) {

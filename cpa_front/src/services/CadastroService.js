@@ -10,7 +10,7 @@ export class CadastroService extends Component {
         };
 
         console.log({ params })
-        return await api.post(`/api/auth/public/membros-cpa`, params)
+        return await api.post(`/api/membros-cpa`, params)
             .then((response) => {
                 console.log({ response })
                 const data = {
