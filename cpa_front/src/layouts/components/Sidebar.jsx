@@ -6,7 +6,6 @@ import DoneIcon from '@mui/icons-material/Done';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import EqualizerIcon from '@mui/icons-material/Equalizer';
 import ClassIcon from '@mui/icons-material/Class';
-import PieChartIcon from '@mui/icons-material/PieChart';
 import ImportContactsIcon from '@mui/icons-material/ImportContacts';
 import { styled } from '@mui/material/styles';
 import { Button } from '@mui/material';
@@ -77,7 +76,7 @@ export default function Sidebar() {
             <ImportContactsIcon/>
           </SidebarItem>
           {
-            role === 'CPA' &&  (
+            role === 'ROLE_CPA' &&  (
               <>
                 <SidebarItem text="Perguntas" link={'/perguntas'}>
                   <SmsIcon/>

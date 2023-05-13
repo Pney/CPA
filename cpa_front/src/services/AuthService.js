@@ -8,18 +8,16 @@ export class AuthService extends Component {
       password: password
     }
 
-    await api.post(`/api/auth/public/login`, params)
-    .then((response) => {
-        console.log({response})
-        const data = {
-          'token': response.data.token,
-          'role': response.data.level,
-        }
-        return data;  
-    })  
-    .catch((err) => {
+    try{
+      const response = await api.post(`/api/auth/public/login`, params)
+      const data = {
+        token: response.data.token,
+        role: response.data.level
+      }
+      return data
+    }catch(err) {
       console.err("ops! ocorreu um erro no login" + err);
-    });
+    };
   }
 
   async getToken(){

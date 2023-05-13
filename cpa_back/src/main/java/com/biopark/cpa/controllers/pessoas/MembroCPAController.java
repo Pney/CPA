@@ -1,6 +1,7 @@
 package com.biopark.cpa.controllers.pessoas;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,7 @@ public class MembroCPAController {
     private final MembrosCPAService membrosCPAService;
 
     @PostMapping
+    @PreAuthorize("hasRole('CPA')")
     public ResponseEntity<GenericDTO> cadastrarMembroExterno(@RequestBody CadastroCPA membroCPA){
         GenericDTO response = membrosCPAService.cadastrarCPA(membroCPA);
         return ResponseEntity.status(response.getStatus()).body(response);

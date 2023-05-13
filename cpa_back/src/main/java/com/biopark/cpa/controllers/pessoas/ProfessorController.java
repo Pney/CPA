@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,6 +27,7 @@ public class ProfessorController {
     private final ProfessorService professorService;
 
     @PostMapping
+    @PreAuthorize("hasRole('CPA')")
     public ResponseEntity<CadastroDTO> cadastrarProfessor(@RequestParam("file") MultipartFile file,
             @RequestParam("update") Boolean update) throws IOException {
         List<ProfessorModel> professores = csvParserService.parseCsv(file, ProfessorModel.class);
