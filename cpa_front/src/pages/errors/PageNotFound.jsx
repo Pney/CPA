@@ -12,13 +12,13 @@ export default function PageNotFound() {
         minHeight: '100vh',
       }}
     >
-      <Typography variant="h1" style={{ color: 'white' }}>
-        404
+      <Typography variant="h1">
+        404 :(
       </Typography>
-      <Typography variant="h6" style={{ color: 'white' }}>
-        A página que você está procurando não existe
+      <Typography variant="h6">
+        Oops! Está página não pode ser encontrada!
       </Typography>
-      <Button href='/home' variant="contained">Voltar para Home</Button>
+      <Button href='/home' color={'secondary'} variant="contained" st>Voltar para Página Inicial</Button>
     </Box>
   );
 }

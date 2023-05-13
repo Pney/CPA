@@ -5,18 +5,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import com.biopark.cpa.controllers.grupos.dto.CadastroDTO;
-import com.biopark.cpa.controllers.grupos.dto.GenericDTO;
-import com.biopark.cpa.controllers.grupos.dto.ErroValidation;
+import com.biopark.cpa.dto.cadastroCsv.CadastroDTO;
+import com.biopark.cpa.dto.cadastroCsv.ErroValidation;
+import com.biopark.cpa.dto.cadastroCsv.ValidationModel;
 import com.biopark.cpa.entities.grupos.Instituicao;
 import com.biopark.cpa.repository.grupo.InstituicaoRepository;
-import com.biopark.cpa.services.CsvParserService;
-import com.biopark.cpa.services.responses.DuplicatesModel;
+import com.biopark.cpa.services.utils.CsvParserService;
 
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -24,11 +21,8 @@ import lombok.AllArgsConstructor;
 @Service
 @AllArgsConstructor
 public class InstituicaoService {
-    @Autowired
-    private CsvParserService csvParserService;
-
-    @Autowired
-    private InstituicaoRepository instituicaoRepository;
+    private final CsvParserService csvParserService;
+    private final InstituicaoRepository instituicaoRepository;
 
     @Transactional
     public CadastroDTO cadastrarInstituicao(List<Instituicao> instituicoes, boolean update) {
@@ -40,7 +34,7 @@ public class InstituicaoService {
         }
 
         if (!update) {
-            DuplicatesModel<Instituicao> model = checarDuplicatas(instituicoes);
+            ValidationModel<Instituicao> model = checarDuplicatas(instituicoes);
             List<ErroValidation> duplicatas = model.getErrors();
             warnings = model.getWarnings();
 
@@ -61,34 +55,35 @@ public class InstituicaoService {
         return CadastroDTO.builder().status(HttpStatus.OK).erros(errors).warnings(warnings).build();
     }
 
-    private DuplicatesModel<Instituicao> checarDuplicatas(List<Instituicao> instituicoes) {
+    private ValidationModel<Instituicao> checarDuplicatas(List<Instituicao> instituicoes) {
         List<ErroValidation> erroValidations = new ArrayList<>();
         List<ErroValidation> warnings = new ArrayList<>();
         List<Instituicao> unicos = new ArrayList<>();
 
         Map<String, Integer> uniqueCod = new HashMap<String, Integer>();
 
-        for (int i = 0; i < instituicoes.size(); i++) {
-
-            if (!uniqueCod.containsKey(instituicoes.get(i).getCodigoInstituicao())) {
-                uniqueCod.put(instituicoes.get(i).getCodigoInstituicao(), i + 1);
-                unicos.add(instituicoes.get(i));
+        int linha = 0;
+        for (Instituicao instituicao: instituicoes) {
+            linha ++;
+            if (!uniqueCod.containsKey(instituicao.getCodigoInstituicao())) {
+                uniqueCod.put(instituicao.getCodigoInstituicao(), linha);
+                unicos.add(instituicao);
             } else {
                 warnings.add(ErroValidation.builder()
-                        .linha(i + 1)
+                        .linha(linha)
                         .mensagem("Esta linha foi ignorada pois o código já existe na linha: "
-                                + uniqueCod.get(instituicoes.get(i).getCodigoInstituicao()))
+                                + uniqueCod.get(instituicao.getCodigoInstituicao()))
                         .build());
                 continue;
             }
 
-            if (instituicaoRepository.findByCodigoInstituicao(instituicoes.get(i).getCodigoInstituicao()).isPresent()) {
+            if (instituicaoRepository.findByCodigoInstituicao(instituicao.getCodigoInstituicao().toLowerCase()).isPresent()) {
                 erroValidations
-                        .add(ErroValidation.builder().linha(i + 1).mensagem("Instituição já cadastrada").build());
+                        .add(ErroValidation.builder().linha(linha).mensagem("Instituição já cadastrada").build());
             }
         }
 
-        return DuplicatesModel.<Instituicao>builder().errors(erroValidations).warnings(warnings).objects(unicos)
+        return ValidationModel.<Instituicao>builder().errors(erroValidations).warnings(warnings).objects(unicos)
                 .build();
     }
 

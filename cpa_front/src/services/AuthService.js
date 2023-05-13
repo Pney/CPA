@@ -1,46 +1,80 @@
 import api from './api.js';
 import { Component } from 'react';
+import messageService from '../services/MessageService.js'
 export class AuthService extends Component {
-  createAccount(email, password) {
+  async createAccount(email, password) {
     const params = {
       email: email,
       password: password
     };
 
-    console.log({params})
-    api.post(`/api/auth/public/register`, params)
+    return await api.post(`/api/auth/public/register`, params)
     .then((response) => {
-      const token = response.data.token;
-      // var data = new Date();
-      // document.cookie = `token=${token} expires= ${data}`;
-      localStorage.setItem('token', token);
-      return document.location.reload(true);
+      console.log({response})
+      const data = {
+        'token': response.data.token,
+        'role': response.data.level,
+      }
+      return data;
     })
     .catch((err) => {
-      console.log("ops! ocorreu um erro" + err);
+      console.log("ops! ocorreu um erro no createAccount" + err);
     });
   }
-      // {
-      //   headers: {
-      //     Authorization: `Bearer ${localStorage.getItem('token')}`
-      //   }
-      // }
-  login (email, password) {
+
+  async login (email, password) {
     const params = {
       email: email,
       password: password
     }
-    api.post(`/api/auth/public/login`, params)
+
+    await api.post(`/api/auth/public/login`, params)
     .then((response) => {
-      const token = response.data.token;
-      // var data = new Date(24);
-      // document.cookie = `token=${token} expires=${data}`;
-      localStorage.setItem('token', token);
-      return document.location.reload(true);
+        console.log({response})
+        const data = {
+          'token': response.data.token,
+          'role': response.data.level,
+        }
+        return data;  
+    })  
+    .catch((err) => {
+      console.err("ops! ocorreu um erro no login" + err);
+    });
+  }
+
+  async getToken(){
+    const token = localStorage.getItem('token')
+    return token;  
+  }
+
+  async authToken(){
+    await api.post(`/api/auth/authenticate`)
+    .then((response) => {
+      if(response.status === 200) return;
     })
     .catch((err) => {
-      console.log("ops! ocorreu um erro" + err);
-    });
+      if(err.response.status === 403){
+        localStorage.removeItem('token')
+        return window.location.reload();
+      }
+      console.error("ops! ocorreu um erro no authToken" + err);
+    })
+  }
+
+  async logout(){
+    await api.post(`/api/auth/logout`)
+    .then((response) => {
+      if (response.data){
+        localStorage.removeItem('token')
+        messageService.successMessage('Logout efetuado com sucesso!')
+        setTimeout(() => {
+          return window.location.reload();
+        }, 500);
+      }
+    })
+    .catch((err) => {
+      console.error("ops! ocorreu um erro no logout" + err);
+    })
   }
 }
 

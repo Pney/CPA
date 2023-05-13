@@ -1,24 +1,40 @@
-import { createContext, useState, useContext, useEffect } from 'react';
-const UserContext = createContext();
+import { createContext, useState, useContext, useEffect} from 'react';
+import jwtDecode from 'jwt-decode';
+export const Context = createContext();
 
-export const UserProvider  = ({ children }) => {
+export const UserContext  = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [role, setRole] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const nivel = jwtDecode(token);
+      setRole(nivel.userRole[0].authority);
+    } else {
+      setRole(null)
+    }
+  }, []);
+
+
   return (
-    <UserContext.Provider
+    <Context.Provider
       value={{
         user, setUser,
+        role,
         isAuthenticated, setIsAuthenticated
       }}
     >
       {children}
-    </UserContext.Provider>
+    </Context.Provider>
   )
 }
 
 
 export const useUserContext = () => {
-  const context = useContext(UserContext);
+  const context = useContext(Context);
   return context;
-}
+};
+
+export default Context;

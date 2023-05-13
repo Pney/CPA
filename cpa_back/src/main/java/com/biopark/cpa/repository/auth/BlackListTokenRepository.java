@@ -1,4 +1,4 @@
-package com.biopark.cpa.repository;
+package com.biopark.cpa.repository.auth;
 
 import java.util.Optional;
 

@@ -1,10 +1,12 @@
-import 'assets/css/App.css';
 import AppRoutes from './routes/index.js'
+import { UserContext } from 'contexts/UserContext.jsx'
 
 function App() {
   return (
     <div className="App">
-      <AppRoutes/>
+      <UserContext>
+        <AppRoutes/>
+      </UserContext>
     </div>
   );
 }
