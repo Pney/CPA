@@ -76,7 +76,8 @@ public class DesafioController {
 
     //Deletar um Desafio
     @DeleteMapping
-    public ResponseEntity<GenericDTO> excluirDesafio(@PathVariable Long id) {
+    public ResponseEntity<GenericDTO> excluirDesafio(@RequestParam("id") int idRequest) {
+        Long id = Long.valueOf(idRequest);
         GenericDTO response = desafioService.excluirDesafio(id);
         return ResponseEntity.status(response.getStatus()).body(response);
     }

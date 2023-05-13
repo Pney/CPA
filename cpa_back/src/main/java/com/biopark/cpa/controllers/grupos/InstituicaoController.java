@@ -70,7 +70,8 @@ public class InstituicaoController {
 
     // @DeleteMapping("/{id}")
     @DeleteMapping
-    public ResponseEntity<GenericDTO> excluirInstituicao(@PathVariable Long id) {
+    public ResponseEntity<GenericDTO> excluirInstituicao(@RequestParam("id") int idRequest) {
+        Long id = Long.valueOf(idRequest);
         GenericDTO response = instituicaoService.excluirInstituicao(id);
         return ResponseEntity.status(response.getStatus()).body(response);
     }

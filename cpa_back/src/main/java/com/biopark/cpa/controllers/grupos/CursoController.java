@@ -53,7 +53,8 @@ public class CursoController {
     }
 
     @DeleteMapping
-    public ResponseEntity<GenericDTO> excluirCurso(@PathVariable Long id) {
+    public ResponseEntity<GenericDTO> excluirCurso(@RequestParam("id") int idRequest) {
+        Long id = Long.valueOf(idRequest);
         GenericDTO response = cursoService.excluirCurso(id);
         return ResponseEntity.status(response.getStatus()).body(response);
     }

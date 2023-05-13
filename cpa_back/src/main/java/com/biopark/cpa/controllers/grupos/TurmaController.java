@@ -52,7 +52,8 @@ public class TurmaController {
     }
 
     @DeleteMapping
-    public ResponseEntity<GenericDTO> excluirTurma(@PathVariable Long id) {
+    public ResponseEntity<GenericDTO> excluirTurma(@RequestParam("id") int idRequest) {
+        Long id = Long.valueOf(idRequest);
         GenericDTO response = turmaService.excluirTurma(id);
         return ResponseEntity.status(response.getStatus()).body(response);
     }
