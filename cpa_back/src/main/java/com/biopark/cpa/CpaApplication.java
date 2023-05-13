@@ -8,5 +8,4 @@ public class CpaApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(CpaApplication.class, args);
 	}
-
 }
