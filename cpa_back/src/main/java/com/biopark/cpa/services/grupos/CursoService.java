@@ -138,7 +138,7 @@ public class CursoService {
 
     // Filtrar Curso por ID
     public Curso buscarPorCodigo(String codigo) {
-        var optionalCurso = cursoRepository.findByCodigoCurso(codigo);
+        var optionalCurso = cursoRepository.findByCodCurso(codigo);
         if (optionalCurso.isPresent()) {
             return optionalCurso.get();
         } else {

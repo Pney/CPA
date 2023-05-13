@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.biopark.cpa.controllers.grupos.dto.GenericDTO;
+import com.biopark.cpa.dto.cadastroCsv.GenericDTO;
 import com.biopark.cpa.entities.user.User;
-import com.biopark.cpa.repository.UserRepository;
+import com.biopark.cpa.repository.pessoas.UserRepository;
 import com.biopark.cpa.services.grupos.UserService;
 
 import lombok.RequiredArgsConstructor;
