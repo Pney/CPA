@@ -45,7 +45,7 @@ export default function Login() {
     schema
       .validate({ emailText: email, passwordText: password })
       .then(async () => {
-        const response = await authService.createAccount(email, password)
+        const response = await authService.login(email, password)
         return response;
       })
       .then((res) => {

@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.biopark.cpa.dto.GenericDTO;
 import com.biopark.cpa.dto.cadastroCsv.CadastroDTO;
-import com.biopark.cpa.dto.cadastroCsv.GenericDTO;
 import com.biopark.cpa.entities.grupos.Instituicao;
 import com.biopark.cpa.repository.grupo.InstituicaoRepository;
 import com.biopark.cpa.services.grupos.InstituicaoService;
@@ -29,7 +29,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("api/instituicao")
 @RequiredArgsConstructor
-@PreAuthorize("hasRole('USER')")
+@PreAuthorize("hasRole('CPA')")
 public class InstituicaoController {
 
     private final CsvParserService csvParserService;

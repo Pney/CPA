@@ -22,7 +22,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-// import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -41,30 +42,31 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = true, unique = true)
-    // @NotBlank(message = "cpf não deve ser nulo")
+    @Column(nullable = false, unique = true)
+    @NotBlank(message = "cpf não deve ser nulo")
     @Pattern(regexp = "(\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2})", message = "cpf em formato inválido")
     private String cpf;
 
-    @Column(nullable = true)
+    @Column(nullable = false)
     @ColumnTransformer(write = "LOWER(?)")
     private String name;
 
-    @Column(nullable = true)
+    @Column(nullable = false)
     private String telefone;
 
-    @Column(nullable = true, unique = true)
+    @Column(nullable = false, unique = true)
+    @Email(message = "formato de email inválido")
     private String email;
 
-    @Column(nullable = true)
+    @Column(nullable = false)
     private String password;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = true)
+    @Column(nullable = false)
     private Role role;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = true)
+    @Column(nullable = false)
     private Level level;
 
     @CreationTimestamp
@@ -78,7 +80,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(level.name()));
+        return List.of(new SimpleGrantedAuthority("ROLE_"+level.name()));
     }
 
     @Override

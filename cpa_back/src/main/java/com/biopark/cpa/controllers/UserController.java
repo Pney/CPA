@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.biopark.cpa.dto.cadastroCsv.GenericDTO;
+import com.biopark.cpa.dto.GenericDTO;
 import com.biopark.cpa.entities.user.User;
 import com.biopark.cpa.repository.pessoas.UserRepository;
 import com.biopark.cpa.services.grupos.UserService;
@@ -38,14 +38,14 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.OK).body(user);
         }
 
-        @GetMapping("/users")
-        public ResponseEntity<List<User>> listarUsuarios() {
-            List<User> users = userRepository.findAll();
-            if (users.isEmpty()) {
-                return ResponseEntity.noContent().build();
-            }
-            return ResponseEntity.ok(users);
+    @GetMapping("/users")
+    public ResponseEntity<List<User>> listarUsuarios() {
+        List<User> users = userRepository.findAll();
+        if (users.isEmpty()) {
+            return ResponseEntity.noContent().build();
         }
+        return ResponseEntity.ok(users);
+    }
     
     @PutMapping
     public ResponseEntity<GenericDTO> editarUser(@RequestBody User user) {
