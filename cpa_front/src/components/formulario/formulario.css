@@ -1,5 +1,16 @@
+.divider-title{
+    border-color: #dee6eb;
+    border-style: none none solid none;
+    border-width: 1px;
+}
 
-    
+.box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 15px;
+}
 
 .formulario-padrao{
     margin-top: 10px;

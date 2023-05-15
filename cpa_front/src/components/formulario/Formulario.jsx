@@ -1,12 +1,12 @@
 
 import React, { useState } from 'react'
 import './formulario.css'
-import {  TextField, Button } from '@mui/material'
+import { TextField, Button } from '@mui/material'
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import MaskedInput from 'react-text-mask'
 import cadastroService from 'services/CadastroService';
-
+import { InputText } from 'components/InputText';
 
 const Formulario = () => {
 
@@ -15,7 +15,7 @@ const Formulario = () => {
         name: Yup.string().required('Nome é obrigatório'),
         email: Yup.string().required('E-mail é obrigatório').email(),
         telefone: Yup.string().required(''),
-        
+
     });
 
     function TextMaskCustom(props) {
@@ -62,41 +62,43 @@ const Formulario = () => {
         formik.handleChange(event);
     };
     return (
-        <div style={{
-
-            width: '850px',
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%,-50%)'
-        }}>
+        <div className='box'>
             <form onSubmit={formik.handleSubmit} className='formulario-padrao'>
-                <div>
-                    <div style={{ margin: '35px' }}>
+                <div className='ibox-content centralized' style={{width: '1000px', height: '500px', borderRadius: '40px',}}>
+                    <div className='divider-title' style={{ width: '1033px',}}>
+                        <h2 style={{ color: '#000000'}}> Cadastrar Membro CPA</h2>
+                    </div>
+                    <div>
                         <TextField sx={{ width: '800px' }}
                             name={'name'}
                             label="NOME"
+                            color='nightRide'
                             value={formik.values.name}
                             onChange={formik.handleChange}
                             variant="outlined"
-                            type='text' />
+                            type='text' 
+                            required
+                        />
                     </div>
-                    <div style={{ margin: '35px' }}>
+                    <div >
                         <TextField sx={{ width: '800px' }}
                             name={'email'}
                             label="E-MAIL"
+                            color='nightRide'
                             value={formik.values.email}
                             onChange={formik.handleChange}
                             variant="outlined"
-                            type='email' />
+                            type='email'
+                            required
+                        />
                     </div>
-                    <div style={{ padding: '35px', display: 'flex', justifyContent: 'space-around', width: '800px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-around', width: '800px' }}>
 
                         <TextField
                             sx={{ width: '45%' }}
-
                             name={'cpf'}
                             label="CPF"
+                            color='nightRide'
                             variant="outlined"
                             type="string"
                             value={formik.values.cpf}
@@ -104,16 +106,17 @@ const Formulario = () => {
                             onBlur={formik.handleBlur}
                             error={formik.touched.cpf && Boolean(formik.errors.cpf)}
                             helperText={formik.touched.cpf && formik.errors.cpf}
-                            InputProps={{
-                                // inputComponent: TextMaskCustom
-                            }}
+                            required
                         />
 
                         <TextField sx={{ width: '45%' }}
                             name={'telefone'}
+                            color='nightRide'
                             valeu={formik.values.telefone}
                             onChange={formik.handleChange}
-                            label="TELEFONE" variant="outlined" type='tel' />
+                            label="TELEFONE" variant="outlined" type='tel' 
+                            required
+                        />
                     </div>
                     {/* <div style={{ padding: '35px', margin: '8px' }}>
                         <FormControl sx={{ width: '800px' }} fullWidth>
@@ -135,14 +138,13 @@ const Formulario = () => {
                     <Button type={'submit'}
                         sx={{ width: '600px' }}
                         variant="contained"
+                        color='success'
                     >
-                        GRAVAR
+                        SALVAR
                     </Button>
 
                 </div>
-
             </form>
-
         </div>
     )
 }
