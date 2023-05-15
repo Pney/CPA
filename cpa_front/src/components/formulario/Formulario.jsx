@@ -62,62 +62,63 @@ const Formulario = () => {
         formik.handleChange(event);
     };
     return (
-        <div style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            minHeight: '100vh'
-        }}>
-            <div style={{
-                width: '850px',
-                margin: '0 auto'
-            }}>
-                <form onSubmit={formik.handleSubmit} className='formulario-padrao'>
+        <div className='box'>
+            <form onSubmit={formik.handleSubmit} className='formulario-padrao'>
+                <div className='ibox-content centralized' style={{width: '1000px', height: '500px', borderRadius: '40px',}}>
+                    <div className='divider-title' style={{ width: '1033px',}}>
+                        <h2 style={{ color: '#000000'}}> Cadastrar Membro CPA</h2>
+                    </div>
                     <div>
-                        <div style={{ margin: '35px' }}>
-                            <InputText sx={{ width: '800px' }}
-                                name={'name'}
-                                label="NOME"
-                                value={formik.values.name}
-                                onChange={formik.handleChange}
-                                variant="outlined"
-                                type='text' />
-                        </div>
-                        <div style={{ margin: '35px' }}>
-                            <TextField sx={{ width: '800px' }}
-                                name={'email'}
-                                label="E-MAIL"
-                                value={formik.values.email}
-                                onChange={formik.handleChange}
-                                variant="outlined"
-                                type='email' />
-                        </div>
-                        <div style={{ padding: '35px', display: 'flex', justifyContent: 'space-around', width: '800px' }}>
+                        <TextField sx={{ width: '800px' }}
+                            name={'name'}
+                            label="NOME"
+                            color='nightRide'
+                            value={formik.values.name}
+                            onChange={formik.handleChange}
+                            variant="outlined"
+                            type='text' 
+                            required
+                        />
+                    </div>
+                    <div >
+                        <TextField sx={{ width: '800px' }}
+                            name={'email'}
+                            label="E-MAIL"
+                            color='nightRide'
+                            value={formik.values.email}
+                            onChange={formik.handleChange}
+                            variant="outlined"
+                            type='email'
+                            required
+                        />
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-around', width: '800px' }}>
 
-                            <TextField
-                                sx={{ width: '45%' }}
+                        <TextField
+                            sx={{ width: '45%' }}
+                            name={'cpf'}
+                            label="CPF"
+                            color='nightRide'
+                            variant="outlined"
+                            type="string"
+                            value={formik.values.cpf}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            error={formik.touched.cpf && Boolean(formik.errors.cpf)}
+                            helperText={formik.touched.cpf && formik.errors.cpf}
+                            required
+                        />
 
-                                name={'cpf'}
-                                label="CPF"
-                                variant="outlined"
-                                type="string"
-                                value={formik.values.cpf}
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                error={formik.touched.cpf && Boolean(formik.errors.cpf)}
-                                helperText={formik.touched.cpf && formik.errors.cpf}
-                                InputProps={{
-                                    // inputComponent: TextMaskCustom
-                                }}
-                            />
-
-                            <TextField sx={{ width: '45%' }}
-                                name={'telefone'}
-                                valeu={formik.values.telefone}
-                                onChange={formik.handleChange}
-                                label="TELEFONE" variant="outlined" type='tel' />
-                        </div>
-                        {/* <div style={{ padding: '35px', margin: '8px' }}>
+                        <TextField sx={{ width: '45%' }}
+                            name={'telefone'}
+                            color='nightRide'
+                            valeu={formik.values.telefone}
+                            onChange={formik.handleChange}
+                            label="TELEFONE" variant="outlined" type='tel' 
+                            required
+                        />
+                    </div>
+                    {/* <div style={{ padding: '35px', margin: '8px' }}>
                         <FormControl sx={{ width: '800px' }} fullWidth>
                             <InputLabel id="demo-simple-select-label">Função</InputLabel>
                             <Select
@@ -134,18 +135,16 @@ const Formulario = () => {
                             </Select>
                         </FormControl>
                     </div> */}
-                        <Button type={'submit'}
-                            sx={{ width: '600px' }}
-                            variant="contained"
-                        >
-                            GRAVAR
-                        </Button>
+                    <Button type={'submit'}
+                        sx={{ width: '600px' }}
+                        variant="contained"
+                        color='success'
+                    >
+                        SALVAR
+                    </Button>
 
-                    </div>
-
-                </form>
-
-            </div>
+                </div>
+            </form>
         </div>
     )
 }
