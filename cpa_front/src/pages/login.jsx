@@ -18,7 +18,7 @@ import authService from 'services/AuthService.js';
 
 export default function Login() {
   const theme = useTheme();
-
+  theme.palette.mode = 'dark'
   const [showPassword, setShowPassword] = useState(false);
   const [erroPassword, setErroPassword] = useState(false);
   const [erroEmail, setErroEmail] = useState(false);
@@ -82,12 +82,31 @@ export default function Login() {
           <div style={{ 'width': '235px' }}>
             <TextField
               fullWidth
+              className='mt-10'
               error={erroEmail}
               onChange={(e) => setEmail(e.target.value)}
               autoComplete={'off'}
               variant={'standard'}
               label={'Login'}
-              sx={{ 'marginTop': '10px' }}
+              InputProps={{
+                color: 'primary',
+                border: '1px solid white',
+                borderColor: 'primary',
+              }}
+              sx={{ 
+                '& label.Mui-focused': {
+                  color: '#FFFFFF',
+                },
+                '& .MuiFormLabel-root': {
+                  color: '#FFFFFF'
+                },
+                '& .MuiInputBase-input': {
+                  color: '#FFFFFF',
+                },
+                '& .MuiInput-underline:hover:not(.Mui-disabled):before': {
+                  borderBottom: '1px solid white !important',
+                },
+              }}
             />
             <TextField
               className='mt-10 mb-20'
@@ -98,6 +117,20 @@ export default function Login() {
               variant={'standard'}
               label={'Senha'}
               type={showPassword ? 'text' : 'password'}
+              sx={{
+                '& label.Mui-focused': {
+                  color: '#FFFFFF',
+                },
+                '& .MuiFormLabel-root': {
+                  color: '#FFFFFF'
+                },
+                '& .MuiInputBase-input': {
+                  color: '#FFFFFF',
+                },
+                '& .MuiInput-underline:hover:not(.Mui-disabled):before': {
+                  borderBottom: '1px solid white !important',
+                },
+              }}
               InputProps={{
                 endAdornment: (
                   <InputAdornment
@@ -106,7 +139,7 @@ export default function Login() {
                     <IconButton
                       onClick={handleChangeTypePassword}
                     >
-                      {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                      {showPassword ? <VisibilityIcon color='azureRadiance' /> : <VisibilityOffIcon color='azureRadiance'/>}
                     </IconButton>
                   </InputAdornment>
                 ),
@@ -124,8 +157,8 @@ export default function Login() {
           </Link>
           <Button
             className='w-200 mt-20 br-20'
+            sx={{fontWeight: '600'}}
             variant='contained'
-            color='white'
             onClick={handleSubmit}
           >
             Entrar
