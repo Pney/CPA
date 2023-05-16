@@ -65,7 +65,7 @@ export default function AppRoutes() {
             <Route element={<PrivateRoute/>}>
               <Route path='/home' element={<Home/>} />
               <Route path='/perguntas' element={<Perguntas/>} />
-              <Route path='/importações' element={<Importar/>} />
+              <Route path='/importacoes' element={<Importar/>} />
               <Route path='/respostas' element={<Respostas/>} />
               <Route path='/graficos' element={<Graficos/>} />
               <Route path='/relatorios' element={<Relatorios/>} />

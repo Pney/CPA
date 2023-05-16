@@ -1,17 +1,17 @@
-import { Checkbox } from "@mui/material";
+import { Checkbox, FormControlLabel } from "@mui/material";
 
 export default function CheckboxComplete({defaultChecked, label, ...props}){
   return(
-    <div>
-      <Checkbox
+    <div style={{display: 'flex', flexDirection: 'column'}}>
+      {/* <Checkbox
+        label={label}
         {...props}
-        defaultChecked={defaultChecked}
-      />
-      <label
-        color="#FFFFFF"
-      >
+      /> */}
+      <FormControlLabel control={<Checkbox {...props} defaultChecked={defaultChecked} />} label="Atualizar Todos" />
+
+      {/* <Typography fontSize={12}>
         {label}
-      </label>
+      </Typography> */}
     </div>
   )
 }

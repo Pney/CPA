@@ -3,13 +3,13 @@ import { Component } from 'react';
 export class ImportService extends Component {
   async importCSVDesafio(csv, isUpdate) {
     const params = {
-      csv: csv,
-      isUpdate: isUpdate,
+      file: csv,
+      update: isUpdate,
     };
 
     console.log({params})
     console.log({api})
-    return await api.post(`/api/desafio `, params)
+    return await api.post(`/api/instituicao `, params)
     .then((response) => {
       console.log({response})
       const data = {}
