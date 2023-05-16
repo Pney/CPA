@@ -41,42 +41,68 @@ public class ProfessorService {
             return CadastroDTO.builder().status(HttpStatus.BAD_REQUEST).erros(errors).warnings(warnings).build();
         }
 
-        ValidationModel<ProfessorModel> model = checarDuplicatas(professoresModel);
-        List<ErroValidation> duplicatas = model.getErrors();
-        warnings = model.getWarnings();
-        professoresModel = model.getObjects();
+        if (!update) {
+            ValidationModel<ProfessorModel> model = checarDuplicatas(professoresModel);
+            List<ErroValidation> duplicatas = model.getErrors();
+            warnings = model.getWarnings();
+            professoresModel = model.getObjects();
 
-        if (!duplicatas.isEmpty()) {
-            return CadastroDTO.builder().status(HttpStatus.CONFLICT).erros(duplicatas).warnings(warnings).build();
+            if (!duplicatas.isEmpty()) {
+                return CadastroDTO.builder().status(HttpStatus.CONFLICT).erros(duplicatas).warnings(warnings).build();
+            }
+
+            List<User> users = new ArrayList<>();
+            List<Professor> professores = new ArrayList<>();
+
+            for (ProfessorModel professorModel : professoresModel) {
+                User user = User.builder()
+                        .cpf(professorModel.getCpf())
+                        .name(professorModel.getName())
+                        .telefone(professorModel.getTelefone())
+                        .email(professorModel.getEmail())
+                        .password(generatePassword.getPwd())
+                        .role(Role.PROFESSOR)
+                        .level(Level.USER)
+                        .build();
+
+                Professor professor = Professor.builder()
+                        .cracha(professorModel.getCracha())
+                        .isCoordenador(false)
+                        .user(user)
+                        .build();
+
+                users.add(user);
+                professores.add(professor);
+
+            }
+
+            userRepository.saveAll(users);
+            professorRepository.saveAll(professores);
+            return CadastroDTO.builder().status(HttpStatus.OK).erros(errors).warnings(warnings).build();
         }
-
-        List<User> users = new ArrayList<>();
-        List<Professor> professores = new ArrayList<>();
 
         for (ProfessorModel professorModel : professoresModel) {
             User user = User.builder()
-                    .cpf(professorModel.getCpf())
-                    .name(professorModel.getName())
-                    .telefone(professorModel.getTelefone())
-                    .email(professorModel.getEmail())
-                    .password(generatePassword.getPwd())
-                    .role(Role.PROFESSOR)
-                    .level(Level.USER)
-                    .build();
+                .cpf(professorModel.getCpf())
+                .email(professorModel.getEmail())
+                .name(professorModel.getName())
+                .telefone(professorModel.getTelefone())
+                .password(generatePassword.getPwd())
+                .role(Role.PROFESSOR)
+                .level(Level.USER)
+                .build();
+            
+            userRepository.upsert(user);
 
-            Professor professor = Professor.builder()
-                    .cracha(professorModel.getCracha())
-                    .isCoordenador(false)
-                    .user(user)
-                    .build();
+            user = userRepository.findByCpf(user.getCpf()).get();
 
-            users.add(user);
-            professores.add(professor);
-
+            professorRepository.upsert(
+                Professor.builder().cracha(professorModel.getCracha())
+                .isCoordenador(false)
+                .user(user)
+                .build()
+            );
         }
-
-        userRepository.saveAll(users);
-        professorRepository.saveAll(professores);
 
         return CadastroDTO.builder().status(HttpStatus.OK).erros(errors).warnings(warnings).build();
     }

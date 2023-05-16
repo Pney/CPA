@@ -30,27 +30,57 @@ public class FuncionarioService {
     private final GeneratePassword generatePassword;
     private final UserRepository userRepository;
     private final FuncionarioRepository funcionarioRepository;
-    
+
     @Transactional
-    public CadastroDTO cadastrarFuncionario(List<FuncionarioModel> funcionariosModel, boolean update){
+    public CadastroDTO cadastrarFuncionario(List<FuncionarioModel> funcionariosModel, boolean update) {
         List<ErroValidation> errors = csvParserService.validaEntrada(funcionariosModel);
         List<ErroValidation> warnings = new ArrayList<>();
-        
+
         if (!errors.isEmpty()) {
             return CadastroDTO.builder().status(HttpStatus.BAD_REQUEST).erros(errors).warnings(warnings).build();
         }
 
-        ValidationModel<FuncionarioModel> model = checarDuplicatas(funcionariosModel);
-        List<ErroValidation> duplicatas = model.getErrors();
-        warnings = model.getWarnings();
-        funcionariosModel = model.getObjects();
+        if (!update) {
 
-        if (!duplicatas.isEmpty()) {
-            return CadastroDTO.builder().status(HttpStatus.CONFLICT).erros(duplicatas).warnings(warnings).build();
+            ValidationModel<FuncionarioModel> model = checarDuplicatas(funcionariosModel);
+            List<ErroValidation> duplicatas = model.getErrors();
+            warnings = model.getWarnings();
+            funcionariosModel = model.getObjects();
+
+            if (!duplicatas.isEmpty()) {
+                return CadastroDTO.builder().status(HttpStatus.CONFLICT).erros(duplicatas).warnings(warnings).build();
+            }
+
+            List<User> users = new ArrayList<>();
+            List<Funcionario> funcionarios = new ArrayList<>();
+
+            for (FuncionarioModel funcionarioModel : funcionariosModel) {
+                User user = User.builder()
+                        .cpf(funcionarioModel.getCpf())
+                        .name(funcionarioModel.getName())
+                        .telefone(funcionarioModel.getTelefone())
+                        .email(funcionarioModel.getEmail())
+                        .password(generatePassword.getPwd())
+                        .role(Role.FUNCIONARIO)
+                        .level(Level.USER)
+                        .build();
+
+                Funcionario funcionario = Funcionario.builder()
+                        .cracha(funcionarioModel.getCracha())
+                        .area(funcionarioModel.getArea())
+                        .user(user)
+                        .build();
+
+                users.add(user);
+                funcionarios.add(funcionario);
+
+            }
+
+            userRepository.saveAll(users);
+            funcionarioRepository.saveAll(funcionarios);
+
+            return CadastroDTO.builder().status(HttpStatus.OK).erros(errors).warnings(warnings).build();
         }
-
-        List<User> users = new ArrayList<>();
-        List<Funcionario> funcionarios = new ArrayList<>();
 
         for (FuncionarioModel funcionarioModel : funcionariosModel) {
             User user = User.builder()
@@ -63,19 +93,17 @@ public class FuncionarioService {
                     .level(Level.USER)
                     .build();
 
+            user = userRepository.findByCpf(user.getCpf()).get();
+
             Funcionario funcionario = Funcionario.builder()
                     .cracha(funcionarioModel.getCracha())
                     .area(funcionarioModel.getArea())
                     .user(user)
                     .build();
 
-            users.add(user);
-            funcionarios.add(funcionario);
-
+            userRepository.upsert(user);
+            funcionarioRepository.upsert(funcionario);
         }
-
-        userRepository.saveAll(users);
-        funcionarioRepository.saveAll(funcionarios);
 
         return CadastroDTO.builder().status(HttpStatus.OK).erros(errors).warnings(warnings).build();
     }
@@ -134,7 +162,8 @@ public class FuncionarioService {
             if (userRepository.findByEmail(funcionario.getEmail()).isPresent()
                     | userRepository.findByCpf(funcionario.getCpf()).isPresent()
                     | funcionarioRepository.findByCracha(funcionario.getCracha()).isPresent()) {
-                erroValidations.add(ErroValidation.builder().linha(linha).mensagem("funcionario já cadastrado").build());
+                erroValidations
+                        .add(ErroValidation.builder().linha(linha).mensagem("funcionario já cadastrado").build());
             }
         }
 
